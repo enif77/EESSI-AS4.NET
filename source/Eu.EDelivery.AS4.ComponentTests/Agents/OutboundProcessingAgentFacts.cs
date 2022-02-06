@@ -1,26 +1,22 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Eu.EDelivery.AS4.Common;
+﻿using Eu.EDelivery.AS4.Common;
 using Eu.EDelivery.AS4.ComponentTests.Common;
 using Eu.EDelivery.AS4.Entities;
 using Eu.EDelivery.AS4.Model.Core;
 using Eu.EDelivery.AS4.Model.PMode;
-using Eu.EDelivery.AS4.Model.Submit;
 using Eu.EDelivery.AS4.Repositories;
 using Eu.EDelivery.AS4.Serialization;
-using Eu.EDelivery.AS4.TestUtils.Stubs;
 using Eu.EDelivery.AS4.Xml;
+using System;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 using Encryption = Eu.EDelivery.AS4.Model.PMode.Encryption;
-using PartyId = Eu.EDelivery.AS4.Model.Core.PartyId;
 using Party = Eu.EDelivery.AS4.Model.Core.Party;
+using PartyId = Eu.EDelivery.AS4.Model.Core.PartyId;
 using Receipt = Eu.EDelivery.AS4.Model.Core.Receipt;
-using RetryReliability = Eu.EDelivery.AS4.Entities.RetryReliability;
 using Signing = Eu.EDelivery.AS4.Model.PMode.Signing;
 using UserMessage = Eu.EDelivery.AS4.Model.Core.UserMessage;
 
@@ -125,24 +121,20 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                 }
             };
             AS4Message multihopMessage = createMessage(multihopPMode);
-            
+
             var datastoreSpy = DatabaseSpy.Create(_msh.GetConfiguration());
-            OutMessage tobeProcessedEntry = CreateToBeProcessedOutMessage(multihopPMode, multihopMessage);
+            OutMessage tobeProcessedEntry = CreateToBeProcessedOutMessage(multihopPMode, multihopMessage, asIntermediary: true);
 
             // Act
             datastoreSpy.InsertOutMessage(tobeProcessedEntry);
 
             // Assert
-            OutMessage processedEntry = 
+            OutMessage processedEntry =
                 await PollUntilPresent(
                     () => datastoreSpy.GetOutMessageFor(
                         m => m.EbmsMessageId == multihopMessage.GetPrimaryMessageId()
                              && m.Operation == Operation.ToBeSent),
                     timeout: TimeSpan.FromSeconds(30));
-
-            Assert.True(
-                processedEntry.Intermediary == multihopMessage.IsSignalMessage,
-                "Only when forwarding signal messages we have a sending pmode");
 
             AS4Message processedMessage =
                 await DeserializeOutMessageBody(Registry.Instance.MessageBodyStore, processedEntry);
@@ -150,7 +142,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
             Assert.True(processedMessage.IsMultiHopMessage);
             Assert.True(
                 datastoreSpy.GetRetryReliabilityFor(
-                    r => r.RefToOutMessageId == processedEntry.Id) == null, 
+                    r => r.RefToOutMessageId == processedEntry.Id) == null,
                 "No 'RetryReliability' record should be inserted when receiving multihop AS4Message");
 
             return processedMessage;
@@ -161,8 +153,8 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
             var msg = AS4Message.Create(
                 pmode: pmode,
                 message: new UserMessage(
-                    "test-" + Guid.NewGuid(), 
-                    new Party("sender-role", new PartyId("sender-id")), 
+                    "test-" + Guid.NewGuid(),
+                    new Party("sender-role", new PartyId("sender-id")),
                     new Party("receiver-role", new PartyId("receiver-id"))));
 
             msg.AddAttachment(
@@ -200,7 +192,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
             };
             var receipt = new Receipt(
                 $"receipt-{Guid.NewGuid()}",
-                $"user-{Guid.NewGuid()}", 
+                $"user-{Guid.NewGuid()}",
                 new Model.Core.NonRepudiationInformation(new Reference[0]),
                 routedUserMessage);
 
@@ -245,7 +237,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
             return new Encryption { IsEnabled = false };
         }
 
-        private OutMessage CreateToBeProcessedOutMessage(IPMode pmode, AS4Message msg)
+        private OutMessage CreateToBeProcessedOutMessage(IPMode pmode, AS4Message msg, bool asIntermediary)
         {
             IAS4MessageBodyStore bodyStore = Registry.Instance.MessageBodyStore;
             string location = _msh.GetConfiguration().OutMessageStoreLocation;
@@ -255,7 +247,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                 ContentType = msg.ContentType,
                 MessageLocation = bodyStore.SaveAS4Message(location, msg)
             };
-            tobeProcessedEntry.Intermediary = msg.IsSignalMessage;
+            tobeProcessedEntry.Intermediary = asIntermediary;
             tobeProcessedEntry.Operation = Operation.ToBeProcessed;
             tobeProcessedEntry.SetPModeInformation(pmode);
 
@@ -277,60 +269,6 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
         protected override void Disposing(bool isDisposing)
         {
             _msh.Dispose();
-        }
-    }
-
-    public class OutboundProcessingReceptionAwareness : ComponentTestTemplate
-    {
-        [Fact]
-        public async Task Stores_Correctly_Retry_Information_In_Sql_Server()
-        {
-            await TestComponentWithSettings(
-                "outboundprocessingagent_settings_sqlserver.xml",
-                async (settings, msh) =>
-                {
-                    // Arrange
-                    var userMessage = new UserMessage($"user-{Guid.NewGuid()}");
-                    var sendingPMode = new SendingProcessingMode
-                    {
-                        Id = "outboundprocessing-reliability",
-                        Reliability =
-                        {
-                            ReceptionAwareness =
-                            {
-                                IsEnabled = true,
-                                RetryCount = 3,
-                                RetryInterval = "00:00:05"
-                            }
-                        }
-                    };
-                    var as4Message = AS4Message.Create(userMessage);
-                    var spy = DatabaseSpy.Create(msh.GetConfiguration());
-
-                    var toBeProcessed = new OutMessage(userMessage.MessageId)
-                    {
-                        ContentType = as4Message.ContentType,
-                        EbmsMessageType = MessageType.UserMessage,
-                        Operation = Operation.ToBeProcessed,
-                        MessageLocation =
-                            Registry.Instance
-                                    .MessageBodyStore
-                                    .SaveAS4Message(msh.GetConfiguration().OutMessageStoreLocation, as4Message)
-                    };
-                    toBeProcessed.SetPModeInformation(sendingPMode);
-
-                    // Act
-                    spy.InsertOutMessage(toBeProcessed);
-
-                    // Assert
-                    OutMessage stored = await PollUntilPresent(
-                        () => spy.GetOutMessageFor(m => m.EbmsMessageId == userMessage.MessageId),
-                        timeout: TimeSpan.FromSeconds(40));
-
-                    await PollUntilPresent(
-                        () => spy.GetRetryReliabilityFor(r => r.RefToOutMessageId == stored.Id),
-                        timeout: TimeSpan.FromSeconds(10));
-                });
         }
     }
 }

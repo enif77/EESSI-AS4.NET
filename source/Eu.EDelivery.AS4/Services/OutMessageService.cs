@@ -84,9 +84,9 @@ namespace Eu.EDelivery.AS4.Services
                 return Enumerable.Empty<AS4Message>();
             }
 
-            IEnumerable<OutMessage> messages = 
+            IEnumerable<OutMessage> messages =
                 _repository.GetOutMessageData(
-                               m => messageIds.Contains(m.EbmsMessageId) 
+                               m => messageIds.Contains(m.EbmsMessageId)
                                     && m.Intermediary == false,
                                m => m)
                            .Where(m => m != null);
@@ -101,7 +101,7 @@ namespace Eu.EDelivery.AS4.Services
             foreach (OutMessage m in messages)
             {
                 Stream body = await _messageBodyStore.LoadMessageBodyAsync(m.MessageLocation);
-                AS4Message foundMessage = 
+                AS4Message foundMessage =
                     await SerializerProvider.Default
                                   .Get(m.ContentType)
                                   .DeserializeAsync(body, m.ContentType);
@@ -142,7 +142,7 @@ namespace Eu.EDelivery.AS4.Services
                     _configuration.OutMessageStoreLocation,
                     as4Message);
 
-            IDictionary<string, MessageExchangePattern> relatedInMessageMeps = 
+            IDictionary<string, MessageExchangePattern> relatedInMessageMeps =
                 GetEbsmsMessageIdsOfRelatedSignals(as4Message);
 
             var results = new Collection<OutMessage>();
@@ -154,10 +154,13 @@ namespace Eu.EDelivery.AS4.Services
                 (OutStatus st, Operation op) =
                     DetermineReplyPattern(messageUnit, relatedInMessageMeps, receivingPMode);
 
+                string url =
+                    SelectCorrectUrlForOutgoingMessage(messageUnit, sendingPMode, receivingPMode);
+
                 OutMessage outMessage =
                     OutMessageBuilder
                         .ForMessageUnit(messageUnit, as4Message.ContentType, pmode)
-                        .BuildForSending(messageBodyLocation, st, op);
+                        .BuildForSending(messageBodyLocation, url, st, op);
 
                 Logger.Debug($"Insert OutMessage {outMessage.EbmsMessageType} with {{Operation={outMessage.Operation}, Status={outMessage.Status}}}");
                 _repository.InsertOutMessage(outMessage);
@@ -209,7 +212,7 @@ namespace Eu.EDelivery.AS4.Services
             }
 
             bool signalShouldBePiggyBackedToPullRequest = replyPattern == ReplyPattern.PiggyBack;
-            if (userMessageWasSendViaPull 
+            if (userMessageWasSendViaPull
                 && signalShouldBePiggyBackedToPullRequest)
             {
                 return (OutStatus.Created, Operation.ToBePiggyBacked);
@@ -229,19 +232,52 @@ namespace Eu.EDelivery.AS4.Services
             SendingProcessingMode sendPMode,
             ReceivingProcessingMode receivePMode)
         {
-            if (sendPMode?.Id != null)
+            if (mu is UserMessage && sendPMode != null)
             {
-                Logger.Trace($"Use already set SendingPMode {sendPMode.Id} for inserting OutMessage");
+                Logger.Trace($"Use SendingPMode {sendPMode.Id} to insert with the UserMessage {mu.MessageId}");
                 return sendPMode;
             }
 
             if (mu is SignalMessage && receivePMode != null)
             {
-                Logger.Trace($"Use ReceivingPMode {receivePMode.Id} to insert with the OutMessage");
+                // All SignalMessages that are OutMessages are responding messages, which require the ReceivingPMode
+                Logger.Trace($"Use ReceivingPMode {receivePMode.Id} to insert with the SignalMessage {mu.MessageId}");
                 return receivePMode;
             }
 
-            Logger.Warn("No SendingPMode or ReceivingPMode was found to insert with the OutMessage");
+            // When no PMode was determined for the message, we can't insert any PMode with the message.
+            return null;
+        }
+
+        private static string SelectCorrectUrlForOutgoingMessage(
+            MessageUnit mu,
+            SendingProcessingMode sendingPMode,
+            ReceivingProcessingMode receivingPMode)
+        {
+            if (mu is UserMessage 
+                && sendingPMode != null
+                && sendingPMode.MepBinding == MessageExchangePatternBinding.Push)
+            {
+                return sendingPMode.PushConfiguration?.Protocol?.Url;
+            }
+
+            if (mu is SignalMessage)
+            {
+                if (receivingPMode != null)
+                {
+                    if (receivingPMode.ReplyHandling?.ReplyPattern == ReplyPattern.PiggyBack
+                        && sendingPMode != null)
+                    {
+                        // Only when we piggy back a SignalMessage in a Pull Receive scenario
+                        // we need the URL of the SendingPMode that is used to send PullRequests.
+                        return sendingPMode.PushConfiguration?.Protocol?.Url;
+                    }
+
+                    // Every other SignalMessage that gets responded will have the URL of the ReceivingPMode
+                    return receivingPMode.ReplyHandling?.ResponseConfiguration?.Protocol?.Url;
+                }
+            }
+
             return null;
         }
 
@@ -266,6 +302,8 @@ namespace Eu.EDelivery.AS4.Services
 
             _messageBodyStore.UpdateAS4Message(messageBodyLocation, message);
 
+            var messageMustBeForwarded = _repository.GetOutMessageData(outMessageId, m => m.Intermediary);
+
             _repository.UpdateOutMessage(
                 outMessageId,
                 m =>
@@ -278,7 +316,7 @@ namespace Eu.EDelivery.AS4.Services
                     {
                         // When a multihop message is received by an i-MSH, that message must be forwarded to another MSH.
                         // (Send) RetryReliability should not be enabled for this message however; even if this is configured in the SendingPMode.
-                        if (message.IsMultiHopMessage)
+                        if (messageMustBeForwarded)
                         {
                             Logger.Warn(
                                 "SendingPMode.Reliability.ReceptionAwareness.IsEnabled = true "
