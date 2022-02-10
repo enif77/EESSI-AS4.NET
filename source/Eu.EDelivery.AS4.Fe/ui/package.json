@@ -67,7 +67,8 @@
         "webdriver:update": "webdriver-manager update",
         "webpack-dev-server": "webpack-dev-server",
         "webpack": "webpack",
-        "copytooutput": "copyfiles ./dist/**/*.* ../../../output/staging/ui/"
+        "copytooutput": "copyfiles ./dist/**/*.* ../../../output/staging/ui/",
+        "copytooutput-dev": "copyfiles ./dist/**/*.* ../../../output/ui/"
     },
     "dependencies": {
         "@angular/animations": "^4.4.6",
