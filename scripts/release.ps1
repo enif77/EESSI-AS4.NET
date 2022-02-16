@@ -1,12 +1,3 @@
-# TODO: Solve the PYTHON env variable.
-
-# gyp verb could not find "C:\Devel\bin\Python39\python.EXE". checking python launcher
-# gyp verb could not find "C:\Devel\bin\Python39\python.EXE". guessing location
-# gyp verb ensuring that file exists: C:\Python27\python.exe
-# gyp ERR! configure error
-# gyp ERR! stack Error: Can't find Python executable "C:\Devel\bin\Python39\python.EXE", you can set the PYTHON env variable.
-
-
 # Run this to setup dotnet dev certs.
 # dotnet dev-certs https --trust
 
