@@ -19,7 +19,8 @@ npm run copytooutput
 Set-Location "..\..\..\"
 
 # Can be dotnet 6.0.
-dotnet restore .\source\Eu.EDelivery.AS4.PayloadService\Eu.EDelivery.AS4.PayloadService.csproj
+#dotnet restore .\source\Eu.EDelivery.AS4.PayloadService\Eu.EDelivery.AS4.PayloadService.csproj
+.\tools\NuGet\nuget.exe restore .\source\AS4.sln
 
 & './scripts/VersionAssemblies.ps1'
 
