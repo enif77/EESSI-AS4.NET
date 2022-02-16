@@ -18,7 +18,7 @@ $env:BUILD_BUILDNUMBER = '4.0.1.1000'
 #SET PYTHON=C:\Devel\bin\Python27
 #SET Path=C:\Devel\bin\Python27;C:\Devel\bin\Python27\Scripts;%PATH%
 $env:PYTHON = 'C:\Devel\bin\Python27'
-$env:Path = 'C:\Devel\bin\Python27;C:\Devel\bin\Python27\Scripts;%PATH%'
+$env:Path = "C:\Devel\bin\Python27;C:\Devel\bin\Python27\Scripts;" + $env:Path
 
 Set-Location "./source/Eu.EDelivery.AS4.FE/ui"
 npm install node-sass
