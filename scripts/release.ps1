@@ -14,7 +14,14 @@
 $env:BUILD_BUILDNUMBER = '4.0.1.1000'
 
 
+# Python 2.7 is required for 'npm install'.
+#SET PYTHON=C:\Devel\bin\Python27
+#SET Path=C:\Devel\bin\Python27;C:\Devel\bin\Python27\Scripts;%PATH%
+$env:PYTHON = C:\Devel\bin\Python27
+$env:Path = C:\Devel\bin\Python27;C:\Devel\bin\Python27\Scripts;%PATH%
+
 Set-Location "./source/Eu.EDelivery.AS4.FE/ui"
+npm install node-sass
 npm install
 npm run build:aot:prod
 npm run copytooutput    
