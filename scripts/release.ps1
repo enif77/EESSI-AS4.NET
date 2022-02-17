@@ -26,20 +26,21 @@ Set-Location "..\..\..\"
 
 #$msbuild = 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe'
 $msbuild = 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\msbuild.exe'
-& $msbuild '.\source\AS4.sln' /t:Rebuild /p:Configuration=Release /nologo /nr:false /verbosity:minimal
+#& $msbuild '.\source\AS4.sln' /t:Rebuild /p:Configuration=Release /nologo /nr:false /verbosity:minimal
+& $msbuild '.\source\AS4.sln' /t:Rebuild /p:Configuration=Release /nologo /nr:false /verbosity:normal
 
-#$devEnvPath = 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe'
-$devEnvPath = 'C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe'
-$solutionPath = "./source/AS4.sln"
-#$projectPath = "./source/Eu.EDelivery.AS4.WindowsService.Installer/Eu.EDelivery.AS4.WindowsService.Installer.vdproj"
-#$parameters = "/Rebuild Release " + $solutionPath + " /Project " + $projectPath + " /ProjectConfig Release /Out errors.txt"
-$parameters = "/Rebuild Release " + $solutionPath + " /Out errors.txt"
-"Process to start [$devEnvPath $parameters]"
-$process = [System.Diagnostics.Process]::Start($devEnvPath, $parameters)
-$process.WaitForExit()
-if (Test-Path errors.txt) {
-    Get-Content errors.txt
-}
+# #$devEnvPath = 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe'
+# $devEnvPath = 'C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe'
+# $solutionPath = "./source/AS4.sln"
+# #$projectPath = "./source/Eu.EDelivery.AS4.WindowsService.Installer/Eu.EDelivery.AS4.WindowsService.Installer.vdproj"
+# #$parameters = "/Rebuild Release " + $solutionPath + " /Project " + $projectPath + " /ProjectConfig Release /Out errors.txt"
+# $parameters = "/Rebuild Release " + $solutionPath + " /Out errors.txt"
+# "Process to start [$devEnvPath $parameters]"
+# $process = [System.Diagnostics.Process]::Start($devEnvPath, $parameters)
+# $process.WaitForExit()
+# if (Test-Path errors.txt) {
+#     Get-Content errors.txt
+# }
 
 Set-Location output
 & '../scripts/add-probing.ps1'
