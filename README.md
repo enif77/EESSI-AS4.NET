@@ -1,3 +1,62 @@
+# Notes for developers
+
+This codebase is bit old so you'll need some old tech to build it:
+
+- .NET Framework 4.6.2
+- .NET Core 2.1.402
+- NodeJS 9.11.2
+- Yarn 1.22.17
+- nvm 1.1.9 (when you need to run multiple versions of NodeJS only)
+- Python 2.7.18 (when you are building node-saas from source only)
+
+I am using Visual studio 2022 to build this.
+
+## Building for dev
+
+To make it runnable vrom VS, use these steps:
+
+- Install VS2022 with .NET Framework 4.6.2 SDK and .NET Core SDK 2.1.402.
+- Checkout the source code from [https://github.com/enif77/EESSI-AS4.NET](https://github.com/enif77/EESSI-AS4.NET).
+- Open the `AS4.sln` in the VS2022.
+- Build the solution.
+- Run unit tests from the `Eu.EDelivery.AS4.UnitTests` project (this creates sample configs and pmodes in the `output` directory).
+- Create directory `EESSI-AS4.NET\output\messages\out`.
+- Set the `Services\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost` project as the launch project.
+
+Now you can run the `Eu.EDelivery.AS4.ServiceHandler.ConsoleHost` project to play with it! :-)
+
+### How to compile the frontend
+
+- For running multiple NodeJS versions I am using NVM: [nvm-windows](https://github.com/coreybutler/nvm-windows).
+- You need NodeJS >= 4 a <= 9 (I used the version 9.11.2).
+- Compilation is controlled by the Yarn 1.x (I used version 1.22.17)
+- Go to the `source\Eu.EDelivery.AS4.Fe\ui` directory and run these commands:
+
+```
+yarn install
+yarn build
+yarn copytooutput-dev
+```
+
+A `dist` directory is created and its content is copyied to the `output\ui\dist` directory, where it is expected by the frontend (.Fe) project.
+
+
+## Building the release (staging) version
+
+Run these commands in a whatever directory:
+
+```
+git clone https://github.com/enif77/EESSI-AS4.NET.git
+CD EESSI-AS4.NET
+powershell scripts\release.ps1
+```
+
+It creates everything in the `output\staging` directory.
+
+NOTE: If you are using NVM, run these commands in an admin console (with eleveted rights)!
+
+----------
+
 # <span>AS4.NET</span>
 
 ## Introduction
