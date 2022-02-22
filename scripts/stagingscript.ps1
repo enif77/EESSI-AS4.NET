@@ -76,4 +76,6 @@ Copy-Item -Path .\samples\messages\*.* .\staging\samples\messages\
 Copy-Item -Path .\samples\pmodes\*.* .\staging\samples\pmodes\
 Copy-Item -Path .\samples\pmodes\eessi\*.* .\staging\samples\pmodes\eessi\
 #Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.Installer.msi .\staging\service-setup\Eu.EDelivery.AS4.WindowsService.Installer.msi
+Copy-Item -Path .\install-windows-service.bat .\staging\service-setup\install-windows-service.bat
+Copy-Item -Path .\uninstall-windows-service.bat .\staging\service-setup\uninstall-windows-service.bat
 Copy-Item -Path .\..\scripts\copy-responsepmode-to-receivingpmode.ps1 .\staging\scripts\copy-responsepmode-to-receivingpmode.ps1
