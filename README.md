@@ -13,7 +13,7 @@ I am using Visual studio 2022 to build this.
 
 ## Building for dev
 
-To make it runnable vrom VS, use these steps:
+To make it runnable from VS, use these steps:
 
 - Install VS2022 with .NET Framework 4.6.2 SDK and .NET Core SDK 2.1.402.
 - Checkout the source code from [https://github.com/enif77/EESSI-AS4.NET](https://github.com/enif77/EESSI-AS4.NET).
@@ -53,7 +53,7 @@ powershell scripts\release.ps1
 
 It creates everything in the `output\staging` directory.
 
-NOTE: If you are using NVM, run these commands in an admin console (with eleveted rights)!
+NOTE: If you are using NVM, run these commands in an admin console (with elevated rights)!
 
 ----------
 
