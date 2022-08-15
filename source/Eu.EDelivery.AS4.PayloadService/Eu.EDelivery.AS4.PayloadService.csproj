@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
     <DefaultItemExcludes>$(DefaultItemExcludes);ui/node_modules/**</DefaultItemExcludes>
     <OutputPath>..\..\output\</OutputPath>

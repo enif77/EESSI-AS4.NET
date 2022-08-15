@@ -19,7 +19,7 @@ namespace Eu.EDelivery.AS4.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Schemas {
@@ -211,9 +211,9 @@ namespace Eu.EDelivery.AS4.Resources {
         ///&lt;xs:schema xmlns:tns=&quot;urn:cef:edelivery:eu:as4:messages&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;urn:cef:edelivery:eu:as4:messages&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
         ///  &lt;xs:element name=&quot;SubmitMessage&quot; nillable=&quot;true&quot; type=&quot;tns:SubmitMessage&quot; /&gt;
         ///  &lt;xs:complexType name=&quot;SubmitMessage&quot;&gt;
-        ///    &lt;xs:sequence&gt;
+        ///    &lt;xs:all&gt;
         ///      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;MessageInfo&quot; type=&quot;tns:MessageInfo&quot; /&gt;
-        ///      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;Pa [rest of string was truncated]&quot;;.
+        ///      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;PartyIn [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string submitmessage_schema {
             get {
