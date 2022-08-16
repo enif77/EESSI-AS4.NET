@@ -148,7 +148,7 @@ namespace Eu.EDelivery.AS4.Serialization
         {
             var bodyPart = new MimePart("application", "soap+xml");
             bodyPart.ContentType.Parameters["charset"] = Encoding.UTF8.HeaderName.ToLowerInvariant();
-            bodyPart.ContentObject = new ContentObject(bodyPartStream);
+            bodyPart.Content = new MimeContent(bodyPartStream);
 
             var bodyMultipart = new Multipart("related") { bodyPart };
             bodyMultipart.ContentType.Parameters["type"] = bodyPart.ContentType.MimeType;
@@ -193,7 +193,7 @@ namespace Eu.EDelivery.AS4.Serialization
                 var attachmentMimePart = new MimePart(attachment.ContentType)
                 {
                     ContentId = attachment.Id,
-                    ContentObject = new ContentObject(attachment.Content),
+                    Content = new MimeContent(attachment.Content),
                     ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                     ContentTransferEncoding = ContentEncoding.Binary
 
@@ -261,7 +261,7 @@ namespace Eu.EDelivery.AS4.Serialization
             }
 
             List<MimePart> bodyParts = TryParseBodyParts(inputStream, cancellationToken);
-            Stream envelopeStream = bodyParts.First().ContentObject?.Open();
+            Stream envelopeStream = bodyParts.First().Content?.Open();
 
             AS4Message message = await _soapSerializer
                 .DeserializeAsync(envelopeStream, contentType, cancellationToken).ConfigureAwait(false);
@@ -312,7 +312,7 @@ namespace Eu.EDelivery.AS4.Serialization
                 {
                     yield return new Attachment(
                         id: bodyPart.ContentId,
-                        content: bodyPart.ContentObject.Open(),
+                        content: bodyPart.Content.Open(),
                         contentType: bodyPart.ContentType.MimeType,
                         props: value.Properties.ToDictionary(kv => kv.Key, kv => kv.Value)); ;
                 }

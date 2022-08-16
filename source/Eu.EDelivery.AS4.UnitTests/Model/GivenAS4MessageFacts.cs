@@ -181,7 +181,7 @@ namespace Eu.EDelivery.AS4.UnitTests.Model
                 using (var mimeStream = new MemoryStream())
                 {
                     MimeMessage mimeMessage = SerializeMimeMessage(message, mimeStream);
-                    Stream envelopeStream = mimeMessage.BodyParts.OfType<MimePart>().First().ContentObject.Open();
+                    Stream envelopeStream = mimeMessage.BodyParts.OfType<MimePart>().First().Content.Open();
                     string rawXml = new StreamReader(envelopeStream).ReadToEnd();
 
                     // Assert

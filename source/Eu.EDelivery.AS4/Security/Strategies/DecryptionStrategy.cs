@@ -288,7 +288,7 @@ namespace Eu.EDelivery.AS4.Security.Strategies
                     }
 
                     attachment.Content.Dispose();
-                    attachment.UpdateContent(part.ContentObject.Stream, contentType);
+                    attachment.UpdateContent(part.Content.Stream, contentType);
 
                     foreach (Header header in part.Headers)
                     {
