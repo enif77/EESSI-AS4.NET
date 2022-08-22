@@ -353,7 +353,7 @@ namespace Eu.EDelivery.AS4.Validators
         {
             if (model.Security?.Encryption?.IsEnabled == true)
             {
-                var keysizes = new[] { 128, 192, 256, 512, 1024, 2048 };
+                var keysizes = new[] { 128, 192, 256 };
                 int actualKeySize = model.Security.Encryption.AlgorithmKeySize;
 
                 if (!keysizes.Contains(actualKeySize) && model.Security?.Encryption != null)
