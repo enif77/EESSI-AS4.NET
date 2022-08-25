@@ -2,20 +2,20 @@
 
 This codebase is bit old so you'll need some old tech to build it:
 
-- .NET Framework 4.6.2
+- .NET Framework 4.8.1 (updated from the original version 4.6.2)
 - .NET Core 2.1.402
 - NodeJS 9.11.2
 - Yarn 1.22.17
 - nvm 1.1.9 (when you need to run multiple versions of NodeJS only)
 - Python 2.7.18 (when you are building node-saas from source only)
 
-I am using Visual studio 2022 to build this.
+I am using Visual Studio 2022 to build this.
 
 ## Building for dev
 
 To make it runnable from VS, use these steps:
 
-- Install VS2022 with .NET Framework 4.6.2 SDK and .NET Core SDK 2.1.402.
+- Install VS2022 with .NET Framework 4.8.1 SDK and .NET Core SDK 2.1.402.
 - Checkout the source code from [https://github.com/enif77/EESSI-AS4.NET](https://github.com/enif77/EESSI-AS4.NET).
 - Open the `AS4.sln` in the VS2022.
 - Build the solution.
