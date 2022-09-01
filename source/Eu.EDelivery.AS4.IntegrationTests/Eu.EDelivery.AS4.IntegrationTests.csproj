@@ -116,6 +116,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core">
+      <Version>5.2.3</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
@@ -123,7 +126,7 @@
       <Version>4.3.5</Version>
     </PackageReference>
     <PackageReference Include="SimpleHttpMock">
-      <Version>1.1.5</Version>
+      <Version>1.1.36</Version>
     </PackageReference>
     <PackageReference Include="xunit">
       <Version>2.4.2</Version>
