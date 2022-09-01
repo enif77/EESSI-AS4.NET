@@ -47,12 +47,12 @@ namespace Eu.EDelivery.AS4.UnitTests
 
         public static Gen<T3> Zip<T1, T2, T3>(this Gen<T1> g1, Gen<T2> g2, Func<T1, T2, T3> f)
         {
-            return Gen.zip(g1, g2).Select(t => f(t.Item1, t.Item2));
+            return Gen.Zip(g1, g2).Select(t => f(t.Item1, t.Item2));
         }
 
         public static Gen<Tuple<T1, T2>> Zip<T1, T2>(this Gen<T1> g1, Gen<T2> g2)
         {
-            return Gen.zip(g1, g2);
+            return Gen.Zip(g1, g2);
         }
 
         public static Arbitrary<NonWhiteSpaceString> NonWhiteSpaceString()
@@ -89,11 +89,11 @@ namespace Eu.EDelivery.AS4.UnitTests
 
         public static Arbitrary<Receipt> Receipt()
         {
-            return Gen.zip3(Arb.Generate<NonEmptyString>().Two(), GenNonRepudiation(), UserMessage().Generator)
+            return Gen.Zip(Arb.Generate<NonEmptyString>().Two(), GenNonRepudiation(), UserMessage().Generator)
                       .Select(t => new Receipt(
-                          t.Item1.Item1.Get, 
-                          t.Item1.Item2.Get, 
-                          t.Item2, 
+                          t.Item1.Item1.Get,
+                          t.Item1.Item2.Get,
+                          t.Item2,
                           UserMessageMap.ConvertToRouting(t.Item3)))
                       .ToArbitrary();
         }
@@ -112,7 +112,7 @@ namespace Eu.EDelivery.AS4.UnitTests
                    .Select(x => new ReferenceTransform(x.Get))
                    .ListOf();
 
-            return Gen.zip3(genUri, genTransforms, genDigestMethod.Zip(genDigestValue))
+            return Gen.Zip(genUri, genTransforms, genDigestMethod.Zip(genDigestValue))
                       .Select(t => new Reference(t.Item1.Get, t.Item2, t.Item3.Item1, t.Item3.Item2))
                       .ListOf()
                       .Select(rs => new NonRepudiationInformation(rs));
@@ -120,26 +120,26 @@ namespace Eu.EDelivery.AS4.UnitTests
 
         public static Arbitrary<Error> Error()
         {
-            return Gen.zip3(
+            return Gen.Zip(
                 Arb.Generate<NonEmptyString>().Two(),
                 UserMessage().Generator,
                 ErrorLine().ListOf())
                       .Select(t => new Error(
-                          t.Item1.Item1.Get, 
-                          t.Item1.Item2.Get, 
-                          DateTimeOffset.Now, 
-                          t.Item3, 
+                          t.Item1.Item1.Get,
+                          t.Item1.Item2.Get,
+                          DateTimeOffset.Now,
+                          t.Item3,
                           UserMessageMap.ConvertToRouting(t.Item2)))
                       .ToArbitrary();
         }
 
         private static Gen<ErrorLine> ErrorLine()
         {
-            return Gen.zip3(
+            return Gen.Zip(
                 MaybeArbitrary<NonNull<string>>()
                     .Generator
                     .Four(),
-                Gen.zip3(Arb.Generate<Severity>(), Arb.Generate<ErrorCode>(), Arb.Generate<ErrorAlias>()),
+                Gen.Zip(Arb.Generate<Severity>(), Arb.Generate<ErrorCode>(), Arb.Generate<ErrorAlias>()),
                 MaybeArbitrary<Tuple<NonNull<string>, NonNull<string>>>().Generator)
                       .Select(t => new ErrorLine(
                           t.Item2.Item2,
@@ -154,7 +154,7 @@ namespace Eu.EDelivery.AS4.UnitTests
 
         public static Arbitrary<UserMessage> UserMessage()
         {
-            return Gen.zip3(
+            return Gen.Zip(
                 Arb.Generate<NonEmptyString>().Zip(GenCollaborationInfo()),
                 GenParty().Two(),
                 GenPartInfos().Zip(GenMessageProperties()))

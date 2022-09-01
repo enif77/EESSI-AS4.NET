@@ -66,7 +66,7 @@ namespace Eu.EDelivery.AS4.UnitTests.Steps.Submit
                                           && context.AS4Message.IsUserMessage);
                     });
 
-                    return Prop.throws<InvalidOperationException, bool>(act)
+                    return Prop.Throws<InvalidOperationException, bool>(act)
                                .Label($"Throws {nameof(InvalidOperationException)}")
                                .Or(() => act.Value)
                                .Label("Resolved ToParty is UserMessge.ToParty");
