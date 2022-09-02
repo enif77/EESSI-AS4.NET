@@ -35,7 +35,7 @@ namespace Eu.EDelivery.AS4.Common
 
         private readonly IConfig _config;
 
-        private RetryPolicy _policy;
+        private AsyncRetryPolicy _policy;
 
         // TODO: FE needs this in the Monitoring?
         /// <summary>
