@@ -36,15 +36,15 @@ namespace Eu.EDelivery.AS4.Fe.SubmitTool
         [SwaggerResponse((int)HttpStatusCode.OK)]
         public async Task<IActionResult> Post()
         {
-            var parser = new MultipartFormDataParser(Request.Body);
-            int.TryParse(parser.GetParameterValue("messages"), out var messages);
+            var parsedResponse = MultipartFormDataParser.Parse(Request.Body);
+            int.TryParse(parsedResponse.GetParameterValue("messages"), out var messages);
 
-            var sendingPmode = parser.GetParameterValue("pmode");
+            var sendingPmode = parsedResponse.GetParameterValue("pmode");
             if (sendingPmode == null) throw new ArgumentNullException(nameof(sendingPmode), @"SendingPmode parameter is required!");
 
             await submitMessageCreator.CreateSubmitMessages(new MessagePayload
             {
-                Files = parser.Files,
+                Files = parsedResponse.Files,
                 SendingPmode = sendingPmode,
                 NumberOfSubmitMessages = messages == 0 ? 1 : messages
             });

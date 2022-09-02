@@ -29,6 +29,6 @@ namespace Eu.EDelivery.AS4.Fe.SubmitTool
         /// <value>
         /// The files.
         /// </value>
-        public IList<FilePart> Files { get; set; }
+        public IReadOnlyList<FilePart> Files { get; set; }
     }
 }
