@@ -48,7 +48,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     SimulateSendingFailureOnFirstAttempt(url, secondAttempt);
 
                     // Assert
-                    var spy = new DatabaseSpy(as4Msh.GetConfiguration());
+                    var spy = DatabaseSpy.Create(as4Msh.GetConfiguration());
                     OutMessage sent = await PollUntilPresent(
                         () => spy.GetOutMessageFor(m => m.Operation == expected),
                         timeout: TimeSpan.FromSeconds(10));

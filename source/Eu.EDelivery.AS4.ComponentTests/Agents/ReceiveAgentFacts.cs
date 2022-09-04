@@ -58,7 +58,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
 
             _as4Msh = AS4Component.Start(Environment.CurrentDirectory);
 
-            _databaseSpy = new DatabaseSpy(_as4Msh.GetConfiguration());
+            _databaseSpy = DatabaseSpy.Create(_as4Msh.GetConfiguration());
 
             _receiveAgentUrl = receiveSettings.Agents.ReceiveAgents.First().Receiver.Setting
                                               .FirstOrDefault(s => s.Key == "Url")

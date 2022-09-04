@@ -68,7 +68,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     // Assert
                     SimulateNotifyFailureOnFirstAttempt(url, secondAttemptStatusCode);
 
-                    var spy = new DatabaseSpy(as4Msh.GetConfiguration());
+                    var spy = DatabaseSpy.Create(as4Msh.GetConfiguration());
                     InMessage notified = await PollUntilPresent(
                         () => spy.GetInMessageFor(
                             m => m.Operation == expected),
@@ -128,7 +128,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     // Assert
                     SimulateNotifyFailureOnFirstAttempt(url, secondAttemptStatusCode);
 
-                    var spy = new DatabaseSpy(as4Msh.GetConfiguration());
+                    var spy = DatabaseSpy.Create(as4Msh.GetConfiguration());
                     OutMessage notified = await PollUntilPresent(
                         () => spy.GetOutMessageFor(
                             m => m.Operation == expected),
@@ -183,7 +183,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     const string url = "http://localhost:7070/business/outexception/";
                     string ebmsMessageId = $"entity-{Guid.NewGuid()}";
 
-                    var spy = new DatabaseSpy(as4Msh.GetConfiguration());
+                    var spy = DatabaseSpy.Create(as4Msh.GetConfiguration());
                     //var entity = new OutMessage(ebmsMessageId);
                     //spy.InsertOutMessage(entity);
 
@@ -287,7 +287,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     // Assert
                     SimulateNotifyFailureOnFirstAttempt(url, secondAttempt);
 
-                    var spy = new DatabaseSpy(as4Msh.GetConfiguration());
+                    var spy = DatabaseSpy.Create(as4Msh.GetConfiguration());
                     InException notified = await PollUntilPresent(
                         () => spy.GetInExceptions(
                             ex => ex.Operation == expected).FirstOrDefault(),

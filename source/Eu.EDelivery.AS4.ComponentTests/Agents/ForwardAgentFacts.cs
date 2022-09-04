@@ -29,7 +29,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
         {
             OverrideSettings("forwardagent_settings.xml");
             _as4Msh = AS4Component.Start(Environment.CurrentDirectory);
-            _databaseSpy = new DatabaseSpy(_as4Msh.GetConfiguration());
+            _databaseSpy = DatabaseSpy.Create(_as4Msh.GetConfiguration());
         }
 
         protected override void Disposing(bool isDisposing)

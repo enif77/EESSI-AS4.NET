@@ -59,7 +59,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
             // Arrange
             OverrideSettings(settingsFile);
             var msh = AS4Component.Start(Environment.CurrentDirectory);
-            var databaseSpy = new DatabaseSpy(msh.GetConfiguration());
+            var databaseSpy = DatabaseSpy.Create(msh.GetConfiguration());
 
             // Act
             await SubmitAnonymousPayload();

@@ -27,7 +27,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
             Settings settings = OverrideSettings("receive_deliver_agent_settings.xml");
 
             _as4Msh = AS4Component.Start(Environment.CurrentDirectory);
-            _databaseSpy = new DatabaseSpy(_as4Msh.GetConfiguration());
+            _databaseSpy = DatabaseSpy.Create(_as4Msh.GetConfiguration());
 
             _receiveAgentUrl = 
                 settings.Agents.ReceiveAgents.First()

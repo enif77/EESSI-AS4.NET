@@ -57,7 +57,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                 SendingProcessingMode usedSendingPMode = config.GetSendingPMode(pmodeId);
                 Assert.True(usedSendingPMode.PushConfiguration?.Protocol != null, "SendingPMode for SubmitMessage hasn't got PushConfiguration.Protocol element");
 
-                var databaseSpy = new DatabaseSpy(config);
+                var databaseSpy = DatabaseSpy.Create(config);
                 OutMessage outMessage = databaseSpy.GetOutMessageFor(
                     m => m.EbmsMessageId == submitMessage.MessageInfo.MessageId);
 
@@ -132,7 +132,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
                 }
 
-                var spy = new DatabaseSpy(_as4Msh.GetConfiguration());
+                var spy = DatabaseSpy.Create(_as4Msh.GetConfiguration());
 
                 var loggedException = spy.GetInExceptions(x => String.IsNullOrWhiteSpace(x.EbmsRefToMessageId)).FirstOrDefault();
 

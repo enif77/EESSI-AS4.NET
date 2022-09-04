@@ -39,7 +39,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     m.SetStatus(status);
 
                     IConfig config = EnsureLocalConfigPointsToCreatedDatastore();
-                    var spy = new DatabaseSpy(config);
+                    var spy = DatabaseSpy.Create(config);
                     spy.InsertOutMessage(m);
 
                     // Act
@@ -68,7 +68,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     m.Operation = operation;
 
                     IConfig config = EnsureLocalConfigPointsToCreatedDatastore();
-                    var spy = new DatabaseSpy(config);
+                    var spy = DatabaseSpy.Create(config);
                     spy.InsertInMessage(m);
 
                     // Act
@@ -109,7 +109,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                     string id = GenId();
 
                     IConfig config = EnsureLocalConfigPointsToCreatedDatastore();
-                    var spy = new DatabaseSpy(config);
+                    var spy = DatabaseSpy.Create(config);
                     var insertionTime = DateTimeOffset.Now.Add(TimeSpan.FromDays(-insertionDays));
                     spy.InsertOutException(CreateOutException(id, insertionTime));
 
@@ -147,7 +147,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
                    inMessageId = GenId(), outExceptionId = GenId(),
                    inExceptionId = GenId();
 
-            var spy = new DatabaseSpy(config);
+            var spy = DatabaseSpy.Create(config);
             OutMessage om = CreateOutMessage(outReferenceId, insertionTime: DayBeforeYesterday, type: MessageType.Error);
             spy.InsertOutMessage(om);
             spy.InsertRetryReliability(RetryReliability.CreateForOutMessage(om.Id, maxRetryCount: 0, retryInterval: default(TimeSpan), type: RetryType.Send));
