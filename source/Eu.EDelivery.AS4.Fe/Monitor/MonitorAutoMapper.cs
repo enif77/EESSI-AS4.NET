@@ -22,20 +22,20 @@ namespace Eu.EDelivery.AS4.Fe.Monitor
                 .ForMember(x => x.Status, x => x.MapFrom(y => y.Status))
                 .ForMember(x => x.EbmsMessageType, x => x.MapFrom(y => y.EbmsMessageType))
                 .ForMember(x => x.Operation, x => x.MapFrom(y => y.Operation))
-                .ForMember(x => x.Direction, x => x.UseValue(Direction.Inbound))
+                .ForMember(x => x.Direction, x => x.MapFrom(y => Direction.Inbound))
                 .ForMember(x => x.Mep, x => x.MapFrom(y => y.MEP));
             CreateMap<OutMessage, Message>()
                 .ForMember(x => x.Status, x => x.MapFrom(y => y.Status))
                 .ForMember(x => x.EbmsMessageType, x => x.MapFrom(y => y.EbmsMessageType))
                 .ForMember(x => x.Operation, x => x.MapFrom(y => y.Operation))
-                .ForMember(x => x.Direction, x => x.UseValue(Direction.Outbound))
+                .ForMember(x => x.Direction, x => x.MapFrom(y => Direction.Outbound))
                 .ForMember(x => x.Mep, x => x.MapFrom(y => y.MEP));
             CreateMap<InException, ExceptionMessage>()
-              .ForMember(x => x.Direction, x => x.UseValue(Direction.Inbound))
+              .ForMember(x => x.Direction, x => x.MapFrom(y => Direction.Inbound))
               .ForMember(x => x.ExceptionShort, x => x.MapFrom(y => string.IsNullOrEmpty(y.Exception) ? "" : y.Exception.Substring(y.Exception.IndexOf(']') + 1).Split('\r', '\n')[0].Length > ExceptionLength ? y.Exception.Substring(y.Exception.IndexOf(']') + 1).Split('\r', '\n')[0].Substring(0, ExceptionLength) + "..." : y.Exception.Substring(y.Exception.IndexOf(']') + 1).Split('\r', '\n')[0]))
               .ForMember(x => x.HasMessageBody,x => x.MapFrom(y => y.MessageLocation != null && !String.IsNullOrWhiteSpace(y.MessageLocation)));
             CreateMap<OutException, ExceptionMessage>()
-              .ForMember(x => x.Direction, x => x.UseValue(Direction.Outbound))
+              .ForMember(x => x.Direction, x => x.MapFrom(y => Direction.Outbound))
               .ForMember(x => x.ExceptionShort, x => x.MapFrom(y => string.IsNullOrEmpty(y.Exception) ? "" : y.Exception.Substring(y.Exception.IndexOf(']') + 1).Split('\r', '\n')[0].Length > ExceptionLength ? y.Exception.Substring(y.Exception.IndexOf(']') + 1).Split('\r', '\n')[0].Substring(0, ExceptionLength) + "..." : y.Exception.Substring(y.Exception.IndexOf(']') + 1).Split('\r', '\n')[0]))
               .ForMember(x => x.HasMessageBody, x => x.MapFrom(y => y.MessageLocation != null && !String.IsNullOrWhiteSpace(y.MessageLocation)));
         }

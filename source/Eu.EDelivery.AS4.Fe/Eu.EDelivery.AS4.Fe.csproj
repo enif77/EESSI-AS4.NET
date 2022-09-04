@@ -61,7 +61,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
-    <PackageReference Include="AutoMapper" Version="5.0.2" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Ensure.That" Version="10.1.0" />
     <PackageReference Include="HttpMultipartParser" Version="7.0.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.0" />

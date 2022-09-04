@@ -50,12 +50,15 @@ namespace Eu.EDelivery.AS4.Fe.UnitTests
             };
         }
 
+        private Mapper _mapper;
+
         private As4SettingsServiceTests Setup()
         {
-            Mapper.Initialize(cfg => cfg.AddProfile(new SettingsAutoMapper()));
+            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SettingsAutoMapper())));
+
             settingsSource = Substitute.For<ISettingsSource>();
             settingsSource.Get().Returns(settingsList);
-            settingsService = new As4SettingsService(new Mapper(Mapper.Configuration), settingsSource);
+            settingsService = new As4SettingsService(_mapper, settingsSource);
             return this;
         }
 
@@ -131,7 +134,7 @@ namespace Eu.EDelivery.AS4.Fe.UnitTests
             public async Task Throws_Exception_When_Agent_Not_Found()
             {
                 Setup();
-                var newAgent = Mapper.Map<AgentSettings, AgentSettings>(submitAgent);
+                var newAgent = _mapper.Map<AgentSettings, AgentSettings>(submitAgent);
                 newAgent.Name = "NEW RANDOM NAME";
                 // Act & Assert
                 await Assert.ThrowsAsync<NotFoundException>(() => Setup().settingsService.UpdateAgent(newAgent, "fdsqfd", settings => settings.SubmitAgents, (settings, agents) => settings.SubmitAgents = agents));
