@@ -24,7 +24,7 @@
 
   <ItemGroup>
 
-    <PackageReference Include="NLog" Version="4.3.5" />
+    <PackageReference Include="NLog" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Owin" Version="1.2.2" />
 

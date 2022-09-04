@@ -172,7 +172,7 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.3.5</Version>
+      <Version>5.0.4</Version>
     </PackageReference>
     <PackageReference Include="NSubstitute">
       <Version>4.4.0</Version>
