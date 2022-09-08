@@ -1,24 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<!--<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />-->
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <!--<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8E13829C-19D7-498D-9383-EF52A92FC2C9}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AppDesignerFolder>Properties</AppDesignerFolder>-->
     <RootNamespace>Eu.EDelivery.AS4.UnitTests</RootNamespace>
     <AssemblyName>Eu.EDelivery.AS4.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+	<AssemblyProduct>Eu.EDelivery.AS4.UnitTests</AssemblyProduct>
+	<AssemblyVersion>4.0.1.0</AssemblyVersion>
+	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
+	<TargetFramework>net481</TargetFramework>
+    <!--<FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Properties>SkipValidatePackageReferences=true</Properties>
     <TargetFrameworkProfile />
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
+	<OutputPath>..\..\output\</OutputPath>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	
+  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -38,22 +45,26 @@
     <WarningLevel>4</WarningLevel>
     <RunXunitTests>false</RunXunitTests>
     <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
+  </PropertyGroup>-->
+	
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Management.Automation" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+	<Reference Include="System.Management.Automation">
+		<HintPath>..\..\..\..\..\..\..\..\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Management.Automation\v4.0_3.0.0.0__31bf3856ad364e35\System.Management.Automation.dll</HintPath>
+	</Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Agents\GivenAgentFacts.cs" />
+
+  <!--<ItemGroup>
+	<Compile Include="Agents\GivenAgentFacts.cs" />
     <Compile Include="Agents\GivenAgentProviderFacts.cs" />
     <Compile Include="Agents\SpyAgent.cs" />
     <Compile Include="Common\GivenConfigFacts.cs" />
@@ -256,42 +267,28 @@
     <Compile Include="Validators\ValidationInputGenerators.cs" />
     <Compile Include="Validators\ValidationOutputAssertions.cs" />
     <Compile Include="Xml\XsdValidationFacts.cs" />
-  </ItemGroup>
+  </ItemGroup>-->
+	
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+	
   <ItemGroup>
-    <ProjectReference Include="..\Eu.EDelivery.AS4.TestUtils\Eu.EDelivery.AS4.TestUtils.csproj">
-      <Project>{243cfd29-bb90-4a9e-9dd8-3c0228c845ed}</Project>
-      <Name>Eu.EDelivery.AS4.TestUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eu.EDelivery.AS4.Receivers\Eu.EDelivery.AS4.Receivers.csproj">
-      <Project>{B0BE265A-8190-415C-8E46-2B85FE6BDBE7}</Project>
-      <Name>Eu.EDelivery.AS4.Receivers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eu.EDelivery.AS4.ServiceHandler\Eu.EDelivery.AS4.ServiceHandler.csproj">
-      <Project>{83d47064-14b4-4e42-8e10-abe1eda41920}</Project>
-      <Name>Eu.EDelivery.AS4.ServiceHandler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eu.EDelivery.AS4.Steps\Eu.EDelivery.AS4.Steps.csproj">
-      <Project>{9208D4FA-018E-4DB4-A60D-EE475F5EC421}</Project>
-      <Name>Eu.EDelivery.AS4.Steps</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eu.EDelivery.AS4.Transformers\Eu.EDelivery.AS4.Transformers.csproj">
-      <Project>{51C92C72-60F5-4DCE-B129-045640CA6D96}</Project>
-      <Name>Eu.EDelivery.AS4.Transformers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eu.EDelivery.AS4\Eu.EDelivery.AS4.csproj">
-      <Project>{8b0ba38f-c3f7-46c1-9e68-a7291c7b16b1}</Project>
-      <Name>Eu.EDelivery.AS4</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Eu.EDelivery.AS4.TestUtils\Eu.EDelivery.AS4.TestUtils.csproj" />
+    <ProjectReference Include="..\Eu.EDelivery.AS4.Receivers\Eu.EDelivery.AS4.Receivers.csproj" />
+    <ProjectReference Include="..\Eu.EDelivery.AS4.ServiceHandler\Eu.EDelivery.AS4.ServiceHandler.csproj" />
+    <ProjectReference Include="..\Eu.EDelivery.AS4.Steps\Eu.EDelivery.AS4.Steps.csproj" />
+    <ProjectReference Include="..\Eu.EDelivery.AS4.Transformers\Eu.EDelivery.AS4.Transformers.csproj" />
+    <ProjectReference Include="..\Eu.EDelivery.AS4\Eu.EDelivery.AS4.csproj" />
   </ItemGroup>
-  <ItemGroup>
+	
+  <!--<ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
+  </ItemGroup>-->
+
+  <!--<ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -302,7 +299,8 @@
       <LastGenOutput>Samples.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
+  </ItemGroup>-->
+	
   <ItemGroup>
     <None Include="Resources\AccessPointA.pfx" />
     <None Include="Resources\AccessPointB.cer" />
@@ -328,12 +326,15 @@
     <None Include="Resources\signed_holodeck_message.as4" />
     <None Include="Resources\UserMessage.xml" />
   </ItemGroup>
+	
   <ItemGroup>
     <None Include="Resources\earth.jpg" />
   </ItemGroup>
+	
   <ItemGroup>
     <None Include="Resources\as4message.txt" />
   </ItemGroup>
+	
   <ItemGroup>
     <Content Include="Resources\as4-encrypted-envelope.xml" />
     <Content Include="Resources\as4-soap-signed-encrypted-message-with-extra-hashtag.xml" />
@@ -365,7 +366,9 @@
     <None Include="Resources\flower2.jpg" />
     <Content Include="Resources\holodeck-as4message.xml" />
   </ItemGroup>
+	
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="FsCheck">
       <Version>2.16.5</Version>
     </PackageReference>
@@ -408,6 +411,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+	
+  <!--<ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />-->
 </Project>
