@@ -1,46 +1,46 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4", "Eu.EDelivery.AS4\Eu.EDelivery.AS4.csproj", "{8B0BA38F-C3F7-46C1-9E68-A7291C7B16B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4", "Eu.EDelivery.AS4\Eu.EDelivery.AS4.csproj", "{8B0BA38F-C3F7-46C1-9E68-A7291C7B16B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.Receivers", "Eu.EDelivery.AS4.Receivers\Eu.EDelivery.AS4.Receivers.csproj", "{B0BE265A-8190-415C-8E46-2B85FE6BDBE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.Receivers", "Eu.EDelivery.AS4.Receivers\Eu.EDelivery.AS4.Receivers.csproj", "{B0BE265A-8190-415C-8E46-2B85FE6BDBE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.ServiceHandler", "Eu.EDelivery.AS4.ServiceHandler\Eu.EDelivery.AS4.ServiceHandler.csproj", "{83D47064-14B4-4E42-8E10-ABE1EDA41920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.ServiceHandler", "Eu.EDelivery.AS4.ServiceHandler\Eu.EDelivery.AS4.ServiceHandler.csproj", "{83D47064-14B4-4E42-8E10-ABE1EDA41920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.Steps", "Eu.EDelivery.AS4.Steps\Eu.EDelivery.AS4.Steps.csproj", "{9208D4FA-018E-4DB4-A60D-EE475F5EC421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.Steps", "Eu.EDelivery.AS4.Steps\Eu.EDelivery.AS4.Steps.csproj", "{9208D4FA-018E-4DB4-A60D-EE475F5EC421}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.Transformers", "Eu.EDelivery.AS4.Transformers\Eu.EDelivery.AS4.Transformers.csproj", "{51C92C72-60F5-4DCE-B129-045640CA6D96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.Transformers", "Eu.EDelivery.AS4.Transformers\Eu.EDelivery.AS4.Transformers.csproj", "{51C92C72-60F5-4DCE-B129-045640CA6D96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{366569F7-B349-4BCE-9879-904A933BC73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.UnitTests", "Eu.EDelivery.AS4.UnitTests\Eu.EDelivery.AS4.UnitTests.csproj", "{8E13829C-19D7-498D-9383-EF52A92FC2C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.UnitTests", "Eu.EDelivery.AS4.UnitTests\Eu.EDelivery.AS4.UnitTests.csproj", "{8E13829C-19D7-498D-9383-EF52A92FC2C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.IntegrationTests", "Eu.EDelivery.AS4.IntegrationTests\Eu.EDelivery.AS4.IntegrationTests.csproj", "{F82AAC30-6DDC-442C-849D-5DDD0478893B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.IntegrationTests", "Eu.EDelivery.AS4.IntegrationTests\Eu.EDelivery.AS4.IntegrationTests.csproj", "{F82AAC30-6DDC-442C-849D-5DDD0478893B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.Fe.UnitTests", "Eu.EDelivery.AS4.Fe.UnitTests\Eu.EDelivery.AS4.Fe.UnitTests.csproj", "{BF046E70-9AB2-48C8-9E86-BE35429FADC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.Fe.UnitTests", "Eu.EDelivery.AS4.Fe.UnitTests\Eu.EDelivery.AS4.Fe.UnitTests.csproj", "{BF046E70-9AB2-48C8-9E86-BE35429FADC0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.PayloadService", "Eu.EDelivery.AS4.PayloadService\Eu.EDelivery.AS4.PayloadService.csproj", "{A3BADCB2-1638-4C18-A1F8-0764C1FB0E30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.PerformanceTests", "Eu.EDelivery.AS4.PerformanceTests\Eu.EDelivery.AS4.PerformanceTests.csproj", "{73016C9C-15FD-4051-A16F-7245A2267DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.PerformanceTests", "Eu.EDelivery.AS4.PerformanceTests\Eu.EDelivery.AS4.PerformanceTests.csproj", "{73016C9C-15FD-4051-A16F-7245A2267DEC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8B0BA38F-C3F7-46C1-9E68-A7291C7B16B1} = {8B0BA38F-C3F7-46C1-9E68-A7291C7B16B1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.ComponentTests", "Eu.EDelivery.AS4.ComponentTests\Eu.EDelivery.AS4.ComponentTests.csproj", "{E1B9AACB-46F1-4999-8384-E6413D7189BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.ComponentTests", "Eu.EDelivery.AS4.ComponentTests\Eu.EDelivery.AS4.ComponentTests.csproj", "{E1B9AACB-46F1-4999-8384-E6413D7189BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.Fe", "Eu.EDelivery.AS4.Fe\Eu.EDelivery.AS4.Fe.csproj", "{7B6DF430-D1FE-455D-A300-99432133BB05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.TestUtils", "Eu.EDelivery.AS4.TestUtils\Eu.EDelivery.AS4.TestUtils.csproj", "{243CFD29-BB90-4A9E-9DD8-3C0228C845ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.TestUtils", "Eu.EDelivery.AS4.TestUtils\Eu.EDelivery.AS4.TestUtils.csproj", "{243CFD29-BB90-4A9E-9DD8-3C0228C845ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4.ParserService", "AS4.ParserService\AS4.ParserService.csproj", "{51BD8CCB-9191-4285-A930-F347AF8A9797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS4.ParserService", "AS4.ParserService\AS4.ParserService.csproj", "{51BD8CCB-9191-4285-A930-F347AF8A9797}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5AABF892-1246-4643-B2C0-67C7314A79B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.WindowsService", "Eu.EDelivery.AS4.WindowsService\Eu.EDelivery.AS4.WindowsService.csproj", "{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eu.EDelivery.AS4.ServiceHandler.ConsoleHost", "Eu.EDelivery.AS4.ServiceHandler.ConsoleHost\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.csproj", "{61D31A15-4A46-435B-A939-F30A5284D96C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.ServiceHandler.ConsoleHost", "Eu.EDelivery.AS4.ServiceHandler.ConsoleHost\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.csproj", "{61D31A15-4A46-435B-A939-F30A5284D96C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.WindowsService", "Eu.EDelivery.AS4.WindowsService\Eu.EDelivery.AS4.WindowsService.csproj", "{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eu.EDelivery.AS4.WindowsService.SystemTray", "Eu.EDelivery.AS4.WindowsService.SystemTray\Eu.EDelivery.AS4.WindowsService.SystemTray.csproj", "{69C7E0EC-A368-42D5-86E4-6172A76E925F}"
 EndProject
@@ -110,14 +110,14 @@ Global
 		{61D31A15-4A46-435B-A939-F30A5284D96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61D31A15-4A46-435B-A939-F30A5284D96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61D31A15-4A46-435B-A939-F30A5284D96C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69C7E0EC-A368-42D5-86E4-6172A76E925F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,8 +132,8 @@ Global
 		{7B6DF430-D1FE-455D-A300-99432133BB05} = {5AABF892-1246-4643-B2C0-67C7314A79B4}
 		{243CFD29-BB90-4A9E-9DD8-3C0228C845ED} = {366569F7-B349-4BCE-9879-904A933BC73F}
 		{51BD8CCB-9191-4285-A930-F347AF8A9797} = {5AABF892-1246-4643-B2C0-67C7314A79B4}
-		{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF} = {5AABF892-1246-4643-B2C0-67C7314A79B4}
 		{61D31A15-4A46-435B-A939-F30A5284D96C} = {5AABF892-1246-4643-B2C0-67C7314A79B4}
+		{D1F88397-2D6C-46C5-9A88-B89CD96CF6EF} = {5AABF892-1246-4643-B2C0-67C7314A79B4}
 		{69C7E0EC-A368-42D5-86E4-6172A76E925F} = {5AABF892-1246-4643-B2C0-67C7314A79B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

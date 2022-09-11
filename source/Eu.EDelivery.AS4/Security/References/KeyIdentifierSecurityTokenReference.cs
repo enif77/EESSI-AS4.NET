@@ -1,9 +1,16 @@
 ﻿using System;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Globalization;
+//using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Xml;
 using Eu.EDelivery.AS4.Repositories;
+
+//using Newtonsoft.Json.Linq;
+
+//using Org.BouncyCastle.Utilities;
+
 
 namespace Eu.EDelivery.AS4.Security.References
 {
@@ -85,9 +92,21 @@ namespace Eu.EDelivery.AS4.Security.References
             }
 
             byte[] base64Bytes = Convert.FromBase64String(xmlKeyIdentifier.InnerText);
-            var soapHexBinary = new SoapHexBinary(base64Bytes);
+            //var soapHexBinary = new SoapHexBinary(base64Bytes);
 
-            _certificateSubjectKeyIdentifier = soapHexBinary.ToString();
+            _certificateSubjectKeyIdentifier = ToSoapHexString(base64Bytes);
+        }
+
+
+        // https://github.com/mono/mono/blob/main/mcs/class/corlib/System.Runtime.Remoting.Metadata.W3cXsd2001/SoapHexBinary.cs
+        private string ToSoapHexString(byte[] bytes)
+        {
+            var sb = new StringBuilder(bytes.Length);
+
+            foreach (byte b in bytes)
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -131,13 +150,61 @@ namespace Eu.EDelivery.AS4.Security.References
                 }
 
                 var x509SubjectKeyIdentifierExtension = (X509SubjectKeyIdentifierExtension)extension;
-                SoapHexBinary base64Binary = SoapHexBinary.Parse(x509SubjectKeyIdentifierExtension.SubjectKeyIdentifier);
+                //SoapHexBinary base64Binary = SoapHexBinary.Parse(x509SubjectKeyIdentifierExtension.SubjectKeyIdentifier);
 
-                return Convert.ToBase64String(base64Binary.Value);
+                //return Convert.ToBase64String(base64Binary.Value);
+                return Convert.ToBase64String(SoapHexBinaryFromBinHexString(x509SubjectKeyIdentifierExtension.SubjectKeyIdentifier));
             }
 
             throw new CryptographicException(
                 "No extension with the name 'Subject Key Identifier' was found in the certificate extensions");
+        }
+
+
+        // https://github.com/mono/mono/blob/main/mcs/class/corlib/System.Runtime.Remoting.Metadata.W3cXsd2001/SoapHexBinary.cs
+        internal static byte[] SoapHexBinaryFromBinHexString(string value)
+        {
+            char[] chars = value.ToCharArray();
+            byte[] buffer = new byte[chars.Length / 2 + chars.Length % 2];
+            int charLength = chars.Length;
+
+            if (charLength % 2 != 0)
+                throw CreateInvalidValueException(value);
+
+            int bufIndex = 0;
+            for (int i = 0; i < charLength - 1; i += 2)
+            {
+                buffer[bufIndex] = FromHex(chars[i], value);
+                buffer[bufIndex] <<= 4;
+                buffer[bufIndex] += FromHex(chars[i + 1], value);
+                bufIndex++;
+            }
+
+            return buffer;
+        }
+
+        static byte FromHex(char hexDigit, string value)
+        {
+            try
+            {
+                return byte.Parse(hexDigit.ToString(),
+                    NumberStyles.HexNumber,
+                    CultureInfo.InvariantCulture);
+            }
+            catch (FormatException)
+            {
+                throw CreateInvalidValueException(value);
+            }
+        }
+
+
+        static Exception CreateInvalidValueException(string value)
+        {
+            //return new RemotingException(string.Format(
+            return new Exception(string.Format(
+                CultureInfo.InvariantCulture,
+                "Invalid value '{0}' for xsd:hexBinary.",
+                value));
         }
     }
 }

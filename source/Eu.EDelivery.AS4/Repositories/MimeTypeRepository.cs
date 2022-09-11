@@ -1,6 +1,9 @@
 ﻿using System;
-using System.Web;
-using Microsoft.Win32;
+//using System.Web;
+using FTTLib;
+
+//using Microsoft.Win32;
+
 
 namespace Eu.EDelivery.AS4.Repositories
 {
@@ -9,7 +12,7 @@ namespace Eu.EDelivery.AS4.Repositories
     /// </summary>
     public class MimeTypeRepository 
     {
-        private const string RegistryPath = @"MIME\Database\Content Type\";
+        //private const string RegistryPath = @"MIME\Database\Content Type\";
 
         public static MimeTypeRepository Instance = new MimeTypeRepository();
 
@@ -28,16 +31,21 @@ namespace Eu.EDelivery.AS4.Repositories
                 throw new ArgumentNullException(nameof(mimeType));
             }
 
-            using (RegistryKey key = Registry.ClassesRoot.OpenSubKey(RegistryPath + mimeType, writable: false))
-            {
-                if (key == null)
-                {
-                    return string.Empty;
-                }
+            //using (RegistryKey key = Registry.ClassesRoot.OpenSubKey(RegistryPath + mimeType, writable: false))
+            //{
+            //    if (key == null)
+            //    {
+            //        return string.Empty;
+            //    }
 
-                object value = key.GetValue("Extension", defaultValue: string.Empty);
-                return value.ToString();
-            }
+            //    object value = key.GetValue("Extension", defaultValue: string.Empty);
+            //    return value.ToString();
+            //}
+
+            string[] extensions = FTT.GetMimeTypeFileExtensions(mimeType);
+            return (extensions != null && extensions.Length > 0)
+                ? ($".{extensions[0]}")
+                : string.Empty;
         }
 
         /// <summary>
@@ -53,7 +61,8 @@ namespace Eu.EDelivery.AS4.Repositories
                 throw new ArgumentNullException(nameof(extension));
             }
 
-            return MimeMapping.GetMimeMapping(extension);
+            //return MimeMapping.GetMimeMapping(extension);
+            return FTT.GetMimeType($"file{extension}");   // ".txt" -> "file.txt"
         }
     }
 }
