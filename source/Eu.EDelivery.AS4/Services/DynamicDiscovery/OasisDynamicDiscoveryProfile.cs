@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -132,6 +133,7 @@ namespace Eu.EDelivery.AS4.Services.DynamicDiscovery
             return await CallHttpBinding(smpRestBindingFromProperties);
         }
 
+
         private static (Model.Core.PartyId, Response) QueryDnsNatprRecord(
             IEnumerable<Model.Core.PartyId> participants,
             string serviceProviderSubDomain,
@@ -139,6 +141,7 @@ namespace Eu.EDelivery.AS4.Services.DynamicDiscovery
         {
             string Base32Encode(byte[] input)
             {
+                // TODO: Replace with https://stackoverflow.com/questions/641361/base32-decoding
                 return Base32Encoding.Standard.GetString(input);
             }
 
