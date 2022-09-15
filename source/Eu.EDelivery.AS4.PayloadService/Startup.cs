@@ -55,8 +55,8 @@ namespace Eu.EDelivery.AS4.PayloadService
             appLifetime.ApplicationStopped.Register(
                 () => app.ApplicationServices.GetService<CleanUpService>().Stop());
 
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
             app.UseSwagger();
 
@@ -71,6 +71,13 @@ namespace Eu.EDelivery.AS4.PayloadService
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddConfiguration(Configuration.GetSection("Logging"));
+                loggingBuilder.AddConsole();
+                loggingBuilder.AddDebug();
+            });
+
             services.AddSingleton<IPayloadPersister>(
                 provider => new FilePayloadPersister(provider.GetService<IHostingEnvironment>()));
 
