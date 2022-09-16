@@ -16,8 +16,7 @@ namespace Eu.EDelivery.AS4.ComponentTests.Common
         /// Initializes a new instance of the <see cref="DatabaseSpy"/> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        [Obsolete("Use the 'Create' factory method to make database spies")]
-        public DatabaseSpy(IConfig configuration)
+        private DatabaseSpy(IConfig configuration)
         {
             _configuration = configuration;
         }
@@ -198,10 +197,10 @@ namespace Eu.EDelivery.AS4.ComponentTests.Common
             Console.WriteLine(@"Clear database tables");
             using (var context = new DatastoreContext(_configuration))
             {
-                context.Database.ExecuteSqlCommand("DELETE FROM InExceptions");
-                context.Database.ExecuteSqlCommand("DELETE FROM OutExceptions");
-                context.Database.ExecuteSqlCommand("DELETE FROM InMessages");
-                context.Database.ExecuteSqlCommand("DELETE FROM OutMessages");
+                context.Database.ExecuteSqlRaw("DELETE FROM InExceptions");
+                context.Database.ExecuteSqlRaw("DELETE FROM OutExceptions");
+                context.Database.ExecuteSqlRaw("DELETE FROM InMessages");
+                context.Database.ExecuteSqlRaw("DELETE FROM OutMessages");
             }
         }
     }

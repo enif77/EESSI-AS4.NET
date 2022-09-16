@@ -206,10 +206,10 @@ namespace Eu.EDelivery.AS4.ComponentTests.Agents
         {
             using (var ctx = new DatastoreContext(config))
             {
-                ctx.Database.ExecuteSqlCommand("DELETE FROM OutMessages");
-                ctx.Database.ExecuteSqlCommand("DELETE FROM InMessages");
-                ctx.Database.ExecuteSqlCommand("DELETE FROM OutExceptions");
-                ctx.Database.ExecuteSqlCommand("DELETE FROM InExceptions");
+                ctx.Database.ExecuteSqlRaw("DELETE FROM OutMessages");
+                ctx.Database.ExecuteSqlRaw("DELETE FROM InMessages");
+                ctx.Database.ExecuteSqlRaw("DELETE FROM OutExceptions");
+                ctx.Database.ExecuteSqlRaw("DELETE FROM InExceptions");
             }
         }
 

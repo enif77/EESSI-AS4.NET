@@ -20,11 +20,11 @@ namespace Eu.EDelivery.AS4.Strategies.Database
         private readonly IDictionary<string, Func<DatastoreContext, IQueryable<Entity>>> _tablesByName = 
             new Dictionary<string, Func<DatastoreContext, IQueryable<Entity>>>
             {
-                {"InMessages", c => c.InMessages.FromSql(CreateSqlStatement("InMessages"))},
-                {"OutMessages", c => c.OutMessages.FromSql(CreateSqlStatement("OutMessages"))},
-                {"InExceptions", c => c.InExceptions.FromSql(CreateSqlStatement("InExceptions"))},
-                {"OutExceptions", c => c.OutExceptions.FromSql(CreateSqlStatement("OutExceptions"))},
-                {"RetryReliability", c => c.RetryReliability.FromSql(CreateSqlStatement("RetryReliability"))}
+                {"InMessages", c => c.InMessages.FromSqlRaw(CreateSqlStatement("InMessages"))},
+                {"OutMessages", c => c.OutMessages.FromSqlRaw(CreateSqlStatement("OutMessages"))},
+                {"InExceptions", c => c.InExceptions.FromSqlRaw(CreateSqlStatement("InExceptions"))},
+                {"OutExceptions", c => c.OutExceptions.FromSqlRaw(CreateSqlStatement("OutExceptions"))},
+                {"RetryReliability", c => c.RetryReliability.FromSqlRaw(CreateSqlStatement("RetryReliability"))}
             };
 
         /// <summary>
@@ -105,12 +105,11 @@ namespace Eu.EDelivery.AS4.Strategies.Database
                 $"AND Operation IN ({operations})" +
                 outMessagesWhere;
 
-#pragma warning disable EF1000 // Possible SQL injection vulnerability.
             // The DatastoreTable makes sure that we only use known table names.
             // The list of Operation enums makes sure that only use Operation values.
             // The TotalDays of the TimeSpan is an integer.
-            int rows = _context.Database.ExecuteSqlCommand(sql);
-#pragma warning restore EF1000 // Possible SQL injection vulnerability.
+            int rows = _context.Database.ExecuteSqlRaw(sql);
+
             LogManager.GetCurrentClassLogger().Trace($"Cleaned {rows} row(s) for table '{tableName}'");
         }
 
@@ -145,7 +144,7 @@ namespace Eu.EDelivery.AS4.Strategies.Database
                 + "ORDER BY OutMessages.InsertionTime ASC ";
 
             return _context.OutMessages
-                           .FromSql(sql, url, mpc)
+                           .FromSqlRaw(sql, url, mpc)
                            .AsEnumerable<OutMessage>();
         }
     }

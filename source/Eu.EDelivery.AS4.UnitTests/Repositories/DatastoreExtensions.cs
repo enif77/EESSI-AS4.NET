@@ -305,7 +305,9 @@ namespace Eu.EDelivery.AS4.UnitTests.Repositories
             assertion(
                 RetrieveEntity(
                     createContext,
-                    ctx => ctx.RetryReliability.FirstOrDefault(rr => getter(rr) == messageId)));
+                    ctx => ctx.RetryReliability
+                        .ToList()   // TODO: Required by Entity Framework 3.x. Potentially slows thing down!
+                        .FirstOrDefault(rr => getter(rr) == messageId)));
         }
 
         private static T RetrieveEntity<T>(Func<DatastoreContext> createContext, Func<DatastoreContext, T> selection)

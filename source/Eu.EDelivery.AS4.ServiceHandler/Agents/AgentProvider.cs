@@ -167,8 +167,10 @@ namespace Eu.EDelivery.AS4.ServiceHandler.Agents
         {
             var r = new DatastoreReceiver(
                 registry.CreateDatastoreContext,
-                ctx => ctx.RetryReliability.Where(
-                    rr => rr.Status == RetryStatus.Pending
+                ctx => ctx.RetryReliability
+                    .ToList()  // TODO: Required by Entity Framework 3.x. Potentially slows thing down!
+                    .Where(
+                        rr => rr.Status == RetryStatus.Pending
                           && (rr.LastRetryTime.HasValue == false 
                               || DateTimeOffset.Now >= rr.LastRetryTime.Value.Add(rr.RetryInterval))).ToList());
 

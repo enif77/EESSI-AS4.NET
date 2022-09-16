@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Eu.EDelivery.AS4.Common
 {
@@ -277,12 +278,34 @@ namespace Eu.EDelivery.AS4.Common
         {
             base.OnModelCreating(modelBuilder);
 
+            if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+            {
+                // SQLite does not have proper support for DateTimeOffset via Entity Framework Core, see the limitations
+                // here: https://docs.microsoft.com/en-us/ef/core/providers/sqlite/limitations#query-limitations
+                // To work around this, when the Sqlite database provider is used, all model properties of type DateTimeOffset
+                // use the DateTimeOffsetToBinaryConverter
+                // Based on: https://github.com/aspnet/EntityFrameworkCore/issues/10784#issuecomment-415769754
+                // This only supports millisecond precision, but should be sufficient for most use cases.
+                foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+                {
+                    var properties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(DateTimeOffset)
+                        || p.PropertyType == typeof(DateTimeOffset?));
+                    foreach (var property in properties)
+                    {
+                        modelBuilder
+                            .Entity(entityType.Name)
+                            .Property(property.Name)
+                            .HasConversion(new DateTimeOffsetToBinaryConverter());
+                    }
+                }
+            }
+
             // It is necessary to define the property-access mode for properties that are defined in a base
             // class and have a private setter.  Failing to do this results in Entity Framework not generating
             // a column in the table for that property
 
             modelBuilder.Entity<InMessage>().HasKey(im => im.Id).HasName("PK_InMessages");
-            modelBuilder.Entity<InMessage>().Property(im => im.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<InMessage>().Property(im => im.Id).UseIdentityColumn();
             modelBuilder.Entity<InMessage>().Property(im => im.MEP)
                         .HasConversion<string>()
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -305,7 +328,7 @@ namespace Eu.EDelivery.AS4.Common
             modelBuilder.Entity<InMessage>().HasIndex(im => im.EbmsRefToMessageId).HasName("IX_InMessages_EbmsRefToMessageId");
 
             modelBuilder.Entity<OutMessage>().HasKey(im => im.Id).HasName("PK_OutMessages");
-            modelBuilder.Entity<OutMessage>().Property(im => im.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<OutMessage>().Property(im => im.Id).UseIdentityColumn();
             modelBuilder.Entity<OutMessage>().Property(im => im.Operation)
                         .HasConversion<string>()
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -323,7 +346,7 @@ namespace Eu.EDelivery.AS4.Common
             modelBuilder.Entity<OutMessage>().HasIndex(im => im.InsertionTime).HasName("IX_OutMessages_InsertionTime");
 
             modelBuilder.Entity<InException>().HasKey(ie => ie.Id).HasName("PK_InExceptions");
-            modelBuilder.Entity<InException>().Property(ie => ie.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<InException>().Property(ie => ie.Id).UseIdentityColumn();
             modelBuilder.Entity<InException>().Property(oe => oe.Operation)
                         .HasConversion<string>()
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -337,7 +360,7 @@ namespace Eu.EDelivery.AS4.Common
             modelBuilder.Entity<InException>().Property(ie => ie.PModeId).UsePropertyAccessMode(PropertyAccessMode.Field);
 
             modelBuilder.Entity<OutException>().HasKey(oe => oe.Id).HasName("PK_OutExceptions");
-            modelBuilder.Entity<OutException>().Property(oe => oe.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<OutException>().Property(oe => oe.Id).UseIdentityColumn();
             modelBuilder.Entity<OutException>().Property(oe => oe.Operation)
                         .HasConversion<string>()
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -351,7 +374,7 @@ namespace Eu.EDelivery.AS4.Common
             modelBuilder.Entity<OutException>().Property(oe => oe.PModeId).UsePropertyAccessMode(PropertyAccessMode.Field);
 
             modelBuilder.Entity<SmpConfiguration>().HasKey(sc => sc.Id).HasName("PK_SmpConfigurations");
-            modelBuilder.Entity<SmpConfiguration>().Property(sc => sc.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<SmpConfiguration>().Property(sc => sc.Id).UseIdentityColumn();
             modelBuilder.Entity<SmpConfiguration>().HasIndex(sc => new { sc.ToPartyId, sc.PartyRole, sc.PartyType }).IsUnique().HasName("IX_SmpConfigurations_ToPartyId_PartyRole_PartyType");
             modelBuilder.Entity<SmpConfiguration>().Property(sc => sc.Id).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<SmpConfiguration>().Property(sc => sc.PartyRole).UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -373,7 +396,7 @@ namespace Eu.EDelivery.AS4.Common
             modelBuilder.Entity<SmpConfiguration>().Property(sc => sc.EncryptKeyTransportAlgorithm).UsePropertyAccessMode(PropertyAccessMode.Field);
 
             modelBuilder.Entity<RetryReliability>().HasKey(rr => rr.Id).HasName("PK_RetryReliability");
-            modelBuilder.Entity<RetryReliability>().Property(rr => rr.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<RetryReliability>().Property(rr => rr.Id).UseIdentityColumn();
             modelBuilder.Entity<RetryReliability>().Property(rr => rr.RefToInMessageId).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<RetryReliability>().Property(rr => rr.RefToOutMessageId).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<RetryReliability>().Property(rr => rr.RefToInExceptionId).UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -390,7 +413,7 @@ namespace Eu.EDelivery.AS4.Common
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
 
             modelBuilder.Entity<Journal>().HasKey(j => j.Id).HasName("PK_Journal");
-            modelBuilder.Entity<Journal>().Property(j => j.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<Journal>().Property(j => j.Id).UseIdentityColumn();
             modelBuilder.Entity<Journal>().Property(j => j.Id).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<Journal>().Property(j => j.RefToOutMessageId).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<Journal>().Property(j => j.RefToInMessageId).UsePropertyAccessMode(PropertyAccessMode.Field);
