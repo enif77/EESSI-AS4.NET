@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Management.Automation;
+//using System.Management.Automation;
 
 
 namespace Eu.EDelivery.AS4.UnitTests.Utilities
@@ -10,10 +11,22 @@ namespace Eu.EDelivery.AS4.UnitTests.Utilities
     {
         public static void RunPowershellScript(string command)
         {
-            using (PowerShell instance = PowerShell.Create())
+            //using (PowerShell instance = PowerShell.Create())
+            //{
+            //    instance.AddScript(command);
+            //    instance.Invoke();
+            //}
+
+            using (var process = Process.Start(
+                       new ProcessStartInfo
+                       {
+                           FileName = "powershell.exe",
+                           UseShellExecute = false,
+                           Arguments = command,
+                           CreateNoWindow = true
+                       }))
             {
-                instance.AddScript(command);
-                instance.Invoke();
+                process?.WaitForExit();
             }
         }
 
