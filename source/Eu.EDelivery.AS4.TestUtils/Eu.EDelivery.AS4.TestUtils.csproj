@@ -14,7 +14,7 @@
 	<AssemblyProduct>Eu.EDelivery.AS4.TestUtils</AssemblyProduct>
 	<AssemblyVersion>4.0.1.0</AssemblyVersion>
 	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
-	<TargetFramework>net481</TargetFramework>
+	<TargetFramework>net6.0</TargetFramework>
     <!--<FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
