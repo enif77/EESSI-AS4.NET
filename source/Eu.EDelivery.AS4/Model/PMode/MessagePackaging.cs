@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Script.Serialization;
+//using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
@@ -27,7 +27,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool FromPartySpecified
         {
             get
@@ -41,7 +41,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool ToPartySpecified
         {
             get

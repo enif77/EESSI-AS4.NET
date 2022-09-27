@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Web.Script.Serialization;
+//using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
@@ -128,7 +128,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool UseNRRFormatSpecified => _useNRRFormat.HasValue;
 
         #endregion
@@ -177,12 +177,12 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool UseSoapFaultSpecified => _useSoapFault.HasValue;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool ResponseHttpCodeSpecified => _responseHttpCode.HasValue;
 
         #endregion
@@ -229,7 +229,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool AllowUnknownRootCertificateSpecified => _allowUnknownRootCertificate.HasValue;
 
         #endregion
@@ -253,7 +253,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public PrivateKeyCertificateChoiceType CertificateType { get; set; }
 
         [XmlChoiceIdentifier(nameof(CertificateType))]
@@ -285,7 +285,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool DecryptCertificateInformationSpecified => DecryptCertificateInformation != null;
 
         #endregion
@@ -295,7 +295,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
     public class MessageHandling
     {
         [XmlIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         [Description("Define if the received message must be delivered or forwarded.")]
         public MessageHandlingChoiceType MessageHandlingType { get; set; }
 

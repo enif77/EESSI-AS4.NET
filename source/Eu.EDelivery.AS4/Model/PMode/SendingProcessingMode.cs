@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
-using System.Web.Script.Serialization;
+//using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 using Eu.EDelivery.AS4.Security.References;
 using Eu.EDelivery.AS4.Security.Strategies;
@@ -94,7 +94,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
         }
 
         [XmlIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         [Description("Define if the pmode has the push configuration fixed specified or that it has to be dynamically discovered")]
         public MessageSendHandlingChoiceType MessageHandlingType { get; set; }
 
@@ -148,17 +148,17 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool AllowOverrideSpecified => _allowOverride.HasValue;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool PushConfigurationSpecified => PushConfiguration != null;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool DynamicDiscoverySpecified => DynamicDiscovery != null;
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
@@ -224,7 +224,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         [Description("Public key type")]
         public PublicKeyCertificateChoiceType CertificateType { get; set; }
 
@@ -259,22 +259,22 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool AlgorithmSpecified => !string.IsNullOrWhiteSpace(Algorithm);
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool AlgorithmKeySizeSpecified => AlgorithmKeySize > 0;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool EncryptionCertificateInformationSpecified => EncryptionCertificateInformation != null;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool KeyTransportSpecified => KeyTransport != null;
 
         #endregion
@@ -338,17 +338,17 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool TransportAlgorithmSpecified => !string.IsNullOrWhiteSpace(TransportAlgorithm);
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool DigestAlgorithmSpecified => !string.IsNullOrWhiteSpace(DigestAlgorithm);
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool MgfAlgorithmSpecified => !string.IsNullOrWhiteSpace(MgfAlgorithm);
 
         #endregion
@@ -375,7 +375,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public PrivateKeyCertificateChoiceType CertificateType { get; set; }
 
         [XmlChoiceIdentifier(nameof(CertificateType))]
@@ -421,17 +421,17 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool KeyReferenceMethodSpecified { get; set; }
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool AlgorithmSpecified => !string.IsNullOrWhiteSpace(Algorithm);
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool HashFunctionSpecified => !string.IsNullOrWhiteSpace(HashFunction);
 
         #endregion
@@ -478,7 +478,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool VerifyNRRSpecified => _verifyNRR.HasValue;
 
         #endregion
@@ -601,12 +601,12 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool UseChunkingSpecified => _useChunking.HasValue;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool UseHttpCompressionSpecified => _useHttpCompression.HasValue;
 
         #endregion
@@ -665,7 +665,7 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool TlsVersionSpecified => _tlsVersion.HasValue;
 
         #endregion
@@ -735,17 +735,17 @@ namespace Eu.EDelivery.AS4.Model.PMode
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool UseAS4CompressionSpecified => _useAS4Compression.HasValue;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public bool IsMultiHopSpecified => _isMultiHop.HasValue;
 
         [XmlIgnore]
         [JsonIgnore]
-        [ScriptIgnore]
+        //[ScriptIgnore]
 
         public bool IncludePModeIdSpecified => _includePModeId.HasValue;
 
