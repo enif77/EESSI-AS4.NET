@@ -14,7 +14,7 @@
 	<AssemblyProduct>Eu.EDelivery.AS4.UnitTests</AssemblyProduct>
 	<AssemblyVersion>4.0.1.0</AssemblyVersion>
 	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
-	<TargetFramework>net481</TargetFramework>
+	<TargetFramework>net6.0</TargetFramework>
     <!--<FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -23,6 +23,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
 	<OutputPath>..\..\output\</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!--<ProduceReferenceAssembly>false</ProduceReferenceAssembly>-->
   </PropertyGroup>
 	
   <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -54,7 +55,7 @@
     <!--<Reference Include="System.Drawing" />-->
     <!--<Reference Include="System.Security" />-->
     <!--<Reference Include="System.Transactions" />-->
-    <Reference Include="System.Web" />
+    <!--<Reference Include="System.Web" />-->
     <!--<Reference Include="System.Xml" />-->
     <!--<Reference Include="System.Xml.Linq" />-->
 	<!--<Reference Include="System.Management.Automation">
@@ -269,11 +270,11 @@
     <Compile Include="Xml\XsdValidationFacts.cs" />
   </ItemGroup>-->
 	
-  <ItemGroup>
+  <!--<ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
+  </ItemGroup>-->
 	
   <ItemGroup>
     <ProjectReference Include="..\Eu.EDelivery.AS4.TestUtils\Eu.EDelivery.AS4.TestUtils.csproj" />
@@ -387,6 +388,7 @@
     <PackageReference Include="SimpleHttpMock">
       <Version>1.1.36</Version>
     </PackageReference>
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
     <!--<PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>
     </PackageReference>-->

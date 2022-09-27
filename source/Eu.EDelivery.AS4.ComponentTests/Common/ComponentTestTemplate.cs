@@ -9,6 +9,7 @@ using System.Xml;
 using Eu.EDelivery.AS4.Model.Internal;
 using Eu.EDelivery.AS4.Serialization;
 using Eu.EDelivery.AS4.TestUtils;
+using Microsoft.Data.SqlClient;
 using Polly;
 using Xunit;
 
