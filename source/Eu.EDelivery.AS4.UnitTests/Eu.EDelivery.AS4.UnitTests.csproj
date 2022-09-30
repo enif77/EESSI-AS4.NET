@@ -24,6 +24,7 @@
 	<OutputPath>..\..\output\</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <PreserveCompilationContext>false</PreserveCompilationContext>
+    <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
     <!--<ProduceReferenceAssembly>false</ProduceReferenceAssembly>-->
   </PropertyGroup>
 	
@@ -48,22 +49,6 @@
     <RunXunitTests>false</RunXunitTests>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>-->
-	
-  <ItemGroup>
-    <!--<Reference Include="System" />-->
-    <!--<Reference Include="System.Configuration" />-->
-    <!--<Reference Include="System.Core" />-->
-    <!--<Reference Include="System.Drawing" />-->
-    <!--<Reference Include="System.Security" />-->
-    <!--<Reference Include="System.Transactions" />-->
-    <!--<Reference Include="System.Web" />-->
-    <!--<Reference Include="System.Xml" />-->
-    <!--<Reference Include="System.Xml.Linq" />-->
-	<!--<Reference Include="System.Management.Automation">
-		<HintPath>..\..\..\..\..\..\..\..\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Management.Automation\v4.0_3.0.0.0__31bf3856ad364e35\System.Management.Automation.dll</HintPath>
-	</Reference>-->
-    <!--<Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />-->
-  </ItemGroup>
 
   <!--<ItemGroup>
 	<Compile Include="Agents\GivenAgentFacts.cs" />
@@ -370,7 +355,7 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="FsCheck">
       <Version>2.16.5</Version>
     </PackageReference>
@@ -380,6 +365,8 @@
     <PackageReference Include="Moq">
       <Version>4.7.145</Version>
     </PackageReference>
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>

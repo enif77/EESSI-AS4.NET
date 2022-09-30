@@ -26,6 +26,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
 	<OutputPath>..\..\output\</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
   </PropertyGroup>
 	
   <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -111,6 +112,9 @@
   </ItemGroup>-->
 	
   <ItemGroup>
+	<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+	<PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="AutoMapper">
       <Version>10.1.1</Version>
     </PackageReference>
