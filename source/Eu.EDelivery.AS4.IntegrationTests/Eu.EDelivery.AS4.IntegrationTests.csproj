@@ -15,6 +15,7 @@
 	<AssemblyVersion>4.0.1.0</AssemblyVersion>
 	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
 	<TargetFramework>net6.0</TargetFramework>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
     <!--<FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>

@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
-
-  <PropertyGroup>
+	<PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <TargetFramework>net481</TargetFramework>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
@@ -13,6 +11,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <NETStandardInbox>false</NETStandardInbox>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	  <PreserveCompilationContext>false</PreserveCompilationContext>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

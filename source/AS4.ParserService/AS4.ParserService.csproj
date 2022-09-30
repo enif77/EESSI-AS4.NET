@@ -33,6 +33,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
 	  <DocumentationFile>bin\AS4.ParserService.xml</DocumentationFile>
 	  <NoWarn>CS1591</NoWarn>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
   </PropertyGroup>
 	
   <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

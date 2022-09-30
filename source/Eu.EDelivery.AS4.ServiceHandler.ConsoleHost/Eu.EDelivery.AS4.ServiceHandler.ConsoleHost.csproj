@@ -14,6 +14,7 @@
 	<AssemblyVersion>4.0.1.0</AssemblyVersion>
 	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
 	<TargetFramework>net481</TargetFramework>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
     <PlatformTarget>x64</PlatformTarget>
     <!--<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <FileAlignment>512</FileAlignment>

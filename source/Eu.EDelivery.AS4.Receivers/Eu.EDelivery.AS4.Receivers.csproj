@@ -28,6 +28,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>-->
 	<OutputPath>..\..\output\</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
   </PropertyGroup>
 	
   <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

@@ -23,6 +23,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
 	<OutputPath>..\..\output\</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
     <!--<ProduceReferenceAssembly>false</ProduceReferenceAssembly>-->
   </PropertyGroup>
 	
