@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using System.Net;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
 using Eu.EDelivery.AS4.Http;
@@ -70,7 +72,11 @@ namespace Eu.EDelivery.AS4.TestUtils.Stubs
         /// <returns></returns>
         public HttpWebRequest Request(string url, string contentType)
         {
+            // https://stackoverflow.com/questions/71112932/can-not-instantiate-proxy-of-class-system-net-httpwebrequest-could-not-find-a
             var request = new Mock<HttpWebRequest>();
+            //var request = new Mock<HttpWebRequest>(
+            //    new SerializationInfo(typeof(string), new FormatterConverter()),
+            //    new StreamingContext(new StreamingContextStates()));
 
             request.Setup(r => r.GetRequestStreamAsync()).ReturnsAsync(Stream.Null);
             request.Setup(r => r.GetRequestStream()).Returns(Stream.Null);
