@@ -91,6 +91,8 @@ namespace Eu.EDelivery.AS4.UnitTests.Security.Encryption
         {
             byte[] encryptionKey;
 
+            // TODO: RijndaelManaged is obsolete!
+            // https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rijndael?view=net-6.0
             using (var generator = new RijndaelManaged { BlockSize = 256 })
             {
                 encryptionKey = generator.Key;
