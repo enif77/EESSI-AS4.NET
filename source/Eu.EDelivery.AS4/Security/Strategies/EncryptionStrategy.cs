@@ -106,9 +106,16 @@ namespace Eu.EDelivery.AS4.Security.Strategies
 
         private static byte[] GenerateSymmetricKey(int keySize)
         {
-            using (var rijn = new RijndaelManaged { KeySize = keySize })
+            //using (var rijn = new RijndaelManaged { KeySize = keySize })
+            //{
+            //    return rijn.Key;
+            //}
+
+            using (var aes = Aes.Create("AES"))
             {
-                return rijn.Key;
+                aes.KeySize = keySize;
+
+                return aes.Key;
             }
         }
 

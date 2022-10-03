@@ -93,8 +93,12 @@ namespace Eu.EDelivery.AS4.UnitTests.Security.Encryption
 
             // TODO: RijndaelManaged is obsolete!
             // https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rijndael?view=net-6.0
-            using (var generator = new RijndaelManaged { BlockSize = 256 })
+            //using (var generator = new RijndaelManaged { BlockSize = 256 })
+            //using (var generator = new RijndaelManaged() { KeySize = 256 })
+            using (var generator = Aes.Create("AES"))
             {
+                generator.KeySize = 256;
+
                 encryptionKey = generator.Key;
             }
 
