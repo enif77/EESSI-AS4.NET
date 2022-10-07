@@ -111,7 +111,7 @@
       <Version>2.0.1</Version>
     </PackageReference>-->
     <PackageReference Include="Wiry.Base32" Version="1.1.1" />
-	<PackageReference Include="FTTLib.dll" Version="1.1.3" />
+	<PackageReference Include="FTTLib.dll" Version="1.1.4" />
   </ItemGroup>
 	
   <!--<ItemGroup>
