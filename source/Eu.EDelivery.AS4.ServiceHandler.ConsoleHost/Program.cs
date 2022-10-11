@@ -174,19 +174,15 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
 
             private static Task StartPayloadServiceInProcess(CancellationToken cancellationToken)
             {
-                return Task.CompletedTask;
+                if (!Config.Instance.PayloadServiceInProcess)
+                {
+                    return Task.CompletedTask;
+                }
 
-                // TODO: Reenable this once PayloadService is updated to dotnet 6.0.
+                Task task = Task.Factory.StartNew(() => PayloadService.Program.Start(cancellationToken), cancellationToken);
+                task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
 
-                //if (!Config.Instance.PayloadServiceInProcess)
-                //{
-                //    return Task.CompletedTask;
-                //}
-
-                //Task task = Task.Factory.StartNew(() => PayloadService.Program.Start(cancellationToken), cancellationToken);
-                //task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
-
-                //return task;
+                return task;
             }
 
             private static void LogExceptions(Task task)

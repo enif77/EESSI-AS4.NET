@@ -68,7 +68,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Eu.EDelivery.AS4\Eu.EDelivery.AS4.csproj" />
     <!--<ProjectReference Include="..\Eu.EDelivery.AS4.Fe\Eu.EDelivery.AS4.Fe.csproj" />-->
-    <!--<ProjectReference Include="..\Eu.EDelivery.AS4.PayloadService\Eu.EDelivery.AS4.PayloadService.csproj" />-->
+    <ProjectReference Include="..\Eu.EDelivery.AS4.PayloadService\Eu.EDelivery.AS4.PayloadService.csproj" />
     <ProjectReference Include="..\Eu.EDelivery.AS4.Receivers\Eu.EDelivery.AS4.Receivers.csproj" />
     <ProjectReference Include="..\Eu.EDelivery.AS4.ServiceHandler\Eu.EDelivery.AS4.ServiceHandler.csproj" />
     <ProjectReference Include="..\Eu.EDelivery.AS4.Steps\Eu.EDelivery.AS4.Steps.csproj" />

@@ -45,9 +45,9 @@ namespace Eu.EDelivery.AS4.PayloadService
             var host = hostBuilder
                     .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseIISIntegration()
-                    .UseStartup<Startup>()
-                    .UseApplicationInsights();
+                    //.UseIISIntegration()
+                    .UseStartup<Startup>();
+                    //.UseApplicationInsights();
 
             int retentionDays = config.GetValue("RetentionPeriod", defaultValue: 90);            
             host.ConfigureServices(services => 

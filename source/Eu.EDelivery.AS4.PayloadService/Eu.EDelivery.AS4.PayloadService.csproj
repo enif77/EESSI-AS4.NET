@@ -1,63 +1,62 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-    <TargetFramework>net481</TargetFramework>
-    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
-    <DefaultItemExcludes>$(DefaultItemExcludes);ui/node_modules/**</DefaultItemExcludes>
+    <!--<RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
+    <TargetFramework>net6.0</TargetFramework>
+    <!--<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>-->
+    <!--<DefaultItemExcludes>$(DefaultItemExcludes);ui/node_modules/**</DefaultItemExcludes>-->
     <OutputPath>..\..\output\</OutputPath>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>..\..\output\Eu.EDelivery.AS4.PayloadService.xml</DocumentationFile>
-    <PlatformTarget>x64</PlatformTarget>
+    <!--<PlatformTarget>x64</PlatformTarget>-->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <NETStandardInbox>false</NETStandardInbox>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-	  <PreserveCompilationContext>false</PreserveCompilationContext>
+    <!--<NETStandardInbox>false</NETStandardInbox>-->
+    <!--<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>-->
+	  <!--<PreserveCompilationContext>false</PreserveCompilationContext>-->
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>DEBUG;TRACE;NET462;NETCOREAPP2_0</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
+  </PropertyGroup>-->
+  <!--<ItemGroup>
     <Folder Include="wwwroot\" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
+	<PackageReference Include="NLog" Version="5.0.4" />
+    <!--<PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.3" />-->
+    <!--<PackageReference Include="Microsoft.AspNet.SignalR.Owin" Version="1.2.2" />-->
 
-    <PackageReference Include="NLog" Version="5.0.4" />
-    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.2.2" />
-    <PackageReference Include="Microsoft.AspNet.SignalR.Owin" Version="1.2.2" />
-
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.29" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.29" />
-    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
-    <PackageReference Include="HttpMultipartParser" Version="7.0.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.0" />
+    <!--<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.9" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />-->
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />-->
+    <!--<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />-->
+    <!--<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />-->
+    <!--<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />-->
+    <!--<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />-->
+    <!--<PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />-->
+    <!--<PackageReference Include="HttpMultipartParser" Version="7.0.0" />-->
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.23.1" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
+    <!--<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.23.1" />-->
+    <!--<PackageReference Include="NETStandard.Library" Version="2.0.3" />-->
+    <!--<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />-->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <!--<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />-->
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <Reference Include="System.Configuration" />
+    <!--<Reference Include="System.Configuration" />-->
   </ItemGroup>
-  <ItemGroup>
+  <!--<ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
     <Content Update="appsettings.payloadservice.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

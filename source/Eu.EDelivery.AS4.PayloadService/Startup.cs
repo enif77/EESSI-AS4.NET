@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using Eu.EDelivery.AS4.PayloadService.Infrastructure.SwaggerUtils;
 using Eu.EDelivery.AS4.PayloadService.Persistance;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace Eu.EDelivery.AS4.PayloadService
 {
@@ -59,8 +60,10 @@ namespace Eu.EDelivery.AS4.PayloadService
             //loggerFactory.AddDebug();
 
             app.UseSwagger();
-
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", $"AS4.NET Payload Service Web API V{AssemblyVersion}"); });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", $"AS4.NET Payload Service Web API V{AssemblyVersion}");
+            });
 
             app.UseMvc();
         }
@@ -81,32 +84,37 @@ namespace Eu.EDelivery.AS4.PayloadService
             services.AddSingleton<IPayloadPersister>(
                 provider => new FilePayloadPersister(provider.GetService<IHostingEnvironment>()));
 
-            // Add framework services.
-            services.AddMvc();
+            services.AddApplicationInsightsTelemetry();
 
+            // Add framework services.
+            services.AddMvc(x => x.EnableEndpointRouting = false);
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(
                 options =>
                 {
                     options.SwaggerDoc(
                         "v1",
-                        new Info
+                        new OpenApiInfo
                         {
                             Title = "AS4.NET Payload Service",
                             Version = $"v{AssemblyVersion}",
                             Description = "A Web API to upload and download payloads in a persistent manner.",
-                            TermsOfService = "None",
-                            Contact = new Contact { Name = "DG EMPL" },
+                            TermsOfService = new Uri("https://joinup.ec.europa.eu/community/eupl/tos"),
+                            Contact = new OpenApiContact { Name = "DG EMPL" },
                             License =
-                                new License
+                                new OpenApiLicense
                                 {
                                     Name = "EUPL License v1.1.",
-                                    Url = "https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11"
+                                    Url = new Uri("https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11")
                                 }
                         });
 
                     options.OperationFilter<FileUploadOperation>();
                     options.IncludeXmlComments(GetXmlCommentsPath());
-                });
+                }
+                );
         }
 
         private static string GetXmlCommentsPath()
