@@ -156,29 +156,37 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
 
             private static Task StartFeInProcess(CancellationToken cancellationToken)
             {
-                if (!Config.Instance.FeInProcess)
-                {
-                    return Task.CompletedTask;
-                }
+                return Task.CompletedTask;
 
-                Task task = Task.Factory
-                    .StartNew(() => Fe.Program.StartInProcess(cancellationToken), cancellationToken);
-                task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
+                // TODO: Reenable this once FE is updated to dotnet 6.0.
 
-                return task;
+                //if (!Config.Instance.FeInProcess)
+                //{
+                //    return Task.CompletedTask;
+                //}
+
+                //Task task = Task.Factory
+                //    .StartNew(() => Fe.Program.StartInProcess(cancellationToken), cancellationToken);
+                //task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
+
+                //return task;
             }
 
             private static Task StartPayloadServiceInProcess(CancellationToken cancellationToken)
             {
-                if (!Config.Instance.PayloadServiceInProcess)
-                {
-                    return Task.CompletedTask;
-                }
+                return Task.CompletedTask;
 
-                Task task = Task.Factory.StartNew(() => PayloadService.Program.Start(cancellationToken), cancellationToken);
-                task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
+                // TODO: Reenable this once PayloadService is updated to dotnet 6.0.
 
-                return task;
+                //if (!Config.Instance.PayloadServiceInProcess)
+                //{
+                //    return Task.CompletedTask;
+                //}
+
+                //Task task = Task.Factory.StartNew(() => PayloadService.Program.Start(cancellationToken), cancellationToken);
+                //task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
+
+                //return task;
             }
 
             private static void LogExceptions(Task task)
