@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Eu.EDelivery.AS4.PerformanceTests.LargeMessages;
+using Microsoft.Data.SqlClient;
 using DirectoryInfo = System.IO.DirectoryInfo;
 
 namespace Eu.EDelivery.AS4.PerformanceTests
