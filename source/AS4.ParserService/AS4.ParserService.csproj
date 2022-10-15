@@ -6,25 +6,25 @@
     <!--<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion />-->
-    <SchemaVersion>2.0</SchemaVersion>
+    <!--<SchemaVersion>2.0</SchemaVersion>-->
     <!--<ProjectGuid>{51BD8CCB-9191-4285-A930-F347AF8A9797}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>-->
-    <OutputType>Library</OutputType>
+    <!--<OutputType>Library</OutputType>-->
     <!--<AppDesignerFolder>Properties</AppDesignerFolder>-->
-    <RootNamespace>AS4.ParserService</RootNamespace>
-    <AssemblyName>AS4.ParserService</AssemblyName>
-	<AssemblyTitle>AS4.ParserService</AssemblyTitle>
-	<AssemblyProduct>AS4.ParserService</AssemblyProduct>
+    <!--<RootNamespace>AS4.ParserService</RootNamespace>-->
+    <!--<AssemblyName>AS4.ParserService</AssemblyName>-->
+	<!--<AssemblyTitle>AS4.ParserService</AssemblyTitle>-->
+	<!--<AssemblyProduct>AS4.ParserService</AssemblyProduct>-->
 	<AssemblyVersion>4.0.1.0</AssemblyVersion>
 	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
-	<TargetFramework>net481</TargetFramework>
-    <UseIISExpress>true</UseIISExpress>
+	<TargetFramework>net6.0</TargetFramework>
+    <!--<UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile />
+    <UseGlobalApplicationHostFile />-->
     <!--<NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,8 +32,8 @@
     <TargetFrameworkProfile />
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
 	  <DocumentationFile>bin\AS4.ParserService.xml</DocumentationFile>
-	  <NoWarn>CS1591</NoWarn>
-    <PreserveCompilationContext>false</PreserveCompilationContext>
+	  <!--<NoWarn>CS1591</NoWarn>-->
+    <!--<PreserveCompilationContext>false</PreserveCompilationContext>-->
   </PropertyGroup>
 	
   <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -58,23 +58,6 @@
     <DocumentationFile>bin\AS4.ParserService.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>-->
-	
-  <ItemGroup>
-    <!--<Reference Include="Microsoft.CSharp" />-->
-    <!--<Reference Include="System.Web.DynamicData" />-->
-    <!--<Reference Include="System.Web.Entity" />-->
-    <!--<Reference Include="System.Web.ApplicationServices" />-->
-    <!--<Reference Include="System.ComponentModel.DataAnnotations" />-->
-    <!--<Reference Include="System" />-->
-    <!--<Reference Include="System.Data" />-->
-    <!--<Reference Include="System.Drawing" />-->
-    <Reference Include="System.Web" />
-    <!--<Reference Include="System.Xml" />-->
-    <!--<Reference Include="System.Configuration" />-->
-    <!--<Reference Include="System.Web.Services" />-->
-    <!--<Reference Include="System.EnterpriseServices" />-->
-    <!--<Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />-->
-  </ItemGroup>
 	
   <!--<ItemGroup>
     <Content Include="Global.asax" />
@@ -126,9 +109,9 @@
     </None>
   </ItemGroup>-->
 	
-  <ItemGroup>
+  <!--<ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
+  </ItemGroup>-->
 	
   <ItemGroup>
     <ProjectReference Include="..\Eu.EDelivery.AS4\Eu.EDelivery.AS4.csproj" />
@@ -145,12 +128,21 @@
     <PackageReference Include="Microsoft.AspNet.WebApi">
       <Version>5.2.9</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="MimeSharp">
       <Version>1.0.0</Version>
     </PackageReference>
-    <PackageReference Include="Swashbuckle">
+    <!--<PackageReference Include="Swashbuckle">
       <Version>5.6.0</Version>
-    </PackageReference>
+    </PackageReference>-->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Content Update="appsettings.parserservice.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 	
   <!--<PropertyGroup>

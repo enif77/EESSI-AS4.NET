@@ -1,20 +1,23 @@
 ﻿using System;
-using System.Net.Http;
 using System.Text;
+
+using Microsoft.AspNetCore.Http;
+
 
 namespace AS4.ParserService.Infrastructure
 {
     internal static class CertificateInfoRetriever
     {
-        internal static CertificatePwdInformation RetrieveCertificatePassword(HttpRequestMessage request)
+        internal static CertificatePwdInformation RetrieveCertificatePassword(HttpRequest request)
         {
-            if (request.Headers.Authorization == null)
+            if (request.Headers.Authorization.Count == 0)
             {
                 return null;
             }
+
             try
             {
-                string basicParameter = Encoding.UTF8.GetString(Convert.FromBase64String(request.Headers.Authorization.Parameter));
+                string basicParameter = Encoding.UTF8.GetString(Convert.FromBase64String(request.Headers.Authorization[0]));
 
                 int index = basicParameter.IndexOf(':');
 

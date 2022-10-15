@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http;
+
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+
 using AS4.ParserService.Infrastructure;
 using AS4.ParserService.Models;
 using AS4.ParserService.Services;
-using Swashbuckle.Swagger.Annotations;
+
 
 namespace AS4.ParserService.Controllers
 {
-    public class DecodeController : ApiController
+    public class DecodeController : Controller
     {
         /// <summary>
         /// Verify if the Decode service is up.
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        [HttpGet]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        public IActionResult Get()
         {
             return Ok("AS4.NET Decode");
         }
@@ -27,23 +32,22 @@ namespace AS4.ParserService.Controllers
         /// the received AS4 Message</param>
         /// <returns></returns>
         [HttpPost]
-        [SwaggerResponse(HttpStatusCode.OK,
-            description:
-            "When the Decode process succeeded, a DecodeResult that contains the Deliver information, payloads and the responding signalmessage is returned.",
+        [SwaggerResponse((int)HttpStatusCode.OK,
+            description: "When the Decode process succeeded, a DecodeResult that contains the Deliver information, payloads and the responding signalmessage is returned.",
             type: typeof(DecodeResult))]
-        [SwaggerResponse(HttpStatusCode.Accepted, description: "The message has been accepted")]
-        [SwaggerResponse(HttpStatusCode.BadRequest,
+        [SwaggerResponse((int)HttpStatusCode.Accepted, description: "The message has been accepted")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest,
             description: "When the given DecodeMessageInfo object does not contain a Receiving PMode or a Responding PMode, a Bad Request is returned")]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, description: "Something went wrong while creating the requested AS4 Message",
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError, description: "Something went wrong while creating the requested AS4 Message",
             type: typeof(Exception))]
-        public async Task<IHttpActionResult> Post([FromBody] DecodeMessageInfo decodeInfo)
+        public async Task<IActionResult> Post([FromBody] DecodeMessageInfo decodeInfo)
         {
             if (decodeInfo == null)
             {
                 return BadRequest();
             }
 
-            var certificateInformation = CertificateInfoRetriever.RetrieveCertificatePassword(this.Request);
+            var certificateInformation = CertificateInfoRetriever.RetrieveCertificatePassword(Request);
 
             decodeInfo.DecryptionCertificatePassword = certificateInformation.DecryptionPassword;
             decodeInfo.SigningResponseCertificatePassword = certificateInformation.SigningPassword;
@@ -63,7 +67,8 @@ namespace AS4.ParserService.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                //return InternalServerError(ex);
+                return StatusCode(500, ex);
             }
         }
     }
