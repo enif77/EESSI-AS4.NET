@@ -2,20 +2,20 @@
 
 This codebase is bit old so you'll need some old tech to build it:
 
-- .NET Framework 4.8.1 (updated from the original version 4.6.2)
-- .NET Core 2.1.402
-- NodeJS 9.11.2
-- Yarn 1.22.17
+- .NET 6.0 (updated from the original version 4.6.2)
+- .NET Core 2.1.402 (not necessary anymore!)
+- NodeJS 8.17.0
+- Yarn 1.22.17+
 - nvm 1.1.9 (when you need to run multiple versions of NodeJS only)
 - Python 2.7.18 (when you are building node-saas from source only)
 
-I am using Visual Studio 2022 to build this.
+I am using Visual Studio 2022 and JetBrains Rider 2022.2.x to build this.
 
 ## Building for dev
 
 To make it runnable from VS, use these steps:
 
-- Install VS2022 with .NET Framework 4.8.1 SDK and .NET Core SDK 2.1.402.
+- Install VS2022 with .NET 6.0 SDK.
 - Checkout the source code from [https://github.com/enif77/EESSI-AS4.NET](https://github.com/enif77/EESSI-AS4.NET).
 - Open the `AS4.sln` in the VS2022.
 - Build the solution.
@@ -28,8 +28,8 @@ Now you can run the `Eu.EDelivery.AS4.ServiceHandler.ConsoleHost` project to pla
 ### How to compile the frontend
 
 - For running multiple NodeJS versions I am using NVM: [nvm-windows](https://github.com/coreybutler/nvm-windows).
-- You need NodeJS >= 4 a <= 9 (I used the version 9.11.2).
-- Compilation is controlled by the Yarn 1.x (I used version 1.22.17)
+- You need NodeJS >= 4 a < 9 (I used the version 8.17.0).
+- Compilation is controlled by the Yarn 1.x (I used version 1.22.19)
 - Go to the `source\Eu.EDelivery.AS4.Fe\ui` directory and run these commands:
 
 ```
@@ -88,74 +88,17 @@ A configuration- and usermanual can be found [online](https://ec.europa.eu/cefdi
 
 ## Features
 
-### v1.0.0
+### v5.0.0 (WIP)
 
-- One-Way/Push message exchange pattern
-- XML based configuration
-- XML based PMode configuration
-- Dynamic PMode override
-- Multiple submit, notify and deliver agents
-- FILE based receivers and senders
-- Signing and encryption using WS-Security
-- AS4 Compression
-- AS4 Reception Awareness and Retry
-- AS4 Duplicate Detection and Elimination
+- Updated to .NET 6.0.
+- All dependencies updated to the latest versions or removed.
+- General code and build cleanup.
 
-### v1.1.0
+### v4.0.1
 
-- Submit, deliver and notify via HTTP protocol
-- Submit and deliver attachments via HTTP protocol
-- One-Way/Pull pattern as initiator
-- Support for sub channels in One-Way/Pull pattern
-- Support for multi-hop AS4 profile
-- Support for TLS client certificates
-- Performance tuning for large messages, up to 2GB
-- Performance tuning for high volume processing
-
-### v2.0.0
-
-- Web interface for configuration
-- Web interface for monitoring
-- Web interface for user management
-- Web interface for testing
-- One-Way/Pull pattern as responder
-- Support for sub-channels
-- Support for message forwarding
-- Support for MEP bridging
-- Support for PullRequest authorization
-- Support for SMP/SML dynamic discovery
-- Support for TLS server side
-- Continued performance tuning for large messages, up to 3GB
-- Continued performance tuning for high volume processing
-- Improvements to the internal messaging engine
-
-### v2.0.1
-
-- Configurable payload naming when delivering on filesystem
-- Continued performance tuning for large messages and high volume processing
-
-### v3.0.0
-
-- Intermediary MSH functionality with message forwarding including MEP bridging support
-- Static Submit support
-- Possibility to run the <span>AS4.NET</span> MSH as a Windows Service
-- Improved Dynamic Discovery implementation
-- Dynamic Forwarding support
-- Improved high availability support
-- Support for Non-Repudiation of Receipt verification
-- Support for automatic Message Cleanup
-- Optionally allow that a message is signed with a certificate coming from an unknown CA authority when verifying message signatures
-- Web interface for SMP Routing Configuration
-- Improvements in the web interface for configuration
-- Improvements to the internal messaging engine
-
-### v3.1.0
-
-- Retry functionality for deliver operation
-- Retry functionality for notify operation
-- Static Receive support
-- Improvements in the web interface for configuration
-- Improvements in the internal messaging engine
+- DynamicDiscovery settings that can be defined in the Sending PMode are no longer case-sensitive
+- Bugfix: Send retry-functionality (receptionawareness) was not working in v4.0.0 when `IsMultihop` was enabled in the Sending PMode.  This issue is fixed in v4.0.1.
+- Bugfix: When AS4.NET v4.0.0 is configured to receive messages via pulling, response signal messages were created but were never sent.  This issue is fixed in v4.0.1.
 
 ### v4.0.0
 
@@ -174,11 +117,74 @@ A configuration- and usermanual can be found [online](https://ec.europa.eu/cefdi
 
 > This version doesn't support **Sending PModes** anymore as a way to respond to AS4 messages but uses the **Receiving PMode** for this. Please update your **Receiving PModes**, for more information see: [Remove Sending PMode as responding PMode](output/doc/wiki/runtime/configuration/remove-response-pmode.md).
 
-### v4.0.1
+### v3.1.0
 
-- DynamicDiscovery settings that can be defined in the Sending PMode are no longer case-sensitive
-- Bugfix: Send retry-functionality (receptionawareness) was not working in v4.0.0 when `IsMultihop` was enabled in the Sending PMode.  This issue is fixed in v4.0.1.
-- Bugfix: When AS4.NET v4.0.0 is configured to receive messages via pulling, response signal messages were created but were never sent.  This issue is fixed in v4.0.1.
+- Retry functionality for deliver operation
+- Retry functionality for notify operation
+- Static Receive support
+- Improvements in the web interface for configuration
+- Improvements in the internal messaging engine
+
+### v3.0.0
+
+- Intermediary MSH functionality with message forwarding including MEP bridging support
+- Static Submit support
+- Possibility to run the <span>AS4.NET</span> MSH as a Windows Service
+- Improved Dynamic Discovery implementation
+- Dynamic Forwarding support
+- Improved high availability support
+- Support for Non-Repudiation of Receipt verification
+- Support for automatic Message Cleanup
+- Optionally allow that a message is signed with a certificate coming from an unknown CA authority when verifying message signatures
+- Web interface for SMP Routing Configuration
+- Improvements in the web interface for configuration
+- Improvements to the internal messaging engine
+
+### v2.0.1
+
+- Configurable payload naming when delivering on filesystem
+- Continued performance tuning for large messages and high volume processing
+
+### v2.0.0
+
+- Web interface for configuration
+- Web interface for monitoring
+- Web interface for user management
+- Web interface for testing
+- One-Way/Pull pattern as responder
+- Support for sub-channels
+- Support for message forwarding
+- Support for MEP bridging
+- Support for PullRequest authorization
+- Support for SMP/SML dynamic discovery
+- Support for TLS server side
+- Continued performance tuning for large messages, up to 3GB
+- Continued performance tuning for high volume processing
+- Improvements to the internal messaging engine
+
+### v1.1.0
+
+- Submit, deliver and notify via HTTP protocol
+- Submit and deliver attachments via HTTP protocol
+- One-Way/Pull pattern as initiator
+- Support for sub channels in One-Way/Pull pattern
+- Support for multi-hop AS4 profile
+- Support for TLS client certificates
+- Performance tuning for large messages, up to 2GB
+- Performance tuning for high volume processing
+
+### v1.0.0
+
+- One-Way/Push message exchange pattern
+- XML based configuration
+- XML based PMode configuration
+- Dynamic PMode override
+- Multiple submit, notify and deliver agents
+- FILE based receivers and senders
+- Signing and encryption using WS-Security
+- AS4 Compression
+- AS4 Reception Awareness and Retry
+- AS4 Duplicate Detection and Elimination
 
 ## Third Party software
 
