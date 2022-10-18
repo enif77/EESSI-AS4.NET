@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Text.Json.Serialization;
 using Eu.EDelivery.AS4.Fe.Authentication;
 using Eu.EDelivery.AS4.Fe.Controllers;
 using Eu.EDelivery.AS4.Fe.Logging;
@@ -18,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -61,7 +64,7 @@ namespace Eu.EDelivery.AS4.Fe
 
             services
                 .AddMvc(options => { options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build())); })
-                .AddJsonOptions(options => { options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; });
+                .AddJsonOptions(options => { options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull; });
 
             services.AddSingleton<ILogging, Logging.Logging>();
             services.AddScoped<ISettingsSource, FileSettingsSource>();
@@ -84,9 +87,13 @@ namespace Eu.EDelivery.AS4.Fe
         /// <param name="app">The application.</param>
         /// <param name="env">The env.</param>
         /// <param name="loggerFactory">The logger factory.</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration);
+            //loggerFactory.AddConsole(Configuration);
+            loggerFactory.AddProvider(
+                new ConsoleLoggerProvider(
+                    new DummyConsoleLoggerOptionsMonitor(LogLevel.Debug)));
+
             app.ExecuteStartupServices();
             app.Use(async (context, next) =>
             {
@@ -166,6 +173,36 @@ namespace Eu.EDelivery.AS4.Fe
             });
 
             app.UseMvc();
+        }
+    }
+
+
+    class DummyConsoleLoggerOptionsMonitor : IOptionsMonitor<ConsoleLoggerOptions>
+    {
+        private readonly ConsoleLoggerOptions option = new ConsoleLoggerOptions();
+
+        public DummyConsoleLoggerOptionsMonitor(LogLevel level)
+        {
+            option.LogToStandardErrorThreshold = level;
+        }
+
+        public ConsoleLoggerOptions Get(string name)
+        {
+            return this.option;
+        }
+
+        public IDisposable OnChange(Action<ConsoleLoggerOptions, string> listener)
+        {
+            return new DummyDisposable();
+        }
+
+        public ConsoleLoggerOptions CurrentValue => this.option;
+
+        private sealed class DummyDisposable : IDisposable
+        {
+            public void Dispose()
+            {
+            }
         }
     }
 }

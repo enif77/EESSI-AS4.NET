@@ -1,49 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-    <TargetFramework>net481</TargetFramework>
+    <!--<RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
+    <TargetFramework>net6.0</TargetFramework>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
     <DefaultItemExcludes>$(DefaultItemExcludes);ui/node_modules/**</DefaultItemExcludes>
     <OutputPath>..\..\output\</OutputPath>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>..\..\output\Eu.EDelivery.AS4.Fe.xml</DocumentationFile>
-    <PlatformTarget>x64</PlatformTarget>
-    <NETStandardInbox>false</NETStandardInbox>
+    <!--<PlatformTarget>x64</PlatformTarget>-->
+    <!--<NETStandardInbox>false</NETStandardInbox>-->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <!--<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>-->
+    <!--<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>-->
     <ApplicationIcon>favicon.ico</ApplicationIcon>
-	  <PreserveCompilationContext>false</PreserveCompilationContext>
+	  <!--<PreserveCompilationContext>false</PreserveCompilationContext>-->
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+
+  <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DefineConstants>TRACE</DefineConstants>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningsAsErrors>NU1605</WarningsAsErrors>
     <NoWarn>1701;1702; 1591</NoWarn>
-  </PropertyGroup>
+  </PropertyGroup>-->
+
   <ItemGroup>
     <Content Remove="ui\tsconfig.json" />
     <Content Remove="ui\tsconfig.webpack.json" />
   </ItemGroup>
+
   <ItemGroup>
     <None Include="ui\tsconfig.json" />
     <None Include="ui\tsconfig.webpack.json" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Eu.EDelivery.AS4\Eu.EDelivery.AS4.csproj" />
     <ProjectReference Include="..\Eu.EDelivery.AS4.Receivers\Eu.EDelivery.AS4.Receivers.csproj" />
     <ProjectReference Include="..\Eu.EDelivery.AS4.ServiceHandler\Eu.EDelivery.AS4.ServiceHandler.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="6.2.1" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <!--<PackageReference Include="NETStandard.Library" Version="2.0.3" />-->
     <PackageReference Include="NLog" Version="5.0.4" />
-    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.3" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Owin" Version="1.2.2" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
@@ -57,6 +62,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.29" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.29" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.29" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.29" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.29" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.29" />
@@ -73,11 +79,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
-    <Reference Include="System.Configuration" />
+    <!--<Reference Include="System.Configuration" />-->
   </ItemGroup>
+
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
+
   <ItemGroup>
     <Content Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
