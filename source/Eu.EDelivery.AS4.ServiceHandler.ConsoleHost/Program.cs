@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
     {
         public static void Main()
         {
-            Console.SetWindowSize(Console.LargestWindowWidth, Console.WindowHeight);
+            //Console.SetWindowSize(Console.LargestWindowWidth, Console.WindowHeight);
 
             ShowHelp();
 
@@ -101,7 +102,7 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
         {
             try
             {
-                return Kernel.CreateFromSettings(@"config\settings.xml");
+                return Kernel.CreateFromSettings(Path.Combine("config", "settings.xml"));
             }
             catch (Exception ex)
             {
