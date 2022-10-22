@@ -5,5 +5,8 @@
 }
 
 add-probing "..\output\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.dll.config"
-add-probing "..\output\Eu.EDelivery.AS4.WindowsService.dll.config"
+
+# WindowsService projects wont be supported. Removed.
+#add-probing "..\output\Eu.EDelivery.AS4.WindowsService.dll.config"
+
 add-probing "..\output\Eu.EDelivery.AS4.Fe.dll.config"

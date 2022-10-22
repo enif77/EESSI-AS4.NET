@@ -40,7 +40,9 @@ $msbuild = 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Curr
 # }
 
 Set-Location output
-& '../scripts/add-probing.ps1'
+# add-probing removed, because it is not clear, if it is needed.
+#& '../scripts/add-probing.ps1'
+
 & '../scripts/stagingscript.ps1'
 Set-Location ..
 
