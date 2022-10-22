@@ -27,8 +27,8 @@ MkDir .\staging\samples\messages
 MkDir .\staging\samples\pmodes
 MkDir .\staging\samples\pmodes\eessi
 MkDir .\staging\scripts
-MkDir .\staging\bin\x64
-MkDir .\staging\bin\x86
+#MkDir .\staging\bin\x64
+#MkDir .\staging\bin\x86
 
 Remove-Item .\*.pdb
 Remove-Item .\*.xml -exclude Eu.EDelivery.AS4.Fe.xml, Eu.EDelivery.AS4.PayloadService.xml
@@ -42,19 +42,30 @@ Remove-Item .\*Tests.*
 Remove-Item .\*TestUtils.*
 
 Copy-Item -Path .\assets\*.* .\staging\assets\
+
+Copy-Item -Path .\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.dll .\staging\
+Copy-Item -Path .\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.dll.config .\staging\
 Copy-Item -Path .\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.exe .\staging\
-Copy-Item -Path .\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.exe.config .\staging\
+Copy-Item -Path .\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.runtimeconfig.json .\staging\
+
+Copy-Item -Path .\Eu.EDelivery.AS4.Fe.dll .\staging\
+Copy-Item -Path .\Eu.EDelivery.AS4.Fe.dll.config .\staging\
 Copy-Item -Path .\Eu.EDelivery.AS4.Fe.exe .\staging\
-Copy-Item -Path .\Eu.EDelivery.AS4.Fe.exe.config .\staging\
+Copy-Item -Path .\Eu.EDelivery.AS4.Fe.runtimeconfig.json .\staging\
 Copy-Item -Path .\Eu.EDelivery.AS4.Fe.xml .\staging\bin
+
+Copy-Item -Path .\Eu.EDelivery.AS4.PayloadService.dll .\staging\bin\
+Copy-Item -Path .\Eu.EDelivery.AS4.PayloadService.dll.config .\staging\bin\
 Copy-Item -Path .\Eu.EDelivery.AS4.PayloadService.exe .\staging\bin\
-Copy-Item -Path .\Eu.EDelivery.AS4.PayloadService.exe.config .\staging\bin\
+Copy-Item -Path .\Eu.EDelivery.AS4.PayloadService.runtimeconfig.json .\staging\bin\
 Copy-Item -Path .\Eu.EDelivery.AS4.PayloadService.xml .\staging\bin\
 Copy-Item -Path ..\source\Eu.EDelivery.AS4.PayloadService\appsettings.payloadservice.json .\staging\bin\
-Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.exe .\staging\
-Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.exe.config .\staging\
-Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.SystemTray.exe .\staging\bin\
-Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.SystemTray.exe.config .\staging\bin\
+
+#Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.exe .\staging\
+#Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.exe.config .\staging\
+#Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.SystemTray.exe .\staging\bin\
+#Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.SystemTray.exe.config .\staging\bin\
+
 Copy-Item -Path ".\doc\AS4.NET - online documentation.url" .\staging\documentation\
 
 If (Test-Path .\Eu.EDelivery.AS4.dll.config) {
@@ -64,8 +75,8 @@ If (Test-Path .\Eu.EDelivery.AS4.dll.config) {
 $excludedLibraries = @("ModuleInit.dll", "NSubstitute.dll", "SimpleHttpMock.dll", "FsCheck.dll", "FsCheck.Xunit.dll", "FSharp.Core.dll")
 
 Copy-Item -Exclude $excludedLibraries -Path .\*.dll -Destination .\staging\bin
-Copy-Item -Path .\x86\*.* -Destination .\staging\bin\x86\
-Copy-Item -Path .\x64\*.* -Destination .\staging\bin\x64\
+#Copy-Item -Path .\x86\*.* -Destination .\staging\bin\x86\
+#Copy-Item -Path .\x64\*.* -Destination .\staging\bin\x64\
 Copy-Item -Path ..\source\Eu.EDelivery.AS4.Fe\appsettings.inprocess.json .\staging\bin\
 Copy-Item -Path ..\source\Eu.EDelivery.AS4.Fe\appsettings.json .\staging\bin\
 Copy-Item -Path .\config\settings.xml .\staging\config\
@@ -76,6 +87,6 @@ Copy-Item -Path .\samples\messages\*.* .\staging\samples\messages\
 Copy-Item -Path .\samples\pmodes\*.* .\staging\samples\pmodes\
 Copy-Item -Path .\samples\pmodes\eessi\*.* .\staging\samples\pmodes\eessi\
 #Copy-Item -Path .\Eu.EDelivery.AS4.WindowsService.Installer.msi .\staging\service-setup\Eu.EDelivery.AS4.WindowsService.Installer.msi
-Copy-Item -Path .\install-windows-service.bat .\staging\service-setup\install-windows-service.bat
-Copy-Item -Path .\uninstall-windows-service.bat .\staging\service-setup\uninstall-windows-service.bat
+#Copy-Item -Path .\install-windows-service.bat .\staging\service-setup\install-windows-service.bat
+#Copy-Item -Path .\uninstall-windows-service.bat .\staging\service-setup\uninstall-windows-service.bat
 Copy-Item -Path .\..\scripts\copy-responsepmode-to-receivingpmode.ps1 .\staging\scripts\copy-responsepmode-to-receivingpmode.ps1
