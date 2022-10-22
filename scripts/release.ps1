@@ -4,18 +4,21 @@
 # For VersionAssemblies.ps1
 $env:BUILD_BUILDNUMBER = '5.0.0.0'
 
+# === Frontend/UI ===
 
 # Python 2.7 is required for installing node-saas from source via 'npm install'.
 # If a binary package is used, this is not needed.
 # $env:PYTHON = 'C:\Devel\bin\Python27'
 # $env:Path = "C:\Devel\bin\Python27;C:\Devel\bin\Python27\Scripts;" + $env:Path
 
-# Set-Location "./source/Eu.EDelivery.AS4.FE/ui"
-# npm install node-sass
-# npm install
-# npm run build:aot:prod
-# npm run copytooutput    
-# Set-Location "..\..\..\"
+Set-Location "./source/Eu.EDelivery.AS4.FE/ui"
+npm install node-sass
+npm install
+npm run build:aot:prod
+npm run copytooutput    
+Set-Location "..\..\..\"
+
+# === Backend/.NET ===
 
 .\tools\NuGet\nuget.exe restore .\source\AS4.sln
 
@@ -39,6 +42,8 @@ dotnet build '.\source\AS4.sln' --no-restore --configuration Release --nologo --
 # if (Test-Path errors.txt) {
 #     Get-Content errors.txt
 # }
+
+# === Staging files ===
 
 Set-Location output
 # add-probing removed, because it is not clear, if it is needed.
