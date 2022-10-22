@@ -2,7 +2,7 @@
 # dotnet dev-certs https --trust
 
 # For VersionAssemblies.ps1
-$env:BUILD_BUILDNUMBER = '4.0.1.1000'
+$env:BUILD_BUILDNUMBER = '5.0.0.0'
 
 
 # Python 2.7 is required for installing node-saas from source via 'npm install'.
@@ -19,10 +19,12 @@ Set-Location "..\..\..\"
 
 .\tools\NuGet\nuget.exe restore .\source\AS4.sln
 
-& './scripts/VersionAssemblies.ps1'
+# Disabled, becasuse AssemblyInfo.cs is no more used.
+#& './scripts/VersionAssemblies.ps1'
 
 #$msbuild = 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe'
-$msbuild = 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\msbuild.exe'
+#$msbuild = 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\msbuild.exe'
+$msbuild = 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\msbuild.exe'
 & $msbuild '.\source\AS4.sln' /t:Rebuild /p:Configuration=Release /nologo /nr:false /verbosity:minimal
 
 # This part was used to build the MSI package. It works with old VS2017 only, so it is disabled now.

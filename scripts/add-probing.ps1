@@ -4,6 +4,6 @@
     $xml.Save((Resolve-Path $config))
 }
 
-add-probing "..\output\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.exe.config"
-add-probing "..\output\Eu.EDelivery.AS4.WindowsService.exe.config"
-add-probing "..\output\Eu.EDelivery.AS4.Fe.exe.config"
+add-probing "..\output\Eu.EDelivery.AS4.ServiceHandler.ConsoleHost.dll.config"
+add-probing "..\output\Eu.EDelivery.AS4.WindowsService.dll.config"
+add-probing "..\output\Eu.EDelivery.AS4.Fe.dll.config"
