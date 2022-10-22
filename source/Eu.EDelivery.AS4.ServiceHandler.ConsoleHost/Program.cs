@@ -14,6 +14,9 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
         {
             //Console.SetWindowSize(Console.LargestWindowWidth, Console.WindowHeight);
 
+            // https://stackoverflow.com/questions/10345240/c-sharp-set-probing-privatepath-without-app-config
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
             ShowHelp();
 
             Kernel kernel = CreateKernel();
@@ -79,6 +82,26 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
 
             Console.ReadLine();
         }
+
+
+        private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            var probingPath = "bin";
+            var assyName = new AssemblyName(args.Name);
+
+            var newPath = Path.Combine(probingPath, assyName.Name);
+            if (!newPath.EndsWith(".dll"))
+            {
+                newPath += ".dll";
+            }
+
+            Console.WriteLine("Resolving: {0} ({1})", newPath, File.Exists(newPath));
+
+            return File.Exists(newPath)
+                ? Assembly.LoadFile(newPath)
+                : null;
+        }
+
 
         private static void ShowHelp()
         {
