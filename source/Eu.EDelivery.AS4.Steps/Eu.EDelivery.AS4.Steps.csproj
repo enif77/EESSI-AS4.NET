@@ -12,10 +12,10 @@
     <AssemblyName>Eu.EDelivery.AS4.Steps</AssemblyName>
 	<AssemblyTitle>Eu.EDelivery.AS4.Steps</AssemblyTitle>
 	<AssemblyProduct>Eu.EDelivery.AS4.Steps</AssemblyProduct>
-	<AssemblyVersion>4.0.1.0</AssemblyVersion>
-	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
+	<AssemblyVersion>5.0.0.0</AssemblyVersion>
+	<AssemblyFileVersion>5.0.O.0</AssemblyFileVersion>
 	  <!--<RestoreProjectStyle>PackageReference</RestoreProjectStyle>-->
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <!--<FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>

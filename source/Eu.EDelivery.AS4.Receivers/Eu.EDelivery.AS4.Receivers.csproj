@@ -12,9 +12,9 @@
     <AssemblyName>Eu.EDelivery.AS4.Receivers</AssemblyName>
 	<AssemblyTitle>Eu.EDelivery.AS4.Receivers</AssemblyTitle>
 	<AssemblyProduct>Eu.EDelivery.AS4.Receivers</AssemblyProduct>
-	<AssemblyVersion>4.0.1.0</AssemblyVersion>
-	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
-	<TargetFramework>netstandard2.0</TargetFramework>
+	<AssemblyVersion>5.0.0.0</AssemblyVersion>
+	<AssemblyFileVersion>5.0.0.0</AssemblyFileVersion>
+	<TargetFramework>net6.0</TargetFramework>
     <!--<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

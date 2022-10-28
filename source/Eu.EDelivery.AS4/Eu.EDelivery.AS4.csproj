@@ -9,9 +9,9 @@
     <AssemblyName>Eu.EDelivery.AS4</AssemblyName>
 	<AssemblyTitle>Eu.EDelivery.AS4</AssemblyTitle>
 	<AssemblyProduct>Eu.EDelivery.AS4</AssemblyProduct>
-	<AssemblyVersion>4.0.1.0</AssemblyVersion>
-    <AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
-	<TargetFramework>netstandard2.0</TargetFramework>
+	<AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>5.0.0.0</AssemblyFileVersion>
+	<TargetFramework>net6.0</TargetFramework>
     <!--<PlatformTarget>AnyCPU</PlatformTarget>
     <FileAlignment>512</FileAlignment>-->
     <!--<NuGetPackageImportStamp>

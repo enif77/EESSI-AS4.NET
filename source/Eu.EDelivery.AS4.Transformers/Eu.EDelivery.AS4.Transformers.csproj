@@ -12,9 +12,9 @@
     <AssemblyName>Eu.EDelivery.AS4.Transformers</AssemblyName>
 	<AssemblyTitle>Eu.EDelivery.AS4.Transformers</AssemblyTitle>
 	<AssemblyProduct>Eu.EDelivery.AS4.Transformers</AssemblyProduct>
-	<AssemblyVersion>4.0.1.0</AssemblyVersion>
-	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
-    <TargetFramework>netstandard2.0</TargetFramework>
+	<AssemblyVersion>5.0.0.0</AssemblyVersion>
+	<AssemblyFileVersion>5.0.0.0</AssemblyFileVersion>
+    <TargetFramework>net6.0</TargetFramework>
     <!--<FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>

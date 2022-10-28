@@ -12,9 +12,9 @@
     <AssemblyName>Eu.EDelivery.AS4.ServiceHandler</AssemblyName>
 	<AssemblyTitle>Eu.EDelivery.AS4.ServiceHandler</AssemblyTitle>
 	<AssemblyProduct>Eu.EDelivery.AS4.ServiceHandler</AssemblyProduct>
-	<AssemblyVersion>4.0.1.0</AssemblyVersion>
-    <AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
-	<TargetFramework>netstandard2.0</TargetFramework>
+	<AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>5.0.0.0</AssemblyFileVersion>
+	<TargetFramework>net6.0</TargetFramework>
     <!--<FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>

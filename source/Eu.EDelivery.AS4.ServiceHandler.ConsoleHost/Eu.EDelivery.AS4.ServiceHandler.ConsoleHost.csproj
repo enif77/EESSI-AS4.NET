@@ -11,8 +11,8 @@
     <AssemblyName>Eu.EDelivery.AS4.ServiceHandler.ConsoleHost</AssemblyName>
 	<AssemblyTitle>Eu.EDelivery.AS4.ServiceHandler.ConsoleHost</AssemblyTitle>
 	<AssemblyProduct>Eu.EDelivery.AS4.ServiceHandler.ConsoleHost</AssemblyProduct>
-	<AssemblyVersion>4.0.1.0</AssemblyVersion>
-	<AssemblyFileVersion>4.0.1.0</AssemblyFileVersion>
+	<AssemblyVersion>5.0.0.0</AssemblyVersion>
+	<AssemblyFileVersion>5.0.0.0</AssemblyFileVersion>
 	<TargetFramework>net6.0</TargetFramework>
     <PreserveCompilationContext>false</PreserveCompilationContext>
     <!--<PlatformTarget>x64</PlatformTarget>-->
