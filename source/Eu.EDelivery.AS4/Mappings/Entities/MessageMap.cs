@@ -14,13 +14,15 @@ namespace Eu.EDelivery.AS4.Mappings.Entities
                 .ForMember(
                     dest => dest.EbmsMessageId,
                     src => src.MapFrom(a => a.SignalMessages.Cast<Model.Core.MessageUnit>().Concat(a.UserMessages).First().MessageId))
-                .ForAllOtherMembers(x => x.Ignore());
+                //.ForAllOtherMembers(x => x.Ignore())  // Removed after updating to AutoMoper 11+
+                ;
 
             CreateMap<Model.Core.AS4Message, AS4.Entities.OutMessage>()
                 .ForMember(
                     dest => dest.EbmsMessageId,
                     src => src.MapFrom(a => a.SignalMessages.Cast<Model.Core.MessageUnit>().Concat(a.UserMessages).First().MessageId))
-                .ForAllOtherMembers(x => x.Ignore());
+                //.ForAllOtherMembers(x => x.Ignore())  // Removed after updating to AutoMoper 11+
+                ;
         }
     }
 }
