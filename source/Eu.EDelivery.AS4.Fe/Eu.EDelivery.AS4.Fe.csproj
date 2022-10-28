@@ -59,14 +59,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.29" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.29" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" version="3.1.29" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" version="6.0.0" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Ensure.That" Version="10.1.0" />
