@@ -44,6 +44,7 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
                             ShowHelp();
                             break;
                         case ConsoleKey.R:
+                            Console.WriteLine();
                             Console.WriteLine("Restarting...");
                             lifecycle.Stop();
 
@@ -53,12 +54,13 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
                             kernel = CreateKernel();
                             lifecycle = new AS4ComponentLifecycle(kernel);
                             lifecycle.Start();
-
+                            Console.WriteLine("Restarted.");
                             break;
                     }
                 } while (key.Key != ConsoleKey.Q);
 
-                Console.WriteLine(@"Stopping...");
+                Console.WriteLine();
+                Console.WriteLine("Stopping...");
                 Task task = lifecycle.Stop();
 
                 Console.WriteLine($@"Stopped: {task.Status}");
@@ -86,7 +88,9 @@ namespace Eu.EDelivery.AS4.ServiceHandler.ConsoleHost
 
         private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            var probingPath = "bin";
+            //Console.WriteLine("Current dir: {0}", Directory.GetCurrentDirectory());
+
+            var probingPath = Directory.GetCurrentDirectory(); //"bin";
             var assyName = new AssemblyName(args.Name);
 
             var newPath = Path.Combine(probingPath, assyName.Name);
