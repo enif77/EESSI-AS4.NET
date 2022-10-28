@@ -250,7 +250,7 @@ namespace Eu.EDelivery.AS4.Common
             databaseInitializer(connectionString, optionsBuilder);
 
             // Make sure no InvalidOperation is thrown when an ambient transaction is detected.
-            optionsBuilder.ConfigureWarnings(x => x.Ignore(CoreEventId.IncludeIgnoredWarning));
+            //optionsBuilder.ConfigureWarnings(x => x.Ignore(CoreEventId.IncludeIgnoredWarning));  // Removed when EntityFrameworkCore updated to v6.0.0.
             optionsBuilder.ConfigureWarnings(x => x.Ignore(RelationalEventId.AmbientTransactionWarning));
             optionsBuilder.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
 

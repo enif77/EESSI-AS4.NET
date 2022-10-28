@@ -106,7 +106,7 @@
 	
   <ItemGroup>
     <PackageReference Include="NLog">
-      <Version>5.0.4</Version>
+      <Version>5.0.5</Version>
     </PackageReference>
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
   </ItemGroup>

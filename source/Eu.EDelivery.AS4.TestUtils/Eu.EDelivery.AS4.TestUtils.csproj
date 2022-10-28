@@ -93,7 +93,7 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>5.0.4</Version>
+      <Version>5.0.5</Version>
     </PackageReference>
     <!--<PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>
