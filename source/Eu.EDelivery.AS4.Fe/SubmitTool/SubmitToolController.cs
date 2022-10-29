@@ -5,6 +5,7 @@ using Eu.EDelivery.AS4.Fe.Authentication;
 using HttpMultipartParser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.SubmitTool

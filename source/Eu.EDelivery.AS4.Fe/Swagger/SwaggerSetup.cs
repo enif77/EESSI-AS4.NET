@@ -6,6 +6,7 @@ using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Eu.EDelivery.AS4.Fe.Swagger
@@ -42,7 +43,7 @@ namespace Eu.EDelivery.AS4.Fe.Swagger
             services.AddSwaggerGen(options =>
             {
                 options.IncludeXmlComments(GetXmlCommentsPath());
-                options.SwaggerDoc("v1", new Info { Title = "AS4 FE Api", Version = AssemblyVersion });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "AS4 FE Api", Version = AssemblyVersion });
                 options.OperationFilter<FileUploadOperation>();
             });
         }

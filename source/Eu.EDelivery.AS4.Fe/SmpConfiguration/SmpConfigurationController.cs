@@ -5,6 +5,7 @@ using Eu.EDelivery.AS4.Fe.Authentication;
 using Eu.EDelivery.AS4.Fe.SmpConfiguration.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.SmpConfiguration
@@ -31,7 +32,7 @@ namespace Eu.EDelivery.AS4.Fe.SmpConfiguration
         /// </summary>
         /// <returns>List of SMP configurations</returns>
         [HttpGet]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(IEnumerable<SmpConfigurationRecord>))]
+        [SwaggerResponse((int) HttpStatusCode.OK, "All SMP configurations returned.", typeof(IEnumerable<SmpConfigurationRecord>))]
         public async Task<IEnumerable<SmpConfigurationRecord>> Get()
         {
             return await _smpConfiguration.GetRecordsAsync();
@@ -44,7 +45,7 @@ namespace Eu.EDelivery.AS4.Fe.SmpConfiguration
         /// <returns>Matching Smp configuration</returns>
         [HttpGet]
         [Route("{id}")]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(IEnumerable<SmpConfigurationDetail>))]
+        [SwaggerResponse((int) HttpStatusCode.OK, "All SMP configurations by identifier returned.", typeof(IEnumerable<SmpConfigurationDetail>))]
         public async Task<SmpConfigurationDetail> Get(int id)
         {
             return await _smpConfiguration.GetByIdAsync(id);
@@ -56,7 +57,7 @@ namespace Eu.EDelivery.AS4.Fe.SmpConfiguration
         /// <param name="smpConfiguration">The SMP configuration.</param>
         [HttpPost]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int) HttpStatusCode.OK, "A specified SMP configuration is posted.", typeof(OkResult))]
         public async Task<IActionResult> Post([FromBody] SmpConfigurationDetail smpConfiguration)
         {
             SmpConfigurationDetail configuration = await _smpConfiguration.CreateAsync(smpConfiguration);

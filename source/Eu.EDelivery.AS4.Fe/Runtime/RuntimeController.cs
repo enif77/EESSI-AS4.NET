@@ -3,6 +3,7 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.Runtime
@@ -31,7 +32,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getreceivers")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of receivers is returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetReceivers()
         {
             return runtimeLoader.Receivers;
@@ -43,7 +44,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getsteps")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of steps is returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetSteps()
         {
             return runtimeLoader.Steps;
@@ -55,7 +56,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("gettransformers")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of transformers returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetTransformerList()
         {
             return runtimeLoader.Transformers;
@@ -67,7 +68,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getcertificaterepositories")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of certificate repositories returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetCertificateRepositories()
         {
             return runtimeLoader.CertificateRepositories;
@@ -79,7 +80,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getdeliversenders")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of deliver senders returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetDeliverSenders()
         {
             return runtimeLoader.DeliverSenders;
@@ -91,7 +92,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getattachmentuploaders")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of attachment uploaders returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetAttachmentUploaders()
         {
             return runtimeLoader.AttachmentUploaders;
@@ -103,7 +104,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getdynamicdiscoveryprofiles")]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int) HttpStatusCode.OK, "A list of dynamic discovery profiles returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetDynamicDiscoveryProfiles()
         {
             return runtimeLoader.DynamicDiscoveryProfiles;
@@ -115,7 +116,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getnotifysenders")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list od notify senders returned.", typeof(OkResult))]
         public IEnumerable<ItemType> GetNotifySenders()
         {
             return runtimeLoader.NotifySenders;
@@ -128,7 +129,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         [HttpGet]
         [Route("getall")]
         [AllowAnonymous]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of runtime types returned.", typeof(OkResult))]
         public IActionResult GetAllRuntimeTypes()
         {
             return new ObjectResult(new
@@ -152,7 +153,7 @@ namespace Eu.EDelivery.AS4.Fe.Runtime
         /// <returns></returns>
         [HttpGet]
         [Route("getruntimemetadata")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Metadata for all runtime types returned.", typeof(OkResult))]
         public IActionResult GetRuntimeMetaData()
         {
             return new ContentResult

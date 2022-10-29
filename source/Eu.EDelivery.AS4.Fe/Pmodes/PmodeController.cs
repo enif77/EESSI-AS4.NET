@@ -5,6 +5,7 @@ using Eu.EDelivery.AS4.Fe.Authentication;
 using Eu.EDelivery.AS4.Fe.Pmodes.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.Pmodes
@@ -33,7 +34,7 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         /// <returns>String list with all the pmode names.</returns>
         [HttpGet]
         [Route("receiving")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned list of receiving pmode names.", typeof(OkResult))]
         public async Task<IEnumerable<string>> GetReceivingPmodes()
         {
             return await pmodeService.GetReceivingNames();
@@ -47,8 +48,8 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         [HttpPost]
         [Route("receiving")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a receiving pmode is created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task CreateReceiving([FromBody] ReceivingBasePmode basePmode)
         {
             await pmodeService.CreateReceiving(basePmode);
@@ -63,8 +64,8 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         [HttpPut]
         [Route("receiving/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a receiving pmode is updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task UpdateReceiving([FromBody] ReceivingBasePmode basePmode, string originalName)
         {
             await pmodeService.UpdateReceiving(basePmode, originalName);
@@ -77,7 +78,7 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         /// <returns></returns>
         [HttpGet]
         [Route("receiving/{name}")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A receiving pmode is returned.", typeof(OkResult))]
         public async Task<ReceivingBasePmode> GetReceiving(string name)
         {
             return await pmodeService.GetReceivingByName(name);
@@ -91,8 +92,8 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         [HttpDelete]
         [Route("receiving/{name}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a receiving pmode is deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task DeleteReceiving(string name)
         {
             await pmodeService.DeleteReceiving(name);
@@ -104,7 +105,7 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         /// <returns>String list of names</returns>
         [HttpGet]
         [Route("sending")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A list of sending pmodes is returned.", typeof(OkResult))]
         public async Task<IEnumerable<string>> GetSendingPmodes()
         {
             return await pmodeService.GetSendingNames();
@@ -118,8 +119,8 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         [HttpPost]
         [Route("sending")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a sending pmode is created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task CreateSending([FromBody] SendingBasePmode basePmode)
         {
             await pmodeService.CreateSending(basePmode);
@@ -132,7 +133,7 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         /// <returns></returns>
         [HttpGet]
         [Route("sending/{name}")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A sending pmode is returned.", typeof(OkResult))]
         public async Task<SendingBasePmode> GetSending(string name)
         {
             return await pmodeService.GetSendingByName(name);
@@ -146,8 +147,8 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         [HttpDelete]
         [Route("sending/{name}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a sending pmode was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested sending pmode doesn't exist.", typeof(ErrorModel))]
         public async Task DeleteSending(string name)
         {
             await pmodeService.DeleteSending(name);
@@ -162,8 +163,8 @@ namespace Eu.EDelivery.AS4.Fe.Pmodes
         [HttpPut]
         [Route("sending/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a sending pmode was updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task UpdateSending([FromBody] SendingBasePmode basePmode, string originalName)
         {
             await pmodeService.UpdateSending(basePmode, originalName);

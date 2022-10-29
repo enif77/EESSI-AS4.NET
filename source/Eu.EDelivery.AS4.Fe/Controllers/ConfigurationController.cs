@@ -16,6 +16,7 @@ using Eu.EDelivery.AS4.Services.PullRequestAuthorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.Controllers
@@ -99,7 +100,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("authorizationmap")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(IEnumerable<PullRequestAuthorizationEntry>))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Authorization map returned.", typeof(IEnumerable<PullRequestAuthorizationEntry>))]
         public IActionResult GetAuthorizationMap()
         {
             return new OkObjectResult(Registry.Instance.PullRequestAuthorizationMapProvider.GetPullRequestAuthorizationEntryOverview());
@@ -110,7 +111,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         /// </summary>
         /// <returns>Settings object</returns>
         [HttpGet]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(Model.Internal.Settings))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Settings returned.", typeof(Model.Internal.Settings))]
         public async Task<Model.Internal.Settings> Get()
         {
             return await settingsService.GetSettings();
@@ -122,7 +123,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("portal")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(PortalSettings))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Runtime settings returned..", typeof(PortalSettings))]
         public PortalSettings GetRuntimeSettings()
         {
             return portalSettings.Value;
@@ -150,7 +151,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("basesettings")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Base settings saved.", typeof(OkResult))]
         public async Task<IActionResult> SaveBaseSettings([FromBody] BaseSettings settings)
         {
             EnsureArg.IsNotNull(settings, nameof(settings));
@@ -166,7 +167,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("submitsettings")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Submit settings saved.", typeof(OkResult))]
         public async Task<IActionResult> SaveSubmitSettings([FromBody] SettingsSubmit settings)
         {
             EnsureArg.IsNotNull(settings, nameof(settings));
@@ -182,7 +183,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("pullsendsettings")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int) HttpStatusCode.OK, "Pull send settings saved.", typeof(OkResult))]
         public async Task<IActionResult> SavePullSendSettings([FromBody] SettingsPullSend settings)
         {
             EnsureArg.IsNotNull(settings, nameof(settings));
@@ -197,7 +198,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("customsettings")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Custom settings saved.", typeof(OkResult))]
         public async Task<IActionResult> SaveCustomSettings([FromBody] CustomSettings settings)
         {
             EnsureArg.IsNotNull(settings, nameof(settings));
@@ -213,7 +214,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("databasesettings")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Database settings saved.", typeof(OkResult))]
         public async Task<IActionResult> SaveDatabaseSettings([FromBody] SettingsDatabase settings)
         {
             EnsureArg.IsNotNull(settings, nameof(settings));
@@ -281,8 +282,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("submitagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Submit agent created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreateSubmitAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -298,9 +299,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("submitagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Submit agent deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> DeleteSubmitAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -317,9 +317,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("submitagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Submit agent updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> UpdateSubmitAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -337,9 +337,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("outboundprocessingagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Outbound processing agent updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> UpdateOutboundProcessingAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -356,8 +356,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("outboundprocessingagent")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when the outbound processing agent was created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreateOutboundProcessingAgentAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -373,8 +373,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("outboundprocessingagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when the outbound processing agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> DeleteOutboundProcessingAgentAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -390,8 +390,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("forwardagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int) HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int) HttpStatusCode.OK, "Returned when the forward agent was created.", typeof(OkResult))]
+        [SwaggerResponse((int) HttpStatusCode.Conflict, "Indicates that another entity already exists", typeof(ErrorModel))]
         public async Task<IActionResult> CreateForwardAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -408,9 +408,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("forwardagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int) HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int) HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int) HttpStatusCode.OK, "Returned when a forward agent was updated.", typeof(OkResult))]
+        [SwaggerResponse((int) HttpStatusCode.Conflict, "Indicates that another entity already exists", typeof(ErrorModel))]
+        [SwaggerResponse((int) HttpStatusCode.NotFound, "Returned when the requested forward agent doesn't exist", typeof(ErrorModel))]
         public async Task<IActionResult> UpdateForwardAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -427,8 +427,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("forwardagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int) HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int) HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int) HttpStatusCode.OK, "Returned when a forward agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int) HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> DeleteForwardAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -444,8 +444,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("sendagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a send agent was created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreateSendAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -461,8 +461,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("sendagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a send agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> DeleteSendAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -479,9 +479,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("sendagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a send agent was updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> UpdateSendAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -498,8 +498,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("receiveagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a receive agent is created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreateReceiveAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -515,8 +515,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("receiveagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a receive agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> DeleteReceiveAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -533,9 +533,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("receiveagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a receive agent was updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> UpdateReceiveAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -552,8 +552,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("deliveragents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a deliver agent was created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreateDeliverAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -569,8 +569,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("deliveragents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a deliver agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task DeleteDeliverAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -586,9 +586,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("deliveragents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a deliver agent was updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> UpdateDeliverAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -605,8 +605,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("notifyagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a notify agent was created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreateNotifyConsumerAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -622,8 +622,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("notifyagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a notify agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> DeleteNotifyConsumerAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -640,9 +640,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("notifyagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a notify agent was updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> UpdateNotifyConsumerAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -659,8 +659,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("pullreceiveagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a pul receive agent was created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreatePullReceiveAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -676,8 +676,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("pullreceiveagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a pull receive agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested pull receive agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> DeletePullReceiveAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -694,9 +694,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("pullreceiveagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a pull receive agent was updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> UpdatePullReceiveAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -713,8 +713,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPost]
         [Route("pullsendagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a pull send agent was created.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> CreatePullSendAgent([FromBody] AgentSettings settingsAgent)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));
@@ -730,8 +730,8 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpDelete]
         [Route("pullsendagents")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a pull send agent was deleted.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested pull send agent doesn't exist.", typeof(ErrorModel))]
         public async Task DeletePullSendAgent(string name)
         {
             EnsureArg.IsNotNullOrEmpty(name, nameof(name));
@@ -747,9 +747,9 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         [HttpPut]
         [Route("pullsendagents/{originalName}")]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
-        [SwaggerResponse((int)HttpStatusCode.Conflict, typeof(ErrorModel), "Indicates that another entity already exists")]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, typeof(ErrorModel), "Returned when the requested submit agent doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when a pull send agent was updated.", typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, "Indicates that another entity already exists.", typeof(ErrorModel))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Returned when the requested submit agent doesn't exist.", typeof(ErrorModel))]
         public async Task UpdatePullSendAgent([FromBody] AgentSettings settingsAgent, string originalName)
         {
             EnsureArg.IsNotNull(settingsAgent, nameof(settingsAgent));

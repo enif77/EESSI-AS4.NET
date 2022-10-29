@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.Authentication
@@ -41,8 +42,8 @@ namespace Eu.EDelivery.AS4.Fe.Authentication
         /// </returns>
         [HttpPost]
         [AllowAnonymous]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(LoginSuccessModel), "Login was successful")]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized, typeof(UnauthorizedResult), "Login failed")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when the login was successful.", typeof(LoginSuccessModel))]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized, "Login failed.", typeof(UnauthorizedResult))]
         [ProducesResponseType(typeof(UnauthorizedResult), (int)HttpStatusCode.Unauthorized)]
         public async Task<IActionResult> Login([FromBody] LoginModel login)
         {
@@ -66,7 +67,7 @@ namespace Eu.EDelivery.AS4.Fe.Authentication
         [HttpGet]
         [AllowAnonymous]
         [Route("externallogin")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(OkResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when the external login was successful.", typeof(OkResult))]
         public async Task<IActionResult> ExternalLogin(string provider = null)
         {
             await HttpContext.ChallengeAsync(provider, new AuthenticationProperties { RedirectUri = "http://localhost:3000/#/login?callback=true" });
@@ -81,7 +82,7 @@ namespace Eu.EDelivery.AS4.Fe.Authentication
         [HttpGet]
         [Authorize]
         [Route("externallogincallback")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(LoginSuccessModel), "Login was successful")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when the login was successful.", typeof(LoginSuccessModel))]
         public async Task<IActionResult> ExternalLoginCallback(string provider)
         {
             var isAuthenticated = await HttpContext.AuthenticateAsync(provider);

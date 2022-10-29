@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Eu.EDelivery.AS4.Fe.Authentication;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.Users
@@ -33,8 +34,8 @@ namespace Eu.EDelivery.AS4.Fe.Users
         /// <returns>List of users</returns>
         [HttpGet]
         [Authorize(Roles = Roles.Admin)]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(IEnumerable<User>))]
-        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, typeof(ErrorModel), "Password requirements were not met or something else went wrong.")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "All users returned.", typeof(IEnumerable<User>))]
+        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, "Password requirements were not met or something else went wrong.", typeof(ErrorModel))]
         public async Task<IActionResult> Get()
         {
             return new OkObjectResult(await userService.Get());
@@ -48,7 +49,7 @@ namespace Eu.EDelivery.AS4.Fe.Users
         [HttpPost]
         [Authorize(Roles = Roles.Admin)]
         [SwaggerResponse((int)HttpStatusCode.OK)]
-        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, typeof(ErrorModel), "User already exists")]
+        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, "User already exists.", typeof(ErrorModel))]
         public async Task<IActionResult> Create([FromBody] NewUser newUser)
         {
             await userService.Create(newUser);
@@ -64,7 +65,7 @@ namespace Eu.EDelivery.AS4.Fe.Users
         [Route("{username}")]
         [Authorize(Roles = Roles.Admin)]
         [SwaggerResponse((int)HttpStatusCode.OK)]
-        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, typeof(ErrorModel), "User doesn't exist")]
+        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, "User doesn't exist.", typeof(ErrorModel))]
         public async Task<IActionResult> Delete(string username)
         {
             await userService.Delete(username);
@@ -81,7 +82,7 @@ namespace Eu.EDelivery.AS4.Fe.Users
         [Route("{username}")]
         [Authorize(Roles = Roles.Admin)]
         [SwaggerResponse((int) HttpStatusCode.OK)]
-        [SwaggerResponse((int) HttpStatusCode.ExpectationFailed, typeof(ErrorModel), "User doesn't exist or password requirements were not met.")]
+        [SwaggerResponse((int) HttpStatusCode.ExpectationFailed, "User doesn't exist or password requirements were not met.", typeof(ErrorModel))]
         public async Task<IActionResult> Update(string username, [FromBody]UpdateUser update)
         {
             await userService.Update(username, update);

@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Eu.EDelivery.AS4.Fe.Monitor.Model
@@ -31,8 +32,8 @@ namespace Eu.EDelivery.AS4.Fe.Monitor.Model
         /// <returns>ExceptionMessage</returns>
         [HttpGet]
         [Route("exceptions")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(MessageResult<ExceptionMessage>))]
-        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, typeof(ErrorModel), "No messages are found")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Returned when in exceptions are returned.", typeof(MessageResult<ExceptionMessage>))]
+        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, "No messages are found.", typeof(ErrorModel))]
         public async Task<IActionResult> GetInExceptions(ExceptionFilter filter)
         {
             return new OkObjectResult(await monitorService.GetExceptions(filter));
@@ -45,8 +46,8 @@ namespace Eu.EDelivery.AS4.Fe.Monitor.Model
         /// <returns></returns>
         [HttpGet]
         [Route("messages")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(MessageResult<Message>))]
-        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, typeof(ErrorModel), "No messages are found")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Messages found.", typeof(MessageResult<Message>))]
+        [SwaggerResponse((int)HttpStatusCode.ExpectationFailed, "No messages are found.", typeof(ErrorModel))]
         public async Task<IActionResult> GetMessages(MessageFilter filter)
         {
             return new OkObjectResult(await monitorService.GetMessages(filter));
@@ -60,7 +61,7 @@ namespace Eu.EDelivery.AS4.Fe.Monitor.Model
         /// <returns></returns>
         [HttpGet]
         [Route("relatedmessages")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(MessageResult<Message>))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Related messages returned.", typeof(MessageResult<Message>))]
         public async Task<IActionResult> GetRelatedMessages(Direction direction, string messageId)
         {
             return new OkObjectResult(await monitorService.GetRelatedMessages(direction, messageId));
@@ -74,7 +75,7 @@ namespace Eu.EDelivery.AS4.Fe.Monitor.Model
         /// <returns></returns>
         [HttpGet]
         [Route("messagebody")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(MessageResult<Message>))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "A message body returned.", typeof(MessageResult<Message>))]
         public async Task<FileStreamResult> GetMessageBody(Direction direction, long id)
         {
             return File(await monitorService.DownloadMessageBody(direction, id), "application/xml");
@@ -88,7 +89,7 @@ namespace Eu.EDelivery.AS4.Fe.Monitor.Model
         /// <returns></returns>
         [HttpGet]
         [Route("exceptionbody")]
-        [SwaggerResponse((int)HttpStatusCode.OK, typeof(MessageResult<Message>))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "An exception body returned.", typeof(MessageResult<Message>))]
         public async Task<FileResult> GetExceptionBody(Direction direction, long id)
         {
             return File(await monitorService.DownloadExceptionMessageBody(direction, id), "application/txt");
