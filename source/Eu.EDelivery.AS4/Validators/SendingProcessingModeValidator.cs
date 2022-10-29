@@ -15,6 +15,11 @@ namespace Eu.EDelivery.AS4.Validators
     /// </summary>
     public class SendingProcessingModeValidator : AbstractValidator<SendingProcessingMode>
     {
+        // TODO: [Obsolete("AbstractValidator is deprecated in FluentValidation 8. Please inherit from ValidatorBase<T> instead, and build your rules in the Rules method.
+        // For more information about upgrading to FluentValidation 8 please see https://fluentvalidation.net/upgrading-to-8")]
+        // https://docs.fluentvalidation.net/en/latest/upgrading-to-8.html
+        // https://github.com/FluentValidation/FluentValidation/blob/2b13ac2b66017def9e92ad4cf0be72a4b30373d9/src/FluentValidation/AbstractValidator.cs
+
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
