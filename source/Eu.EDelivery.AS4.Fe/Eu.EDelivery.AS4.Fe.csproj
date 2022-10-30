@@ -70,7 +70,7 @@
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Ensure.That" Version="10.1.0" />
-    <PackageReference Include="HttpMultipartParser" Version="7.0.0" />
+    <PackageReference Include="HttpMultipartParser" Version="7.1.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0" />
