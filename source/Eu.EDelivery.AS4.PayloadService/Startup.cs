@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
@@ -48,7 +49,7 @@ namespace Eu.EDelivery.AS4.PayloadService
         /// <param name="env">The env.</param>
         /// <param name="loggerFactory">The logger Factory.</param>
         /// <param name="appLifetime">The application lifetime.</param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IHostApplicationLifetime appLifetime)
         {
             appLifetime.ApplicationStarted.Register(
                 () => app.ApplicationServices.GetService<CleanUpService>().Start());
