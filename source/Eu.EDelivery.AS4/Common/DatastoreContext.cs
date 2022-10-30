@@ -323,9 +323,9 @@ namespace Eu.EDelivery.AS4.Common
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<InMessage>().Property(im => im.PMode).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<InMessage>().Property(im => im.PModeId).UsePropertyAccessMode(PropertyAccessMode.Field);
-            modelBuilder.Entity<InMessage>().HasIndex(im => new { im.EbmsMessageId, im.IsDuplicate }).HasName("IX_InMessages_EbmsMessageId_IsDuplicate");
-            modelBuilder.Entity<InMessage>().HasIndex(im => new { im.Operation, im.InsertionTime }).HasName("IX_InMessages_Operation_InsertionTime");
-            modelBuilder.Entity<InMessage>().HasIndex(im => im.EbmsRefToMessageId).HasName("IX_InMessages_EbmsRefToMessageId");
+            modelBuilder.Entity<InMessage>().HasIndex(im => new { im.EbmsMessageId, im.IsDuplicate }).HasDatabaseName("IX_InMessages_EbmsMessageId_IsDuplicate");
+            modelBuilder.Entity<InMessage>().HasIndex(im => new { im.Operation, im.InsertionTime }).HasDatabaseName("IX_InMessages_Operation_InsertionTime");
+            modelBuilder.Entity<InMessage>().HasIndex(im => im.EbmsRefToMessageId).HasDatabaseName("IX_InMessages_EbmsRefToMessageId");
 
             modelBuilder.Entity<OutMessage>().HasKey(im => im.Id).HasName("PK_OutMessages");
             modelBuilder.Entity<OutMessage>().Property(im => im.Id).UseIdentityColumn();
@@ -340,18 +340,18 @@ namespace Eu.EDelivery.AS4.Common
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<OutMessage>().Property(im => im.PMode).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<OutMessage>().Property(im => im.PModeId).UsePropertyAccessMode(PropertyAccessMode.Field);
-            modelBuilder.Entity<OutMessage>().HasIndex(im => im.EbmsMessageId).HasName("IX_OutMessages_EbmsMessageId");
-            modelBuilder.Entity<OutMessage>().HasIndex(im => new { im.Operation, im.MEP, im.Mpc, im.InsertionTime }).HasName("IX_OutMessages_Operation_MEP_MPC_InsertionTime");
-            modelBuilder.Entity<OutMessage>().HasIndex(im => im.EbmsRefToMessageId).HasName("IX_OutMessages_EbmsRefToMessageId");
-            modelBuilder.Entity<OutMessage>().HasIndex(im => im.InsertionTime).HasName("IX_OutMessages_InsertionTime");
+            modelBuilder.Entity<OutMessage>().HasIndex(im => im.EbmsMessageId).HasDatabaseName("IX_OutMessages_EbmsMessageId");
+            modelBuilder.Entity<OutMessage>().HasIndex(im => new { im.Operation, im.MEP, im.Mpc, im.InsertionTime }).HasDatabaseName("IX_OutMessages_Operation_MEP_MPC_InsertionTime");
+            modelBuilder.Entity<OutMessage>().HasIndex(im => im.EbmsRefToMessageId).HasDatabaseName("IX_OutMessages_EbmsRefToMessageId");
+            modelBuilder.Entity<OutMessage>().HasIndex(im => im.InsertionTime).HasDatabaseName("IX_OutMessages_InsertionTime");
 
             modelBuilder.Entity<InException>().HasKey(ie => ie.Id).HasName("PK_InExceptions");
             modelBuilder.Entity<InException>().Property(ie => ie.Id).UseIdentityColumn();
             modelBuilder.Entity<InException>().Property(oe => oe.Operation)
                         .HasConversion<string>()
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
-            modelBuilder.Entity<InException>().HasIndex(ie => ie.EbmsRefToMessageId).HasName("IX_InExceptions_EbmsRefToMessageId");
-            modelBuilder.Entity<InException>().HasIndex(ie => ie.Operation).HasName("IX_InExceptions_Operation");
+            modelBuilder.Entity<InException>().HasIndex(ie => ie.EbmsRefToMessageId).HasDatabaseName("IX_InExceptions_EbmsRefToMessageId");
+            modelBuilder.Entity<InException>().HasIndex(ie => ie.Operation).HasDatabaseName("IX_InExceptions_Operation");
             modelBuilder.Entity<InException>().Property(ie => ie.Id).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<InException>().Property(ie => ie.EbmsRefToMessageId).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<InException>().Property(ie => ie.MessageLocation).UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -364,8 +364,8 @@ namespace Eu.EDelivery.AS4.Common
             modelBuilder.Entity<OutException>().Property(oe => oe.Operation)
                         .HasConversion<string>()
                         .UsePropertyAccessMode(PropertyAccessMode.Field);
-            modelBuilder.Entity<OutException>().HasIndex(oe => oe.EbmsRefToMessageId).HasName("IX_OutExceptions_EbmsRefToMessageId");
-            modelBuilder.Entity<OutException>().HasIndex(oe => oe.Operation).HasName("IX_OutExceptions_Operation");
+            modelBuilder.Entity<OutException>().HasIndex(oe => oe.EbmsRefToMessageId).HasDatabaseName("IX_OutExceptions_EbmsRefToMessageId");
+            modelBuilder.Entity<OutException>().HasIndex(oe => oe.Operation).HasDatabaseName("IX_OutExceptions_Operation");
             modelBuilder.Entity<OutException>().Property(oe => oe.Id).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<OutException>().Property(oe => oe.EbmsRefToMessageId).UsePropertyAccessMode(PropertyAccessMode.Field);
             modelBuilder.Entity<OutException>().Property(oe => oe.MessageLocation).UsePropertyAccessMode(PropertyAccessMode.Field);

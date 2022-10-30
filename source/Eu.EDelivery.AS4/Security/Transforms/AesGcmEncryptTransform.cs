@@ -22,7 +22,7 @@ namespace Eu.EDelivery.AS4.Security.Transforms
         /// <param name="iv"></param>
         public AesGcmEncryptTransform(byte[] key, byte[] iv)
         {
-            this._cipher = new GcmBlockCipher(new AesFastEngine());
+            this._cipher = new GcmBlockCipher(new AesEngine());
 
             var parametersWithIv = new ParametersWithIV(ParameterUtilities.CreateKeyParameter("AES", key), iv);
             this._cipher.Init(true, parametersWithIv);
