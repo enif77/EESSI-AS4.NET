@@ -22,7 +22,7 @@ namespace AS4.ParserService
         /// Initializes a new instance of the <see cref="Startup" /> class.
         /// </summary>
         /// <param name="env">The hosting environment.</param>
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             IConfigurationBuilder builder =
                 new ConfigurationBuilder().SetBasePath(env.ContentRootPath)
@@ -47,7 +47,7 @@ namespace AS4.ParserService
         /// <param name="env">The env.</param>
         /// <param name="loggerFactory">The logger Factory.</param>
         /// <param name="appLifetime">The application lifetime.</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
         {
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             //loggerFactory.AddDebug();

@@ -23,7 +23,7 @@ namespace Eu.EDelivery.AS4.PayloadService
         /// Initializes a new instance of the <see cref="Startup" /> class.
         /// </summary>
         /// <param name="env">The hosting environment.</param>
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             IConfigurationBuilder builder =
                 new ConfigurationBuilder().SetBasePath(env.ContentRootPath)
@@ -48,7 +48,7 @@ namespace Eu.EDelivery.AS4.PayloadService
         /// <param name="env">The env.</param>
         /// <param name="loggerFactory">The logger Factory.</param>
         /// <param name="appLifetime">The application lifetime.</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
         {
             appLifetime.ApplicationStarted.Register(
                 () => app.ApplicationServices.GetService<CleanUpService>().Start());
@@ -82,7 +82,7 @@ namespace Eu.EDelivery.AS4.PayloadService
             });
 
             services.AddSingleton<IPayloadPersister>(
-                provider => new FilePayloadPersister(provider.GetService<IHostingEnvironment>()));
+                provider => new FilePayloadPersister(provider.GetService<IWebHostEnvironment>()));
 
             services.AddApplicationInsightsTelemetry();
 

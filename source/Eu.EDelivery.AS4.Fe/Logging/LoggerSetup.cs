@@ -6,10 +6,10 @@ namespace Eu.EDelivery.AS4.Fe.Logging
 {
     public class LoggerSetup : ILoggerSetup
     {
-        private readonly IHostingEnvironment env;
+        private readonly IWebHostEnvironment env;
         private readonly ILoggerFactory loggerFactory;
 
-        public LoggerSetup(IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public LoggerSetup(IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             this.env = env;
             this.loggerFactory = loggerFactory;

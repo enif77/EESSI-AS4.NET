@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Eu.EDelivery.AS4.Fe.Logging
 {
     public class ApplicationInsightsSetup : IApplicationInsightsSetup
     {
-        private readonly IHostingEnvironment env;
+        private readonly IWebHostEnvironment env;
 
-        public ApplicationInsightsSetup(IHostingEnvironment env)
+        public ApplicationInsightsSetup(IWebHostEnvironment env)
         {
             this.env = env;
         }

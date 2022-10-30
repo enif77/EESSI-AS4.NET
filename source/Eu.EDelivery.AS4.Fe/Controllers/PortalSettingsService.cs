@@ -18,7 +18,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
     /// <seealso cref="Eu.EDelivery.AS4.Fe.Controllers.IPortalSettingsService" />
     public class PortalSettingsService : IPortalSettingsService
     {
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly ApplicationDbContext applicationDbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOptions<PortalSettings> settings;
@@ -30,7 +30,7 @@ namespace Eu.EDelivery.AS4.Fe.Controllers
         /// <param name="applicationDbContext">The application database context.</param>
         /// <param name="userManager">The user manager.</param>
         /// <param name="settings">The settings.</param>
-        public PortalSettingsService(IHostingEnvironment hostingEnvironment, ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager, IOptions<PortalSettings> settings)
+        public PortalSettingsService(IWebHostEnvironment hostingEnvironment, ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager, IOptions<PortalSettings> settings)
         {
             this.hostingEnvironment = hostingEnvironment;
             this.applicationDbContext = applicationDbContext;

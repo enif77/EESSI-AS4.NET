@@ -32,7 +32,7 @@ namespace Eu.EDelivery.AS4.Fe.UnitTests
             }
             var context = new ApplicationDbContext(options);
 
-            var hostingEnvironment = Substitute.For<IHostingEnvironment>();
+            var hostingEnvironment = Substitute.For<IWebHostEnvironment>();
             hostingEnvironment.ContentRootPath = @"c:\temp\";
             var userManager = Substitute.For<UserManager<ApplicationUser>>(
                 Substitute.For<IUserStore<ApplicationUser>>(),

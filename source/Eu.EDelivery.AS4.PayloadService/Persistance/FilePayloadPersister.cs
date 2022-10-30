@@ -25,7 +25,7 @@ namespace Eu.EDelivery.AS4.PayloadService.Persistance
         /// Initializes a new instance of the <see cref="FilePayloadPersister"/> class.
         /// </summary>
         /// <param name="environment">The environment.</param>
-        public FilePayloadPersister(IHostingEnvironment environment)
+        public FilePayloadPersister(IWebHostEnvironment environment)
         {
             _persistenceLocation = Path.Combine(environment.ContentRootPath, "Payloads");
 
