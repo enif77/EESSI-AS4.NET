@@ -15,11 +15,6 @@ namespace Eu.EDelivery.AS4.Validators
     /// </summary>
     public class SendingProcessingModeValidator : AbstractValidator<SendingProcessingMode>
     {
-        // TODO: [Obsolete("AbstractValidator is deprecated in FluentValidation 8. Please inherit from ValidatorBase<T> instead, and build your rules in the Rules method.
-        // For more information about upgrading to FluentValidation 8 please see https://fluentvalidation.net/upgrading-to-8")]
-        // https://docs.fluentvalidation.net/en/latest/upgrading-to-8.html
-        // https://github.com/FluentValidation/FluentValidation/blob/2b13ac2b66017def9e92ad4cf0be72a4b30373d9/src/FluentValidation/AbstractValidator.cs
-
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -138,10 +133,18 @@ namespace Eu.EDelivery.AS4.Validators
                         .NotEmpty()
                         .WithMessage("ReceiptHandling.NotifyMethod.Type should be specified when the ReceiptHandling.NotifyMessageProducer = true");
 
-                    RuleFor(pmode => pmode.ReceiptHandling.NotifyMethod.Parameters)
+                    //RuleFor(pmode => pmode.ReceiptHandling.NotifyMethod.Parameters)
+                    //    .NotNull()
+                    //    .ForEach((Parameter p) => p != null)
+                    //    .SetCollectionValidator(ParameterValidator.Instance)  
+                    //    .WithMessage(
+                    //        "ReceiptHandling.NotifyMethod.Parameters should be specified with an empty tag or " +
+                    //        "with non-empty Name and Value attributes when the ReceiptHandling.NotifyMessageProducer = true");
+
+                    // https://stackoverflow.com/questions/23943723/fluent-validator-missing-setcollectionvalidator-method
+                    RuleForEach(pmode => pmode.ReceiptHandling.NotifyMethod.Parameters)
                         .NotNull()
-                        .ForEach((Parameter p) => p != null)
-                        .SetCollectionValidator(ParameterValidator.Instance)
+                        .SetValidator(ParameterValidator.Instance)
                         .WithMessage(
                             "ReceiptHandling.NotifyMethod.Parameters should be specified with an empty tag or " +
                             "with non-empty Name and Value attributes when the ReceiptHandling.NotifyMessageProducer = true");
@@ -184,10 +187,17 @@ namespace Eu.EDelivery.AS4.Validators
                         .NotEmpty()
                         .WithMessage("ErrorHandling.NotifyMethod.Type should be specified when the ErrorHandling.NotifyMessageProducer = true");
 
-                    RuleFor(pmode => pmode.ErrorHandling.NotifyMethod.Parameters)
+                    //RuleFor(pmode => pmode.ErrorHandling.NotifyMethod.Parameters)
+                    //    .NotNull()
+                    //    .ForEach((Parameter p) => p != null)
+                    //    .SetCollectionValidator(ParameterValidator.Instance)
+                    //    .WithMessage(
+                    //        "ErrorHandling.NotifyMethod.Parameters should be specified with an empty tag or " +
+                    //        "with non-empty Name and Value attributes when the ErrorHandling.NotifyMessageProducer = true");
+
+                    RuleForEach(pmode => pmode.ErrorHandling.NotifyMethod.Parameters)
                         .NotNull()
-                        .ForEach((Parameter p) => p != null)
-                        .SetCollectionValidator(ParameterValidator.Instance)
+                        .SetValidator(ParameterValidator.Instance)
                         .WithMessage(
                             "ErrorHandling.NotifyMethod.Parameters should be specified with an empty tag or " +
                             "with non-empty Name and Value attributes when the ErrorHandling.NotifyMessageProducer = true");
@@ -230,10 +240,17 @@ namespace Eu.EDelivery.AS4.Validators
                         .NotEmpty()
                         .WithMessage("ExceptionHandling.NotifyMethod.Type should be specified when the ExceptionHandling.NotifyMessageProducer = true");
 
-                    RuleFor(pmode => pmode.ExceptionHandling.NotifyMethod.Parameters)
+                    //RuleFor(pmode => pmode.ExceptionHandling.NotifyMethod.Parameters)
+                    //    .NotNull()
+                    //    .ForEach((Parameter p) => p != null)
+                    //    .SetCollectionValidator(ParameterValidator.Instance)
+                    //    .WithMessage(
+                    //        "ExceptionHandling.NotifyMethod.Parameters should be specified as an empty tag or " +
+                    //        "with non-empty Name and Value attributes when the ExceptionHandling.NotifyMessageProducer = true");
+
+                    RuleForEach(pmode => pmode.ExceptionHandling.NotifyMethod.Parameters)
                         .NotNull()
-                        .ForEach((Parameter p) => p != null)
-                        .SetCollectionValidator(ParameterValidator.Instance)
+                        .SetValidator(ParameterValidator.Instance)
                         .WithMessage(
                             "ExceptionHandling.NotifyMethod.Parameters should be specified as an empty tag or " +
                             "with non-empty Name and Value attributes when the ExceptionHandling.NotifyMessageProducer = true");
@@ -330,29 +347,31 @@ namespace Eu.EDelivery.AS4.Validators
             return !string.IsNullOrWhiteSpace(pmode?.DynamicDiscovery?.SmpProfile);
         }
 
-        /// <summary>
-        /// Validates the specified instance
-        /// </summary>
-        /// <param name="instance">The object to validate</param>
-        /// <returns>A ValidationResult object containing any validation failures</returns>
-        public override ValidationResult Validate(SendingProcessingMode instance)
-        {
-            if (instance == null)
-            {
-                throw new ArgumentNullException(nameof(instance));
-            }
+        // TODO: Validate() removed when FluentValidator updated. Must be replaced with something.
 
-            try
-            {
-                ValidateKeySize(instance);
-            }
-            catch (Exception exception)
-            {
-                Logger.Debug(exception);
-            }
+        ///// <summary>
+        ///// Validates the specified instance
+        ///// </summary>
+        ///// <param name="instance">The object to validate</param>
+        ///// <returns>A ValidationResult object containing any validation failures</returns>
+        //public override ValidationResult Validate(SendingProcessingMode instance)
+        //{
+        //    if (instance == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(instance));
+        //    }
 
-            return base.Validate(instance);
-        }
+        //    try
+        //    {
+        //        ValidateKeySize(instance);
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        Logger.Debug(exception);
+        //    }
+
+        //    return base.Validate(instance);
+        //}
 
         private static void ValidateKeySize(SendingProcessingMode model)
         {

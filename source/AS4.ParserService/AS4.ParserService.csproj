@@ -120,7 +120,7 @@
 	
   <ItemGroup>
     <PackageReference Include="FluentValidation">
-      <Version>6.2.1</Version>
+      <Version>11.2.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights">
       <Version>2.21.0</Version>

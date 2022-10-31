@@ -179,10 +179,17 @@ namespace Eu.EDelivery.AS4.Validators
                         .WithMessage(
                             "ExceptionHandling.NotifyMethod.Type should be specified when the ExceptionHandling.NotifyMessageConsumer = true");
 
-                    RuleFor(pmode => pmode.ExceptionHandling.NotifyMethod.Parameters)
+                    //RuleFor(pmode => pmode.ExceptionHandling.NotifyMethod.Parameters)
+                    //    .NotNull()
+                    //    .ForEach((Parameter p) => p != null)
+                    //    .SetCollectionValidator(ParameterValidator.Instance)
+                    //    .WithMessage(
+                    //        "ExceptionHandling.NotifyMethod.Parameters should be specified with an empty tag or " +
+                    //        "with non-empty Name and Value attributes when the ExceptionHandling.NotifyMessageProducer = true");
+
+                    RuleForEach(pmode => pmode.ExceptionHandling.NotifyMethod.Parameters)
                         .NotNull()
-                        .ForEach((Parameter p) => p != null)
-                        .SetCollectionValidator(ParameterValidator.Instance)
+                        .SetValidator(ParameterValidator.Instance)
                         .WithMessage(
                             "ExceptionHandling.NotifyMethod.Parameters should be specified with an empty tag or " +
                             "with non-empty Name and Value attributes when the ExceptionHandling.NotifyMessageProducer = true");
@@ -192,14 +199,23 @@ namespace Eu.EDelivery.AS4.Validators
 
         private void RulesForMessageHandling()
         {
+            //RuleFor(pmode => pmode.MessageHandling)
+            //    .NotNull()
+            //    .WithMessage("MessageHandling element must be specified")
+            //    .DependentRules(
+            //        r => r.RuleFor(pmode => pmode.MessageHandling)
+            //              .Must(mh => mh.DeliverInformation != null
+            //                          || mh.ForwardInformation != null)
+            //              .WithMessage("MessageHandling element must contain either a <Deliver/> or a <Forward/> element"));
+
             RuleFor(pmode => pmode.MessageHandling)
                 .NotNull()
                 .WithMessage("MessageHandling element must be specified")
                 .DependentRules(
-                    r => r.RuleFor(pmode => pmode.MessageHandling)
-                          .Must(mh => mh.DeliverInformation != null
-                                      || mh.ForwardInformation != null)
-                          .WithMessage("MessageHandling element must contain either a <Deliver/> or a <Forward/> element"));
+                    () => RuleFor(pmode => pmode.MessageHandling)
+                        .Must(mh => mh.DeliverInformation != null
+                                    || mh.ForwardInformation != null)
+                        .WithMessage("MessageHandling element must contain either a <Deliver/> or a <Forward/> element"));
         }
 
         private void RulesForForwarding()
@@ -236,10 +252,17 @@ namespace Eu.EDelivery.AS4.Validators
                         .NotEmpty()
                         .WithMessage("MessageHandling.Deliver.DeliverMethod.Type should be specified when MessageHandling.Deliver.IsEnabled = true");
 
-                    RuleFor(pmode => pmode.MessageHandling.DeliverInformation.DeliverMethod.Parameters)
+                    //RuleFor(pmode => pmode.MessageHandling.DeliverInformation.DeliverMethod.Parameters)
+                    //    .NotNull()
+                    //    .SetCollectionValidator(ParameterValidator.Instance)
+                    //    .ForEach((Parameter p) => p != null)
+                    //    .WithMessage(
+                    //        "MessageHandling.Deliver.DeliverMethod.Parameters should be specified as an empty tag or " +
+                    //        "with non-empty Name and Value attributes when the MessageHandling.Deliver.IsEnabled = true");
+
+                    RuleForEach(pmode => pmode.MessageHandling.DeliverInformation.DeliverMethod.Parameters)
                         .NotNull()
-                        .SetCollectionValidator(ParameterValidator.Instance)
-                        .ForEach((Parameter p) => p != null)
+                        .SetValidator(ParameterValidator.Instance)
                         .WithMessage(
                             "MessageHandling.Deliver.DeliverMethod.Parameters should be specified as an empty tag or " +
                             "with non-empty Name and Value attributes when the MessageHandling.Deliver.IsEnabled = true");
@@ -263,10 +286,17 @@ namespace Eu.EDelivery.AS4.Validators
                         .WithMessage(
                             "MessageHandling.Deliver.PayloadReferenceMethod.Type must be specified when MessageHandling.Deliver.IsEnabled = true");
 
-                    RuleFor(pmode => pmode.MessageHandling.DeliverInformation.PayloadReferenceMethod.Parameters)
+                    //RuleFor(pmode => pmode.MessageHandling.DeliverInformation.PayloadReferenceMethod.Parameters)
+                    //    .NotNull()
+                    //    .ForEach((Parameter p) => p != null)
+                    //    .SetCollectionValidator(ParameterValidator.Instance)
+                    //    .WithMessage(
+                    //        "MessageHandling.Deliver.PayloadReferenceMethod.Parameters should be specified as an empty tag or " +
+                    //        "with non-empty Name and Value attributes when the MessageHandling.Deliver.IsEnabled = true");
+
+                    RuleForEach(pmode => pmode.MessageHandling.DeliverInformation.PayloadReferenceMethod.Parameters)
                         .NotNull()
-                        .ForEach((Parameter p) => p != null)
-                        .SetCollectionValidator(ParameterValidator.Instance)
+                        .SetValidator(ParameterValidator.Instance)
                         .WithMessage(
                             "MessageHandling.Deliver.PayloadReferenceMethod.Parameters should be specified as an empty tag or " +
                             "with non-empty Name and Value attributes when the MessageHandling.Deliver.IsEnabled = true");
