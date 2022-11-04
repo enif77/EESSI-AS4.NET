@@ -1,159 +1,160 @@
-﻿//using System;
-//using System.Diagnostics;
-//using System.IO;
-//using System.Reflection;
-//using System.ServiceProcess;
-//using System.Threading;
-//using System.Threading.Tasks;
-//using Eu.EDelivery.AS4.Common;
-//using Eu.EDelivery.AS4.ServiceHandler;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
-//namespace Eu.EDelivery.AS4.WindowsService
-//{
-//    public partial class AS4Service : ServiceBase
-//    {
-//        private readonly EventLog _eventLog;
+using Microsoft.Extensions.Logging;
 
-//        private Kernel _kernel;
-//        private Task _rootTask, _feTask, _payloadServiceTask;
-//        private CancellationTokenSource _cancellation;
+using Eu.EDelivery.AS4.Common;
+using Eu.EDelivery.AS4.ServiceHandler;
 
-//        /// <summary>
-//        /// Initializes a new instance of the <see cref="AS4Service"/> class.
-//        /// </summary>
-//        public AS4Service()
-//        {
-//            InitializeComponent();
-//            AutoLog = false;
 
-//            _eventLog = new EventLog("Application", ".", "AS4.NET Component");
-//        }
+namespace Eu.EDelivery.AS4.WindowsService
+{
+    public class AS4Service
+    {
+        private readonly ILogger<AS4Service> _logger;
 
-//        /// <summary>
-//        /// When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM) or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.
-//        /// </summary>
-//        /// <param name="args">Data passed by the start command. </param>
-//        protected override void OnStart(string[] args)
-//        {
-//            _eventLog.WriteEntry("Starting AS4.NET Component Service");
+        private Kernel _kernel;
+        private Task _rootTask, _feTask, _payloadServiceTask;
+        private CancellationTokenSource _cancellation;
 
-//            try
-//            {
-//                string assemblyLocationFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-//                if (string.Compare(Environment.CurrentDirectory, assemblyLocationFolder, StringComparison.OrdinalIgnoreCase) != 0
-//                    && assemblyLocationFolder != null)
-//                {
-//                    Environment.CurrentDirectory = assemblyLocationFolder;
-//                }
 
-//                try
-//                {
-//                    _kernel = Kernel.CreateFromSettings(@"config\settings-service.xml");
-//                }
-//                catch (Exception ex)
-//                {
-//                    _eventLog.WriteEntry("AS4.NET Component cannot be initialized", EventLogEntryType.Error);
-//                    _eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-//                    Stop();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AS4Service"/> class.
+        /// </summary>
+        public AS4Service(ILogger<AS4Service> logger)
+        {
+            _logger = logger;
+        }
 
-//                    return;
-//                }
 
-//                _cancellation = new CancellationTokenSource();
-//                _rootTask = _kernel.StartAsync(_cancellation.Token);
+        public void Start()
+        {
+            _logger.LogInformation("Starting AS4.NET Component Service");
 
-//                _feTask = StartFeInProcess(_cancellation.Token);
-//                _payloadServiceTask = StartPayloadServiceInProcess(_cancellation.Token);
+            try
+            {
+                string assemblyLocationFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                if (string.Compare(Environment.CurrentDirectory, assemblyLocationFolder, StringComparison.OrdinalIgnoreCase) != 0
+                    && assemblyLocationFolder != null)
+                {
+                    Environment.CurrentDirectory = assemblyLocationFolder;
+                }
 
-//                _eventLog.WriteEntry("AS4.NET Component Service is started");
-//            }
-//            catch (Exception ex)
-//            {
-//                _eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-//            }
-//        }
+                try
+                {
+                    _kernel = Kernel.CreateFromSettings(@"config\settings-service.xml");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("AS4.NET Component cannot be initialized");
+                    _logger.LogError(ex.ToString());
 
-//        private Task StartFeInProcess(CancellationToken cancellation)
-//        {
-//            if (!Config.Instance.FeInProcess)
-//            {
-//                return Task.CompletedTask;
-//            }
+                    Stop();
 
-//            var task = Task.Factory.StartNew(() => Fe.Program.StartInProcess(cancellation), cancellation);
-//            task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
+                    return;
+                }
 
-//            return task;
-//        }
+                _cancellation = new CancellationTokenSource();
+                _rootTask = _kernel.StartAsync(_cancellation.Token);
 
-//        private Task StartPayloadServiceInProcess(CancellationToken cancellation)
-//        {
-//            if (!Config.Instance.PayloadServiceInProcess)
-//            {
-//                return Task.CompletedTask;
-//            }
+                _feTask = StartFeInProcess(_cancellation.Token);
+                _payloadServiceTask = StartPayloadServiceInProcess(_cancellation.Token);
 
-//            var task = Task.Factory.StartNew(() => PayloadService.Program.Start(cancellation), cancellation);
-//            task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
+                _logger.LogInformation("AS4.NET Component Service is started");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+            }
+        }
 
-//            return task;
-//        }
 
-//        private void LogExceptions(Task t)
-//        {
-//            if (t.Exception?.InnerExceptions == null)
-//            {
-//                return;
-//            }
+        private Task StartFeInProcess(CancellationToken cancellation)
+        {
+            if (!Config.Instance.FeInProcess)
+            {
+                return Task.CompletedTask;
+            }
 
-//            foreach (Exception ex in t.Exception.InnerExceptions)
-//            {
-//                _eventLog.WriteEntry(ex.Message, EventLogEntryType.Error);
-//            }
-//        }
+            var task = Task.Factory.StartNew(() => Fe.Program.StartInProcess(cancellation), cancellation);
+            task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
 
-//        /// <summary>
-//        /// When implemented in a derived class, executes when a Stop command is sent to the service by the Service Control Manager (SCM). Specifies actions to take when a service stops running.
-//        /// </summary>
-//        protected override void OnStop()
-//        {
-//            _eventLog.WriteEntry("Stopping AS4.NET Component Service");
+            return task;
+        }
 
-//            try
-//            {
-//                _cancellation?.Cancel();
 
-//                StopTask(_rootTask);
-//                StopTask(_feTask);
-//                StopTask(_payloadServiceTask);
+        private Task StartPayloadServiceInProcess(CancellationToken cancellation)
+        {
+            if (!Config.Instance.PayloadServiceInProcess)
+            {
+                return Task.CompletedTask;
+            }
 
-//                _kernel?.Dispose();
-//                Config.Instance.Dispose();
+            var task = Task.Factory.StartNew(() => PayloadService.Program.Start(cancellation), cancellation);
+            task.ContinueWith(LogExceptions, TaskContinuationOptions.OnlyOnFaulted);
 
-//                _eventLog.WriteEntry("AS4.NET Component Service is stopped");
-//            }
-//            catch (Exception ex)
-//            {
-//                _eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-//            }
-//        }
+            return task;
+        }
 
-//        private static void StopTask(Task task)
-//        {
-//            if (task == null) { return; }
 
-//            try
-//            {
-//                task.GetAwaiter().GetResult();
-//            }
-//            catch (AggregateException exception)
-//            {
-//                exception.Handle(e => e is TaskCanceledException);
-//            }
-//            finally
-//            {
-//                task.Dispose();
-//            }
-//        }
-//    }
-//}
+        private void LogExceptions(Task t)
+        {
+            if (t.Exception?.InnerExceptions == null)
+            {
+                return;
+            }
+
+            foreach (Exception ex in t.Exception.InnerExceptions)
+            {
+                _logger.LogError(ex.Message);
+            }
+        }
+
+
+        public void Stop()
+        {
+            _logger.LogInformation("Stopping AS4.NET Component Service");
+
+            try
+            {
+                _cancellation?.Cancel();
+
+                StopTask(_rootTask);
+                StopTask(_feTask);
+                StopTask(_payloadServiceTask);
+
+                _kernel?.Dispose();
+                Config.Instance.Dispose();
+
+                _logger.LogInformation("AS4.NET Component Service is stopped");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+            }
+        }
+
+
+        private static void StopTask(Task task)
+        {
+            if (task == null) { return; }
+
+            try
+            {
+                task.GetAwaiter().GetResult();
+            }
+            catch (AggregateException exception)
+            {
+                exception.Handle(e => e is TaskCanceledException);
+            }
+            finally
+            {
+                task.Dispose();
+            }
+        }
+
+    }
+}

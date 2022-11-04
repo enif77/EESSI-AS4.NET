@@ -11,23 +11,24 @@ namespace Eu.EDelivery.AS4.WindowsService
 
     public sealed class WindowsBackgroundService : BackgroundService
     {
-        private readonly JokeService _jokeService;
+        private readonly AS4Service _as4Service;
         private readonly ILogger<WindowsBackgroundService> _logger;
 
         public WindowsBackgroundService(
-            JokeService jokeService,
+            AS4Service jokeService,
             ILogger<WindowsBackgroundService> logger) =>
-            (_jokeService, _logger) = (jokeService, logger);
+            (_as4Service, _logger) = (jokeService, logger);
 
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
             {
+                _as4Service.Start();
+
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    var joke = _jokeService.GetJoke();
-                    _logger.LogWarning("{Joke}", joke);
+                    _logger.LogInformation("AS4.NET Component is still alive...");
 
                     await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                 }
@@ -45,6 +46,10 @@ namespace Eu.EDelivery.AS4.WindowsService
                 // In order for the Windows Service Management system to leverage configured
                 // recovery options, we need to terminate the process with a non-zero exit code.
                 Environment.Exit(1);
+            }
+            finally
+            {
+                _as4Service?.Stop();
             }
         }
     }

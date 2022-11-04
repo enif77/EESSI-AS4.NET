@@ -15,14 +15,14 @@ namespace Eu.EDelivery.AS4.WindowsService
             var host = Host.CreateDefaultBuilder(args)
                 .UseWindowsService(options =>
                 {
-                    options.ServiceName = ".NET Joke Service";
+                    options.ServiceName = "AS4.NET Component Service";
                 })
                 .ConfigureServices(services =>
                 {
                     LoggerProviderOptions.RegisterProviderOptions<
                         EventLogSettings, EventLogLoggerProvider>(services);
 
-                    services.AddSingleton<JokeService>();
+                    services.AddSingleton<AS4Service>();
                     services.AddHostedService<WindowsBackgroundService>();
                 })
                 .Build();
