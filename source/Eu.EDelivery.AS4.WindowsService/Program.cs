@@ -1,20 +1,35 @@
-﻿using System.ServiceProcess;
+﻿using System.Threading.Tasks;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.Extensions.Logging.EventLog;
+
 
 namespace Eu.EDelivery.AS4.WindowsService
 {
-    static class Program
+    internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main()
+        private static async Task Main(string[] args)
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
-            {
-                new AS4Service()
-            };
-            ServiceBase.Run(ServicesToRun);
+            var host = Host.CreateDefaultBuilder(args)
+                .UseWindowsService(options =>
+                {
+                    options.ServiceName = ".NET Joke Service";
+                })
+                .ConfigureServices(services =>
+                {
+                    LoggerProviderOptions.RegisterProviderOptions<
+                        EventLogSettings, EventLogLoggerProvider>(services);
+
+                    services.AddSingleton<JokeService>();
+                    services.AddHostedService<WindowsBackgroundService>();
+                })
+                .Build();
+
+            await host.RunAsync();
         }
     }
 }
+
+// https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service
