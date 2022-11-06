@@ -28,7 +28,7 @@ namespace Eu.EDelivery.AS4.Security.Algorithms
         public AesGcmAlgorithm()
         {
             this.BlockSizeValue = 96;
-            this._randomNumberGenerator = new RNGCryptoServiceProvider();
+            this._randomNumberGenerator = RandomNumberGenerator.Create();
         }
 
         /// <summary>
