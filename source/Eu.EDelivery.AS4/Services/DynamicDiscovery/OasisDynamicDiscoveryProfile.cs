@@ -14,12 +14,15 @@ using System.Threading.Tasks;
 using System.Xml;
 using Eu.EDelivery.AS4.Extensions;
 using Eu.EDelivery.AS4.Model.PMode;
-using Heijden.DNS;
+//using Heijden.DNS;
 using NLog;
+using Ubiety.Dns.Core;
+using Ubiety.Dns.Core.Common;
+using Ubiety.Dns.Core.Records;
 using Wiry.Base32;
 using ArgumentException = System.ArgumentException;
 using Party = Eu.EDelivery.AS4.Model.Core.Party;
-using TransportType = Heijden.DNS.TransportType;
+using TransportType = Ubiety.Dns.Core.Common.TransportType;
 
 namespace Eu.EDelivery.AS4.Services.DynamicDiscovery
 {
@@ -34,13 +37,22 @@ namespace Eu.EDelivery.AS4.Services.DynamicDiscovery
         private static readonly Regex SmpHttpRegex = new Regex(SmpHttpRegexPattern, RegexOptions.Compiled);
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private static readonly HttpClient HttpClient = new HttpClient();
-        private static readonly Resolver DnsResolver = new Resolver()
-        {
-            TransportType = TransportType.Udp,
-            Recursion = true,
-            Retries = 3,
-            UseCache = true
-        };
+        // private static readonly Resolver DnsResolver = new Resolver()
+        // {
+        //     TransportType = TransportType.Udp,
+        //     Recursion = true,
+        //     Retries = 3,
+        //     UseCache = true
+        // };
+        private static readonly Resolver DnsResolver = ResolverBuilder.Begin()
+            //.EnableLogging(logManager)  // TODO: Implement DNS logging.
+            .AddDnsServer("8.8.8.8")      // TODO: Add DNS server to config.
+            .SetTimeout(1000)
+            .EnableCache()
+            .SetRetries(3)
+            .UseRecursion()
+            .EnableCache()
+            .Build();
 
         /// <summary>
         /// Gets the environment of the service provider to include in the DNS NAPTR lookup.
@@ -164,7 +176,7 @@ namespace Eu.EDelivery.AS4.Services.DynamicDiscovery
                     + $"{(String.IsNullOrWhiteSpace(serviceProviderSubDomain) ? String.Empty : "." + serviceProviderSubDomain)}"
                     + $".{serviceProviderDomainName}";
 
-                Response dnsResponse = DnsResolver.Query(dnsDomainName, QType.NAPTR, QClass.IN);
+                Response dnsResponse = DnsResolver.Query(dnsDomainName, QuestionType.NAPTR, QuestionClass.IN);
                 if (dnsResponse.Answers.Count > 0)
                 {
                     return (participant, dnsResponse);
@@ -179,10 +191,10 @@ namespace Eu.EDelivery.AS4.Services.DynamicDiscovery
 
         private static Uri SelectSmpUriFromDnsResponse(Response dnsResponse)
         {
-            RecordNAPTR firstMatchedNaptrRecord =
+            RecordNaptr firstMatchedNaptrRecord =
                 dnsResponse.Answers
-                           .Select(r => r.RECORD)
-                           .Cast<RecordNAPTR>()
+                           .Select(r => r.Record)
+                           .Cast<RecordNaptr>()
                            .FirstOrDefault();
 
             if (firstMatchedNaptrRecord == null)
@@ -191,18 +203,18 @@ namespace Eu.EDelivery.AS4.Services.DynamicDiscovery
                     "No DNS NAPTR record found to get the SMP REST binding from");
             }
 
-            MatchCollection matches = SmpHttpRegex.Matches(firstMatchedNaptrRecord.REGEXP);
+            MatchCollection matches = SmpHttpRegex.Matches(firstMatchedNaptrRecord.Regexp);
             if (matches.Count == 0)
             {
                 throw new InvalidDataException(
-                    $"DNS NAPTR record value REGEXP: \"{firstMatchedNaptrRecord.REGEXP}\" doesn't match regular expression: \"{SmpHttpRegexPattern}\"");
+                    $"DNS NAPTR record value REGEXP: \"{firstMatchedNaptrRecord.Regexp}\" doesn't match regular expression: \"{SmpHttpRegexPattern}\"");
             }
 
             Match firstMatch = matches[0];
             if (firstMatch.Groups.Count < 2)
             {
                 throw new InvalidDataException(
-                    $"DNS NAPTR record value REGEXP: \"{firstMatchedNaptrRecord.REGEXP}\" doesn't match regular expression: \"{SmpHttpRegexPattern}\"");
+                    $"DNS NAPTR record value REGEXP: \"{firstMatchedNaptrRecord.Regexp}\" doesn't match regular expression: \"{SmpHttpRegexPattern}\"");
             }
 
             // First group is always the entire matched string like "!^.*$!http://40.115.23.114:38080/".
