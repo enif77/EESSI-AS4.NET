@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -40,19 +41,36 @@ namespace Eu.EDelivery.AS4.Security.Strategies
 
         protected override AsymmetricAlgorithm GetPublicKey()
         {
-            AsymmetricAlgorithm publicKey = base.GetPublicKey();
+            var publicKey = base.GetPublicKey();
             if (publicKey != null)
             {
                 return publicKey;
             }
 
-            X509Certificate2 signingCertificate = new KeyInfoRepository(KeyInfo).GetCertificate();
+            var signingCertificate = new KeyInfoRepository(KeyInfo).GetCertificate();
             if (signingCertificate != null)
             {
-                publicKey = signingCertificate.PublicKey.Key;
+                //publicKey = signingCertificate.PublicKey.Key;
+                var rsaPublicKey = signingCertificate.PublicKey.GetRSAPublicKey();
+                if (rsaPublicKey != null)
+                {
+                    return rsaPublicKey;
+                }
+                
+                var dsaPublicKey = signingCertificate.PublicKey.GetDSAPublicKey();
+                if (dsaPublicKey != null)
+                {
+                    return dsaPublicKey;
+                }
+                
+                var ecdsaPublicKey = signingCertificate.PublicKey.GetECDsaPublicKey();
+                if (ecdsaPublicKey != null)
+                {
+                    return ecdsaPublicKey;
+                }
             }
 
-            return publicKey;
+            throw new NotSupportedException();
         }
 
         /// <summary>
