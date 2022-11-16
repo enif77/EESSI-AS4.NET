@@ -14,10 +14,10 @@ namespace Eu.EDelivery.AS4.Security.Algorithms
         /// </summary>
         public RsaPkCs1Sha256SignatureAlgorithm()
         {
-            this.KeyAlgorithm = "System.Security.Cryptography.RSACryptoServiceProvider";
-            this.DigestAlgorithm = "System.Security.Cryptography.SHA256Managed";
-            this.FormatterAlgorithm = "System.Security.Cryptography.RSAPKCS1SignatureFormatter";
-            this.DeformatterAlgorithm = "System.Security.Cryptography.RSAPKCS1SignatureDeformatter";
+            this.KeyAlgorithm = typeof(RSACryptoServiceProvider).FullName;
+            this.DigestAlgorithm = typeof(SHA256Managed).FullName;
+            this.FormatterAlgorithm = typeof(RSAPKCS1SignatureFormatter).FullName;
+            this.DeformatterAlgorithm = typeof(RSAPKCS1SignatureDeformatter).FullName;
         }
 
         /// <summary>
